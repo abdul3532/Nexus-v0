@@ -96,9 +96,9 @@ The Investment Team`
         </div>
 
         {/* Main Grid Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8 items-start">
           {/* Left Panel - Biggest Stories */}
-          <Card className="h-fit lg:min-h-[600px]">
+          <Card className="h-fit">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Star className="h-5 w-5" />
@@ -129,7 +129,7 @@ The Investment Team`
           {/* Right Panel - Three Stacked Cards */}
           <div className="space-y-4">
             {/* Weekly Summary */}
-            <Card>
+            <Card className="h-fit">
               <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <FileText className="h-4 w-4" />
@@ -166,7 +166,7 @@ The Investment Team`
             </Card>
 
             {/* Podcast Suggestions */}
-            <Card>
+            <Card className="h-fit">
               <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <Mic className="h-4 w-4" />
@@ -203,7 +203,7 @@ The Investment Team`
             </Card>
 
             {/* Newsletter Suggestions */}
-            <Card>
+            <Card className="h-fit">
               <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <Mail className="h-4 w-4" />
