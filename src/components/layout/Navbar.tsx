@@ -49,14 +49,15 @@ export function Navbar() {
   return (
     <nav className="bg-background/80 backdrop-blur-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="grid grid-cols-3 items-center h-16">
           {/* Left side - Logo and Menu */}
           <div className="flex items-center">
-            <img src={logo} alt="Logo" className="h-10 w-10 object-wrap rounded-full" />
+            <img src={logo} alt="Logo" className="h-14 w-14 object-wrap rounded-full" />
           </div>
 
           {/* Center - Tubelight Navigation */}
-          <div className="flex items-center gap-3 bg-card/50 border border-border backdrop-blur-lg py-1 px-1 rounded-full shadow-lg">
+          <div className="flex items-center justify-center">
+            <div className="flex items-center gap-3 bg-card/50 border border-border backdrop-blur-lg py-1 px-1 rounded-full shadow-lg">
             {navigation.map((item) => {
               const Icon = item.icon;
               const isActive = location.pathname === item.href;
@@ -92,25 +93,17 @@ export function Navbar() {
                 </Link>
               );
             })}
+            </div>
           </div>
 
           {/* Right side - Settings, Theme Toggle and Profile */}
-          <div className="flex items-center gap-2">
-            <Button 
-              variant="outline" 
-              size="icon"
-              onClick={() => setIsSettingsOpen(true)}
-              className="h-10 w-10"
-            >
-              <Settings className="h-[1.2rem] w-[1.2rem]" />
-              <span className="sr-only">Settings</span>
-            </Button>
+          <div className="flex items-center justify-end gap-2">
             <ThemeToggle />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="flex items-center gap-2 px-3">
                   <Avatar className="h-10 w-10">
-                    <AvatarFallback className="bg-primary text-primary-foreground text-sm">
+                    <AvatarFallback className="bg-primary/80 text-primary-foreground text-sm">
                       SW
                     </AvatarFallback>
                   </Avatar>
@@ -118,7 +111,9 @@ export function Navbar() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56 bg-card border border-border">
-                <DropdownMenuItem className="flex items-center gap-2 cursor-pointer">
+                <DropdownMenuItem className="flex items-center gap-2 cursor-pointer" onClick={() => {
+                  setIsSettingsOpen(true);
+                }}>
                   <Settings className="h-4 w-4" />
                   Settings
                 </DropdownMenuItem>
