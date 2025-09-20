@@ -136,29 +136,35 @@ export function NewsFeed() {
                 </div>
 
                 {/* Sentiment Section - 1/4 */}
-                <div className="w-1/4 flex flex-col items-center justify-center space-y-3 border-l border-border pl-4">
-                  {/* Sentiment Meter */}
-                  <div className="text-center">
-                    <div className="w-[140px] h-2 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 rounded-full relative mb-2">
-                      <div 
-                        className="absolute top-0 w-3 h-3 bg-black border-2 border-white rounded-full transform -translate-y-0.5 -translate-x-1.5 shadow-sm"
-                        style={{ left: `${(news.sentimentScore / 1000) * 100}%` }}
-                      />
+                <div className="w-1/4 flex flex-col justify-center space-y-3 border-l border-border pl-4">
+                  <div className="flex">
+                    {/* Sources on left half */}
+                    <div className="w-1/2">
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                        <div className="flex gap-1">
+                          <img src={cnnLogo} alt="CNN" className="w-4 h-4 rounded-full object-contain" />
+                          <img src={bbcLogo} alt="BBC" className="w-4 h-4 rounded-full object-contain" />
+                        </div>
+                        <span>Sources • {news.sourcesCount}</span>
+                      </div>
                     </div>
-                    {/* Meter Labels */}
-                    <div className="flex justify-between text-xs text-muted-foreground w-[140px]">
-                      <span>Critical</span>
-                      <span>Great News</span>
+                    {/* Sentiment on right half */}
+                    <div className="w-1/2">
+                      {/* Sentiment Meter */}
+                      <div className="text-center">
+                        <div className="w-[140px] h-2 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 rounded-full relative mb-2">
+                          <div 
+                            className="absolute top-0 w-3 h-3 bg-black border-2 border-white rounded-full transform -translate-y-0.5 -translate-x-1.5 shadow-sm"
+                            style={{ left: `${(news.sentimentScore / 1000) * 100}%` }}
+                          />
+                        </div>
+                        {/* Meter Labels */}
+                        <div className="flex justify-between text-xs text-muted-foreground w-[140px]">
+                          <span>Critical</span>
+                          <span>Great News</span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-
-                  {/* Sources Count */}
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                    <div className="flex gap-1">
-                      <img src={cnnLogo} alt="CNN" className="w-4 h-4 rounded-full object-contain" />
-                      <img src={bbcLogo} alt="BBC" className="w-4 h-4 rounded-full object-contain" />
-                    </div>
-                    <span>Sources • {news.sourcesCount}</span>
                   </div>
                 </div>
               </div>
