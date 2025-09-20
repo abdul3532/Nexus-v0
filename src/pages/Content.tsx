@@ -95,120 +95,9 @@ The Investment Team`
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Weekly Summary */}
-          <Card className="h-fit">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <FileText className="h-5 w-5" />
-                Weekly Summary
-              </CardTitle>
-              <CardDescription>
-                AI-powered weekly market overview and key insights
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="bg-muted/50 p-4 rounded-lg">
-                <p className="text-sm text-muted-foreground mb-2">This week's highlights:</p>
-                <p className="text-sm line-clamp-3">
-                  {weeklyContent.summary.substring(0, 150)}...
-                </p>
-              </div>
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button className="w-full">View Full Summary</Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
-                  <DialogHeader>
-                    <DialogTitle>Weekly Market Summary</DialogTitle>
-                    <DialogDescription>
-                      Comprehensive analysis of this week's market movements and economic indicators
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="mt-4">
-                    <pre className="whitespace-pre-wrap text-sm leading-relaxed">{weeklyContent.summary}</pre>
-                  </div>
-                </DialogContent>
-              </Dialog>
-            </CardContent>
-          </Card>
-
-          {/* Podcast Topics */}
-          <Card className="h-fit">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Mic className="h-5 w-5" />
-                Podcast Topics
-              </CardTitle>
-              <CardDescription>
-                Discussion points and topics for your next podcast episode
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="bg-muted/50 p-4 rounded-lg">
-                <p className="text-sm text-muted-foreground mb-2">Episode structure preview:</p>
-                <p className="text-sm line-clamp-3">
-                  5 segments planned including Fed policy discussion, sector analysis, and guest interview...
-                </p>
-              </div>
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button className="w-full">View Episode Structure</Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
-                  <DialogHeader>
-                    <DialogTitle>Podcast Episode Structure</DialogTitle>
-                    <DialogDescription>
-                      Detailed breakdown of topics and timing for your next episode
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="mt-4">
-                    <pre className="whitespace-pre-wrap text-sm leading-relaxed">{weeklyContent.podcastTopics}</pre>
-                  </div>
-                </DialogContent>
-              </Dialog>
-            </CardContent>
-          </Card>
-
-          {/* Newsletter Content */}
-          <Card className="h-fit">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Mail className="h-5 w-5" />
-                Newsletter Content
-              </CardTitle>
-              <CardDescription>
-                Ready-to-use content for your financial newsletter
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="bg-muted/50 p-4 rounded-lg">
-                <p className="text-sm text-muted-foreground mb-2">Newsletter preview:</p>
-                <p className="text-sm line-clamp-3">
-                  Subject: Market Volatility & Strategic Opportunities - Comprehensive market analysis with sector insights and stock picks...
-                </p>
-              </div>
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button className="w-full">View Full Newsletter</Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
-                  <DialogHeader>
-                    <DialogTitle>Newsletter Content</DialogTitle>
-                    <DialogDescription>
-                      Complete newsletter ready for distribution to subscribers
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="mt-4">
-                    <pre className="whitespace-pre-wrap text-sm leading-relaxed">{weeklyContent.newsletter}</pre>
-                  </div>
-                </DialogContent>
-              </Dialog>
-            </CardContent>
-          </Card>
-
-          {/* Biggest Stories */}
-          <Card className="h-fit">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Biggest Stories - Left Panel */}
+          <Card className="lg:row-span-3">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Star className="h-5 w-5" />
@@ -221,17 +110,134 @@ The Investment Team`
             <CardContent className="space-y-4">
               <div className="bg-muted/50 p-4 rounded-lg">
                 <p className="text-sm text-muted-foreground mb-2">Top stories:</p>
-                <ul className="space-y-2 text-sm">
-                  <li>• <strong>Fed Rate Decision:</strong> Central bank maintains current rates amid inflation concerns</li>
-                  <li>• <strong>Tech Earnings:</strong> Mixed results from major technology companies</li>
-                  <li>• <strong>Oil Prices:</strong> Crude oil surges on supply chain disruptions</li>
-                  <li>• <strong>Bank Stress Tests:</strong> Major banks pass regulatory stress tests</li>
-                  <li>• <strong>Merger Activity:</strong> Healthcare sector sees increased M&A activity</li>
+                <ul className="space-y-3 text-sm">
+                  <li>• <strong>Fed Rate Decision:</strong> Central bank maintains current rates amid inflation concerns, signaling cautious approach to future monetary policy</li>
+                  <li>• <strong>Tech Earnings Beat:</strong> Major technology companies report stronger than expected quarterly results, driving market optimism</li>
+                  <li>• <strong>Oil Price Surge:</strong> Crude oil jumps 8% following geopolitical tensions and supply chain disruptions in key producing regions</li>
+                  <li>• <strong>Bank Stress Tests:</strong> All major financial institutions pass regulatory stress tests with comfortable capital buffers</li>
+                  <li>• <strong>Healthcare M&A Wave:</strong> Pharmaceutical sector sees $50B in merger announcements as companies consolidate for R&D efficiency</li>
+                  <li>• <strong>Renewable Energy Breakthrough:</strong> New solar technology promises 40% efficiency gains, potentially reshaping energy sector valuations</li>
+                  <li>• <strong>Inflation Data Mixed:</strong> Core CPI shows moderation while services inflation remains sticky, complicating Fed policy outlook</li>
+                  <li>• <strong>China Trade Update:</strong> New bilateral trade agreements signed, reducing tariff barriers for select industries</li>
                 </ul>
               </div>
               <Button className="w-full">Update Stories</Button>
             </CardContent>
           </Card>
+
+          {/* Right Column - Three Panels */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Weekly Summary */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <FileText className="h-5 w-5" />
+                  Weekly Summary
+                </CardTitle>
+                <CardDescription>
+                  AI-powered weekly market overview and key insights
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="bg-muted/50 p-4 rounded-lg">
+                  <p className="text-sm text-muted-foreground mb-2">This week's highlights:</p>
+                  <p className="text-sm line-clamp-3">
+                    {weeklyContent.summary.substring(0, 150)}...
+                  </p>
+                </div>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button className="w-full">View Full Summary</Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+                    <DialogHeader>
+                      <DialogTitle>Weekly Market Summary</DialogTitle>
+                      <DialogDescription>
+                        Comprehensive analysis of this week's market movements and economic indicators
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="mt-4">
+                      <pre className="whitespace-pre-wrap text-sm leading-relaxed">{weeklyContent.summary}</pre>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              </CardContent>
+            </Card>
+
+            {/* Podcast Suggestions */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Mic className="h-5 w-5" />
+                  Podcast Suggestions
+                </CardTitle>
+                <CardDescription>
+                  AI-generated topics and discussion points for your podcast
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="bg-muted/50 p-4 rounded-lg">
+                  <p className="text-sm text-muted-foreground mb-2">Suggested episode structure:</p>
+                  <p className="text-sm line-clamp-3">
+                    5 engaging segments including Fed policy deep-dive, sector rotation analysis, and expert interview on market volatility...
+                  </p>
+                </div>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button className="w-full">View Episode Suggestions</Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+                    <DialogHeader>
+                      <DialogTitle>Podcast Episode Suggestions</DialogTitle>
+                      <DialogDescription>
+                        Curated topics, talking points, and structure recommendations for your next episode
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="mt-4">
+                      <pre className="whitespace-pre-wrap text-sm leading-relaxed">{weeklyContent.podcastTopics}</pre>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              </CardContent>
+            </Card>
+
+            {/* Newsletter Suggestions */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Mail className="h-5 w-5" />
+                  Newsletter Suggestions
+                </CardTitle>
+                <CardDescription>
+                  Content recommendations and templates for your newsletter
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="bg-muted/50 p-4 rounded-lg">
+                  <p className="text-sm text-muted-foreground mb-2">Newsletter template preview:</p>
+                  <p className="text-sm line-clamp-3">
+                    Subject line suggestions, market spotlight recommendations, and subscriber engagement strategies...
+                  </p>
+                </div>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button className="w-full">View Newsletter Suggestions</Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+                    <DialogHeader>
+                      <DialogTitle>Newsletter Content Suggestions</DialogTitle>
+                      <DialogDescription>
+                        Template recommendations and content strategies for maximum subscriber engagement
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="mt-4">
+                      <pre className="whitespace-pre-wrap text-sm leading-relaxed">{weeklyContent.newsletter}</pre>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              </CardContent>
+            </Card>
+          </div>
         </div>
 
         {/* Archive Section */}
