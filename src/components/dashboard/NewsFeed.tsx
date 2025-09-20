@@ -1,6 +1,8 @@
 import { Clock, ExternalLink } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import cnnLogo from "@/assets/logos/cnn-logo.png";
+import bbcLogo from "@/assets/logos/bbc-logo.png";
 
 interface NewsItem {
   id: string;
@@ -153,8 +155,8 @@ export function NewsFeed() {
                   {/* Sources Count */}
                   <div className="flex items-center gap-1 text-xs text-muted-foreground">
                     <div className="flex gap-1">
-                      <div className="w-3 h-3 bg-blue-500 rounded-sm"></div>
-                      <div className="w-3 h-3 bg-red-500 rounded-sm"></div>
+                      <img src={cnnLogo} alt="CNN" className="w-3 h-3 rounded-sm object-contain" />
+                      <img src={bbcLogo} alt="BBC" className="w-3 h-3 rounded-sm object-contain" />
                     </div>
                     <span>Sources • {news.sourcesCount}</span>
                   </div>
