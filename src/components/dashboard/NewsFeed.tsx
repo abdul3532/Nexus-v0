@@ -1,6 +1,5 @@
-import { Clock, ExternalLink, TrendingUp, TrendingDown } from "lucide-react";
+import { Clock, ExternalLink } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 interface NewsItem {
@@ -127,36 +126,6 @@ export function NewsFeed() {
                     <p className="text-sm text-muted-foreground mb-3 leading-relaxed">
                       {news.summary}
                     </p>
-                    
-                    <div className="flex items-center justify-end flex-wrap gap-2">
-                      <div className="flex items-center gap-2">
-                        <div className="flex gap-1">
-                          {news.impactedCompanies.map((company) => (
-                            <Badge
-                              key={company}
-                              variant="outline"
-                              className="text-xs py-0"
-                            >
-                              {company}
-                            </Badge>
-                          ))}
-                        </div>
-                        
-                        {news.portfolioImpact === "positive" && (
-                          <div className="flex items-center gap-1 text-financial-positive-foreground">
-                            <TrendingUp className="h-3 w-3" />
-                            <span className="text-xs font-medium">Positive</span>
-                          </div>
-                        )}
-                        
-                        {news.portfolioImpact === "negative" && (
-                          <div className="flex items-center gap-1 text-financial-negative-foreground">
-                            <TrendingDown className="h-3 w-3" />
-                            <span className="text-xs font-medium">Negative</span>
-                          </div>
-                        )}
-                      </div>
-                    </div>
                   </div>
                 </div>
 
@@ -183,14 +152,6 @@ export function NewsFeed() {
                       <div className="w-3 h-3 bg-red-500 rounded-sm"></div>
                     </div>
                     <span>Sources • {news.sourcesCount}</span>
-                  </div>
-
-                  {/* Company Abbreviation */}
-                  <div className="text-xs font-medium text-center">
-                    {news.impactedCompanies.length === 1 
-                      ? news.impactedCompanies[0] 
-                      : `${news.impactedCompanies.length} Assets`
-                    }
                   </div>
                 </div>
               </div>
