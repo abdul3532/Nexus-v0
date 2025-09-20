@@ -12,6 +12,8 @@ interface NewsItem {
   portfolioImpact: "positive" | "negative" | "neutral";
   impactedCompanies: string[];
   url: string;
+  sentimentScore: number;
+  sourcesCount: number;
 }
 
 const mockNews: NewsItem[] = [
@@ -24,6 +26,8 @@ const mockNews: NewsItem[] = [
     portfolioImpact: "positive",
     impactedCompanies: ["AAPL"],
     url: "#",
+    sentimentScore: 750,
+    sourcesCount: 28,
   },
   {
     id: "2",
@@ -34,6 +38,8 @@ const mockNews: NewsItem[] = [
     portfolioImpact: "negative",
     impactedCompanies: ["TSLA"],
     url: "#",
+    sentimentScore: 320,
+    sourcesCount: 15,
   },
   {
     id: "3",
@@ -44,6 +50,8 @@ const mockNews: NewsItem[] = [
     portfolioImpact: "positive",
     impactedCompanies: ["MSFT"],
     url: "#",
+    sentimentScore: 680,
+    sourcesCount: 22,
   },
   {
     id: "4",
@@ -54,6 +62,8 @@ const mockNews: NewsItem[] = [
     portfolioImpact: "neutral",
     impactedCompanies: ["AAPL", "MSFT", "TSLA", "META"],
     url: "#",
+    sentimentScore: 500,
+    sourcesCount: 34,
   },
   {
     id: "5",
@@ -64,6 +74,8 @@ const mockNews: NewsItem[] = [
     portfolioImpact: "negative",
     impactedCompanies: ["META"],
     url: "#",
+    sentimentScore: 280,
+    sourcesCount: 19,
   },
 ];
 
@@ -89,65 +101,102 @@ export function NewsFeed() {
                   : "bg-financial-neutral border-border hover:border-border"
               }`}
             >
-              <div className="flex items-start gap-3">
-                <div className="flex-shrink-0 mt-1">
-                  {news.portfolioImpact === "positive" ? (
-                    <div className="w-3 h-3 rounded-full bg-financial-positive" />
-                  ) : news.portfolioImpact === "negative" ? (
-                    <div className="w-3 h-3 rounded-full bg-financial-negative" />
-                  ) : (
-                    <div className="w-3 h-3 rounded-full bg-muted" />
-                  )}
-                </div>
-                
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-start justify-between gap-2 mb-2">
-                    <h3 className="font-semibold text-sm leading-tight">
-                      {news.title}
-                    </h3>
-                    <Button variant="ghost" size="sm" className="flex-shrink-0">
-                      <ExternalLink className="h-4 w-4" />
-                    </Button>
+              <div className="flex gap-4">
+                {/* Main Content - 2/3 */}
+                <div className="flex-1 min-w-0 flex items-start gap-3">
+                  <div className="flex-shrink-0 mt-1">
+                    {news.portfolioImpact === "positive" ? (
+                      <div className="w-3 h-3 rounded-full bg-financial-positive" />
+                    ) : news.portfolioImpact === "negative" ? (
+                      <div className="w-3 h-3 rounded-full bg-financial-negative" />
+                    ) : (
+                      <div className="w-3 h-3 rounded-full bg-muted" />
+                    )}
                   </div>
                   
-                  <p className="text-sm text-muted-foreground mb-3 leading-relaxed">
-                    {news.summary}
-                  </p>
-                  
-                  <div className="flex items-center justify-between flex-wrap gap-2">
-                    <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                      <span className="font-medium">{news.source}</span>
-                      <span>•</span>
-                      <span>{news.publishedAt}</span>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between gap-2 mb-2">
+                      <h3 className="font-semibold text-sm leading-tight">
+                        {news.title}
+                      </h3>
+                      <Button variant="ghost" size="sm" className="flex-shrink-0">
+                        <ExternalLink className="h-4 w-4" />
+                      </Button>
                     </div>
                     
-                    <div className="flex items-center gap-2">
-                      <div className="flex gap-1">
-                        {news.impactedCompanies.map((company) => (
-                          <Badge
-                            key={company}
-                            variant="outline"
-                            className="text-xs py-0"
-                          >
-                            {company}
-                          </Badge>
-                        ))}
+                    <p className="text-sm text-muted-foreground mb-3 leading-relaxed">
+                      {news.summary}
+                    </p>
+                    
+                    <div className="flex items-center justify-between flex-wrap gap-2">
+                      <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                        <span className="font-medium">{news.source}</span>
+                        <span>•</span>
+                        <span>{news.publishedAt}</span>
                       </div>
                       
-                      {news.portfolioImpact === "positive" && (
-                        <div className="flex items-center gap-1 text-financial-positive-foreground">
-                          <TrendingUp className="h-3 w-3" />
-                          <span className="text-xs font-medium">Positive</span>
+                      <div className="flex items-center gap-2">
+                        <div className="flex gap-1">
+                          {news.impactedCompanies.map((company) => (
+                            <Badge
+                              key={company}
+                              variant="outline"
+                              className="text-xs py-0"
+                            >
+                              {company}
+                            </Badge>
+                          ))}
                         </div>
-                      )}
-                      
-                      {news.portfolioImpact === "negative" && (
-                        <div className="flex items-center gap-1 text-financial-negative-foreground">
-                          <TrendingDown className="h-3 w-3" />
-                          <span className="text-xs font-medium">Negative</span>
-                        </div>
-                      )}
+                        
+                        {news.portfolioImpact === "positive" && (
+                          <div className="flex items-center gap-1 text-financial-positive-foreground">
+                            <TrendingUp className="h-3 w-3" />
+                            <span className="text-xs font-medium">Positive</span>
+                          </div>
+                        )}
+                        
+                        {news.portfolioImpact === "negative" && (
+                          <div className="flex items-center gap-1 text-financial-negative-foreground">
+                            <TrendingDown className="h-3 w-3" />
+                            <span className="text-xs font-medium">Negative</span>
+                          </div>
+                        )}
+                      </div>
                     </div>
+                  </div>
+                </div>
+
+                {/* Sentiment Section - 1/3 */}
+                <div className="w-32 flex flex-col items-center justify-center space-y-3 border-l border-border pl-4">
+                  {/* Sentiment Score */}
+                  <div className="text-center">
+                    <div className="text-lg font-bold text-foreground mb-1">
+                      {news.sentimentScore}
+                    </div>
+                    {/* Sentiment Meter */}
+                    <div className="w-20 h-2 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 rounded-full relative">
+                      <div 
+                        className="absolute top-0 w-2 h-2 bg-black border-2 border-white rounded-full transform -translate-y-0"
+                        style={{ left: `${(news.sentimentScore / 1000) * 100}%` }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Sources Count */}
+                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                    <div className="flex gap-1">
+                      <div className="w-3 h-3 bg-blue-500 rounded-sm"></div>
+                      <div className="w-3 h-3 bg-red-500 rounded-sm"></div>
+                    </div>
+                    <span>Sources • {news.sourcesCount}</span>
+                  </div>
+
+                  {/* Company Abbreviation */}
+                  <div className="text-xs font-medium text-center">
+                    {news.impactedCompanies.length === 1 
+                      ? news.impactedCompanies[0] 
+                      : `${news.impactedCompanies.length} Assets`
+                    }
                   </div>
                 </div>
               </div>
