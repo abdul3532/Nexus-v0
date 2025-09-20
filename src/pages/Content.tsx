@@ -132,7 +132,7 @@ The Investment Team`
         {/* Main Grid Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8 items-start">
           {/* Left Panel - Biggest Stories */}
-          <Card className="h-fit">
+          <Card className="h-full">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Star className="h-5 w-5" />
@@ -143,7 +143,7 @@ The Investment Team`
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="bg-muted/50 p-4 rounded-lg">
+              <div className="bg-muted/50 p-4 rounded-lg h-full">
                 <p className="text-sm text-muted-foreground mb-2">Top stories:</p>
                 <ul className="space-y-3 text-sm">
                   <li>• <strong>Fed Rate Decision:</strong> Central bank maintains current rates amid inflation concerns, signaling cautious approach to future monetary policy</li>
@@ -156,7 +156,9 @@ The Investment Team`
                   <li>• <strong>China Trade Update:</strong> New bilateral trade agreements signed, reducing tariff barriers for select industries</li>
                 </ul>
               </div>
-              <Button className="w-full">Update Stories</Button>
+              <div className="flex flex-row justify-end h-full w-full">
+                <Button className="bg-white dark:bg-black text-black dark:text-white border border-black dark:border-white hover:bg-white/90 hover:dark:bg-black/80 hover:shadow-md transition-all duration-300">Generate Top Stories</Button>
+              </div>
             </CardContent>
           </Card>
 
@@ -182,7 +184,7 @@ The Investment Team`
                 </div>
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button size="sm" className="w-full" onClick={handleWeeklySummaryOpen}>View Full Summary</Button>
+                    <Button size="sm" className="w-full bg-white dark:bg-black text-black dark:text-white border border-black dark:border-white hover:bg-white/90 hover:dark:bg-black/80 hover:shadow-md transition-all duration-300" onClick={handleWeeklySummaryOpen}>Generate Full Summary</Button>
                   </DialogTrigger>
                   <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
                     <DialogHeader>
@@ -226,7 +228,7 @@ The Investment Team`
                 </div>
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button size="sm" className="w-full">View Episode Suggestions</Button>
+                    <Button size="sm" className="w-full bg-white dark:bg-black text-black dark:text-white border border-black dark:border-white hover:bg-white/90 hover:dark:bg-black/80 hover:shadow-md transition-all duration-300">Generate Episode Suggestions</Button>
                   </DialogTrigger>
                   <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
                     <DialogHeader>
@@ -262,8 +264,8 @@ The Investment Team`
                   </p>
                 </div>
                 <Dialog>
-                  <DialogTrigger asChild>
-                    <Button size="sm" className="w-full">View Newsletter Suggestions</Button>
+                  <DialogTrigger asChild >
+                    <Button size="sm" className="w-full bg-white dark:bg-black text-black dark:text-white border border-black dark:border-white hover:bg-white/90 hover:dark:bg-black/80 hover:shadow-md transition-all duration-300">Generate Newsletter Suggestions</Button>
                   </DialogTrigger>
                   <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
                     <DialogHeader>
@@ -292,13 +294,13 @@ The Investment Team`
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Button variant="outline" className="justify-start">
+              <Button variant="outline" className="justify-start bg-white dark:bg-black text-black dark:text-white border border-black dark:border-white hover:bg-white/90 hover:dark:bg-black/80 hover:shadow-md transition-all duration-300">
                 Week of Dec 9-15, 2024
               </Button>
-              <Button variant="outline" className="justify-start">
+              <Button variant="outline" className="justify-start bg-white dark:bg-black text-black dark:text-white border border-black dark:border-white hover:bg-white/90 hover:dark:bg-black/80 hover:shadow-md transition-all duration-300">
                 Week of Dec 2-8, 2024
               </Button>
-              <Button variant="outline" className="justify-start">
+              <Button variant="outline" className="justify-start bg-white dark:bg-black text-black dark:text-white border border-black dark:border-white hover:bg-white/90 hover:dark:bg-black/80 hover:shadow-md transition-all duration-300">
                 Week of Nov 25-Dec 1, 2024
               </Button>
             </div>

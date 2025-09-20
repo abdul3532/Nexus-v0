@@ -45,47 +45,6 @@ interface NewsItem {
 
 const mockNews: NewsItem[] = [
   {
-    "id": "1",
-    "category": "Product/Technology Release",
-    "title": "Meta launches AI-powered smart glasses with new connectivity features",
-    "summary": "Meta unveiled its latest AI smart glasses, which introduce enhanced connectivity and on-device AI capabilities. The product aims to reduce reliance on external devices, integrating native voice commands, spatial audio, and real-time language translation. Early reactions note strong potential for augmented reality applications but question battery life and price point.",
-    "impact": "neutral",
-    "impactScore": 3,
-    "sentiment": "neutral vs. house view: 0",
-    "date": "2025-09-17",
-    "time": "00:00:00",
-    "source": "https://edition.cnn.com/2025/09/17/tech/meta-ai-smart-glasses-connect",
-    "confidence": 90,
-    "affectedCompanies": ["META"],
-    "assetTags": ["Technology", "AR/VR", "Wearables"],
-    "latency": "20ms",
-    "detailedSummary": {
-      "whatHappened": "Meta launched AI smart glasses that incorporate on-device AI processing, voice activation, and improved connectivity features",
-      "marketReaction": "Shares rose modestly post-announcement; tech blogs praised innovation but noted concerns over battery life and cost",
-      "who": "Meta",
-      "whyItMatters": "These glasses could shift usage from smartphone-dependence to wearable AI interfaces, affecting AR/VR competition and user experience",
-      "magnitude": "Medium - potential consumer electronics disruption in AR/VR space"
-    },
-    "modelAnalysis": {
-      "keyFacts": [
-        "On-device AI processing to reduce latency",
-        "Real-time translation and voice assistant features",
-        "Spatial audio and lightweight design emphasized"
-      ],
-      "sources": ["CNN"]
-    },
-    "houseViewContext": {
-      "currentStance": "House expects incremental updates in AR devices",
-      "comparison": "This is a more ambitious connectivity-first iteration than prior models",
-      "relevance": "0 neutral deviation from house view"
-    },
-    "portfolioImpact": {
-      "affectedAssets": ["Meta (+)", "Apple (− potential competitive pressure)"],
-      "overallImpact": "Potential upside in wearables and AR players; margins under pressure if R&D and materials costs are high",
-      "preInterpretationNote": "If well received, these glasses could lead to increased consumer interest in AR devices; downside risk includes cost, battery constraints, and adoption hurdles."
-    }
-  },
-  {
     "id": "2",
     "category": "Earnings Call",
     "title": "Microsoft beats expectations, raises AI infrastructure guidance",
@@ -126,47 +85,7 @@ const mockNews: NewsItem[] = [
       "preInterpretationNote": "Strong AI and cloud results could lead to increased portfolio weights in technology and infrastructure, as investors seek exposure to growth themes."
     }
   },
-  {
-    "id": "3",
-    "category": "Rates/Markets",
-    "title": "Wall Street bets on faster, deeper Fed cuts than policymakers project",
-    "summary": "Futures pricing shows investors expect the Fed’s policy rate to fall substantially below the Fed’s own projections over the next 12–24 months, supporting stocks and easing borrowing costs. Strategists warn markets may be underestimating the Fed’s caution given lingering inflation risks.",
-    "impact": "neutral",
-    "impactScore": 1,
-    "sentiment": "dovish vs. house view: +1",
-    "date": "2025-09-20",
-    "time": "00:00:00",
-    "source": "https://www.wsj.com/economy/central-banking/fed-cuts-rates-by-quarter-point-and-signals-more-are-likely-dba38600",
-    "confidence": 82,
-    "affectedCompanies": ["JPM", "BAC", "MS", "ITB", "XLF"],
-    "assetTags": ["US", "Treasuries", "Rates", "Equities"],
-    "latency": "18ms",
-    "detailedSummary": {
-      "whatHappened": "Rate futures imply steeper and earlier easing than the Fed’s median path",
-      "marketReaction": "Treasury yields drift lower; equities supported; credit spreads tighter",
-      "who": "Wall Street investors; Federal Reserve",
-      "whyItMatters": "Mismatch between market pricing and Fed guidance can drive volatility around data/FOMC",
-      "magnitude": "Medium — broad cross-asset implications"
-    },
-    "modelAnalysis": {
-      "keyFacts": [
-        "Futures imply policy rate below ~3% by 2026 vs. Fed ~3.4%",
-        "Lower yields easing mortgage/corporate borrowing costs",
-        "Analysts caution on inflation and Fed’s cautious stance"
-      ],
-      "sources": ["WSJ: Wall Street Bets Rates Will Drop Much More Than the Fed's Forecasts"]
-    },
-    "houseViewContext": {
-      "currentStance": "Gradual cuts with data dependency",
-      "comparison": "Markets price faster easing than house baseline",
-      "relevance": "+1 dovish deviation from house view"
-    },
-    "portfolioImpact": {
-      "affectedAssets": ["US Equities (+)", "US Bonds (+)", "USD (−)"],
-      "overallImpact": "Supportive for duration and equity risk; watch for repricing if inflation runs hot",
-      "preInterpretationNote": "Consider adding duration on dips; keep hedges for upside inflation surprises."
-    }
-  },
+  
   {
     "id": "4",
     "category": "Policy/Immigration",
@@ -208,47 +127,7 @@ const mockNews: NewsItem[] = [
       "preInterpretationNote": "Consider trimming richly valued names most exposed to skilled-visa flows; reassess AI hiring bottlenecks."
     }
   },
-  {
-    "id": "4",
-    "category": "Media/Regulation",
-    "title": "Disney’s abrupt suspension of ‘Jimmy Kimmel Live!’ followed affiliate pushback",
-    "summary": "Disney executives pulled ‘Jimmy Kimmel Live!’ after affiliates signaled they would indefinitely preempt the program. The move followed regulatory scrutiny and mounting station pressure, forcing a rapid programming shift.",
-    "impact": "neutral",
-    "impactScore": 1,
-    "sentiment": "neutral vs. house view: 0",
-    "date": "2025-09-18",
-    "time": "00:00:00",
-    "source": "https://www.wsj.com/business/media/jimmy-kimmel-decision-behind-the-scenes-e1ecbbf2",
-    "confidence": 72,
-    "affectedCompanies": ["DIS", "CMCSA", "PARA"],
-    "assetTags": ["US", "Media", "Broadcast"],
-    "latency": "21ms",
-    "detailedSummary": {
-      "whatHappened": "Affiliates indicated long-term preemption; Disney pulled the late-night show",
-      "marketReaction": "Limited stock impact; ad-slot reshuffles and schedule changes",
-      "who": "Disney; affiliates; FCC officials",
-      "whyItMatters": "Highlights affiliate leverage and regulatory pressure on broadcast content",
-      "magnitude": "Low/Medium — programming/advertising revenue considerations"
-    },
-    "modelAnalysis": {
-      "keyFacts": [
-        "Affiliates warned of indefinite preemption",
-        "Behind-the-scenes decisioning at Disney",
-        "Regulatory context cited"
-      ],
-      "sources": ["WSJ: Inside Disney’s Abrupt Decision to Suspend Jimmy Kimmel Live!"]
-    },
-    "houseViewContext": {
-      "currentStance": "Linear TV headwinds persist; focus on DTC pivot",
-      "comparison": "In-line with ongoing volatility in broadcast scheduling",
-      "relevance": "Neutral for long-term thesis; operational noise"
-    },
-    "portfolioImpact": {
-      "affectedAssets": ["Legacy Broadcast (−)", "Streaming (neutral)"],
-      "overallImpact": "Minor to modest impact; advertising mix and schedule resets to watch",
-      "preInterpretationNote": "Maintain focus on DTC KPIs; limited need for positioning changes."
-    }
-  },
+  
   {
     "id": "5",
     "category": "Fed Speech",

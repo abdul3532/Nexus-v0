@@ -132,13 +132,27 @@ export const NewsCard: React.FC<NewsCardProps> = ({ news, onClick }) => {
               {news.assetTags.slice(0, 1).map((tag, index) => (
                 <span 
                   key={tag} 
-                  className="px-2 py-1 bg-white border border-primary rounded-sm font-medium "
+                  className={`px-2 py-1 rounded-sm font-medium ${
+                    news.impact === "positive"
+                      ? "bg-financial-positive-bg border border-financial-positive/20 text-financial-positive-foreground"
+                      : news.impact === "negative"
+                      ? "bg-financial-negative-bg border border-financial-negative/20 text-financial-negative-foreground"
+                      : "bg-financial-neutral border border-border text-muted-foreground"
+                  }`}
                 >
                   {tag}
                 </span>
               ))}
               {news.assetTags.length > 1 && (
-                <span className="px-2 py-1 bg-white border border-primary rounded-sm font-medium">
+                <span 
+                  className={`px-2 py-1 rounded-sm font-medium ${
+                    news.impact === "positive"
+                      ? "bg-financial-positive-bg border border-financial-positive/20 text-financial-positive-foreground"
+                      : news.impact === "negative"
+                      ? "bg-financial-negative-bg border border-financial-negative/20 text-financial-negative-foreground"
+                      : "bg-financial-neutral border border-border text-muted-foreground"
+                  }`}
+                >
                   +{news.assetTags.length - 1}
                 </span>
               )}
