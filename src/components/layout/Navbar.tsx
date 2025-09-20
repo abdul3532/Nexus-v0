@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -78,8 +79,10 @@ export function Navbar() {
             })}
           </div>
 
-          {/* Right side - Empty for balance */}
-          <div className="w-24" />
+          {/* Right side - Theme Toggle */}
+          <div className="flex items-center">
+            <ThemeToggle />
+          </div>
         </div>
       </div>
     </nav>
