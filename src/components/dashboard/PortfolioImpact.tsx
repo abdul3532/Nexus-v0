@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 
 // Import company logos
 import appleLogo from "@/assets/logos/apple-logo.png";
-import teslaLogo from "@/assets/logos/tesla-logo.png";
+import swissFlag from "@/assets/logos/swiss-flag.png";
 import microsoftLogo from "@/assets/logos/microsoft-logo-correct.png";
 import metaLogo from "@/assets/logos/meta-logo-correct.png";
 
@@ -28,11 +28,11 @@ const mockCompanies: CompanyImpact[] = [
   },
   {
     id: "2",
-    name: "Tesla Inc.",
-    symbol: "TSLA",
-    impact: "negative",
-    change: -1.8,
-    newsCount: 2,
+    name: "Swiss Bonds",
+    symbol: "CHF",
+    impact: "positive",
+    change: 0.8,
+    newsCount: 1,
   },
   {
     id: "3",
@@ -55,7 +55,7 @@ const mockCompanies: CompanyImpact[] = [
 // Logo mapping
 const companyLogos: Record<string, string> = {
   AAPL: appleLogo,
-  TSLA: teslaLogo,
+  CHF: swissFlag,
   MSFT: microsoftLogo,
   META: metaLogo,
 };
