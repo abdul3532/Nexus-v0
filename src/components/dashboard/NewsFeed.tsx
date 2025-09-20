@@ -101,8 +101,8 @@ export function NewsFeed() {
               }`}
             >
               <div className="flex gap-4">
-                {/* Main Content - 2/3 */}
-                <div className="w-2/3 min-w-0 flex items-start gap-3">
+                {/* Main Content - 3/4 */}
+                <div className="w-3/4 min-w-0 flex items-start gap-3">
                   <div className="flex-shrink-0 mt-1">
                     {news.portfolioImpact === "positive" ? (
                       <div className="w-3 h-3 rounded-full bg-financial-positive" />
@@ -133,15 +133,15 @@ export function NewsFeed() {
                   </div>
                 </div>
 
-                {/* Sentiment Section - 1/3 */}
-                <div className="w-1/3 flex flex-col items-center justify-center space-y-3 border-l border-border pl-4">
+                {/* Sentiment Section - 1/4 */}
+                <div className="w-1/4 flex flex-col items-center justify-center space-y-3 border-l border-border pl-4">
                   {/* Sentiment Score */}
                   <div className="text-center">
                     <div className="text-lg font-bold text-foreground mb-1">
                       {news.sentimentScore}
                     </div>
                     {/* Sentiment Meter */}
-                    <div className="w-20 h-2 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 rounded-full relative">
+                    <div className="w-16 h-2 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 rounded-full relative">
                       <div 
                         className="absolute top-0 w-2 h-2 bg-black border-2 border-white rounded-full transform -translate-y-0"
                         style={{ left: `${(news.sentimentScore / 1000) * 100}%` }}
