@@ -135,17 +135,18 @@ export function NewsFeed() {
 
                 {/* Sentiment Section - 1/4 */}
                 <div className="w-1/4 flex flex-col items-center justify-center space-y-3 border-l border-border pl-4">
-                  {/* Sentiment Score */}
+                  {/* Sentiment Meter */}
                   <div className="text-center">
-                    <div className="text-lg font-bold text-foreground mb-1">
-                      {news.sentimentScore}
-                    </div>
-                    {/* Sentiment Meter */}
-                    <div className="w-[140px] h-2 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 rounded-full relative">
+                    <div className="w-[140px] h-2 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 rounded-full relative mb-2">
                       <div 
-                        className="absolute top-0 w-2 h-2 bg-black border-2 border-white rounded-full transform -translate-y-0"
+                        className="absolute top-0 w-3 h-3 bg-black border-2 border-white rounded-full transform -translate-y-0.5 -translate-x-1.5 shadow-sm"
                         style={{ left: `${(news.sentimentScore / 1000) * 100}%` }}
                       />
+                    </div>
+                    {/* Meter Labels */}
+                    <div className="flex justify-between text-xs text-muted-foreground w-[140px]">
+                      <span>Critical</span>
+                      <span>Great News</span>
                     </div>
                   </div>
 
