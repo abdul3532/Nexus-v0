@@ -136,8 +136,8 @@ export function NewsFeed() {
                 </div>
 
                 {/* Sentiment Section - 1/4 */}
-                <div className="w-1/4 flex flex-col justify-between border-l border-border pl-4">
-                  {/* Sentiment Meter - Upper Half */}
+                <div className="w-1/4 flex flex-col items-center justify-center space-y-3 border-l border-border pl-4">
+                  {/* Sentiment Meter */}
                   <div className="text-center">
                     <div className="w-[140px] h-2 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 rounded-full relative mb-2">
                       <div 
@@ -152,8 +152,8 @@ export function NewsFeed() {
                     </div>
                   </div>
 
-                  {/* Sources Count - Bottom Lower Half */}
-                  <div className="flex items-center justify-center gap-1 text-xs text-muted-foreground">
+                  {/* Sources Count */}
+                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
                     <div className="flex gap-1">
                       <img src={cnnLogo} alt="CNN" className="w-3 h-3 rounded-sm object-contain" />
                       <img src={bbcLogo} alt="BBC" className="w-3 h-3 rounded-sm object-contain" />
