@@ -166,7 +166,7 @@ export function NewsFeed() {
                     {/* Asset Classes */}
                     <div className="flex items-center gap-1 text-xs text-muted-foreground">
                       <div className="flex gap-1">
-                        {news.impactedCompanies.slice(0, 3).map((company, index) => (
+                        {news.impactedCompanies.slice(0, 2).map((company, index) => (
                           <span 
                             key={company} 
                             className="px-2 py-1 bg-muted/50 rounded-sm font-medium"
@@ -174,9 +174,9 @@ export function NewsFeed() {
                             {company}
                           </span>
                         ))}
-                        {news.impactedCompanies.length > 3 && (
+                        {news.impactedCompanies.length > 2 && (
                           <span className="px-2 py-1 bg-muted/50 rounded-sm font-medium">
-                            +{news.impactedCompanies.length - 3}
+                            +{news.impactedCompanies.length - 2}
                           </span>
                         )}
                       </div>
