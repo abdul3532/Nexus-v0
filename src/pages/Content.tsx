@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -6,6 +6,9 @@ import { Navbar } from "@/components/layout/Navbar";
 import { FileText, Mic, Mail, Star } from "lucide-react";
 
 const Content = () => {
+  const [isWeeklySummaryLoading, setIsWeeklySummaryLoading] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState('');
+  
   const [weeklyContent, setWeeklyContent] = useState({
     summary: `The financial markets experienced significant volatility this week as investors grappled with mixed economic signals. The Federal Reserve's latest policy statements suggested a more cautious approach to future rate adjustments, leading to increased uncertainty across major indices.
 
@@ -83,6 +86,37 @@ Best regards,
 The Investment Team`
   });
 
+  useEffect(() => {
+    if (isWeeklySummaryLoading) {
+      console.log('Loading started'); // Debug log
+      // First message: "fetching data from sources"
+      setLoadingMessage('fetching data from sources');
+      
+      const timer1 = setTimeout(() => {
+        console.log('Switching to analyzing message'); // Debug log
+        // Second message: "Analyzing it ..."
+        setLoadingMessage('Analyzing it ...');
+      }, 2500);
+
+      const timer2 = setTimeout(() => {
+        console.log('Loading completed'); // Debug log
+        // Stop loading after 5 seconds total
+        setIsWeeklySummaryLoading(false);
+        setLoadingMessage('');
+      }, 5000);
+
+      return () => {
+        clearTimeout(timer1);
+        clearTimeout(timer2);
+      };
+    }
+  }, [isWeeklySummaryLoading]);
+
+  const handleWeeklySummaryOpen = () => {
+    console.log('Button clicked, starting loading'); // Debug log
+    setIsWeeklySummaryLoading(true);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -148,7 +182,7 @@ The Investment Team`
                 </div>
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button size="sm" className="w-full">View Full Summary</Button>
+                    <Button size="sm" className="w-full" onClick={handleWeeklySummaryOpen}>View Full Summary</Button>
                   </DialogTrigger>
                   <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
                     <DialogHeader>
@@ -158,7 +192,14 @@ The Investment Team`
                       </DialogDescription>
                     </DialogHeader>
                     <div className="mt-4">
-                      <pre className="whitespace-pre-wrap text-sm leading-relaxed">{weeklyContent.summary}</pre>
+                      {isWeeklySummaryLoading ? (
+                        <div className="flex flex-col items-center justify-center py-12 space-y-4">
+                          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                          <p className="text-lg font-medium">{loadingMessage}</p>
+                        </div>
+                      ) : (
+                        <pre className="whitespace-pre-wrap text-sm leading-relaxed">{weeklyContent.summary}</pre>
+                      )}
                     </div>
                   </DialogContent>
                 </Dialog>
