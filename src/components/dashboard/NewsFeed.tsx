@@ -152,13 +152,35 @@ export function NewsFeed() {
                     </div>
                   </div>
 
-                  {/* Sources Count */}
-                  <div className="flex items-center justify-start gap-1 text-xs text-muted-foreground mr-8">
-                    <div className="flex gap-1">
-                      <img src={cnnLogo} alt="CNN" className="w-3 h-3 rounded-sm object-contain" />
-                      <img src={bbcLogo} alt="BBC" className="w-3 h-3 rounded-sm object-contain" />
+                  {/* Sources and Asset Classes Row */}
+                  <div className="flex items-center justify-center gap-4 w-full">
+                    {/* Sources Count */}
+                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                      <div className="flex gap-1">
+                        <img src={cnnLogo} alt="CNN" className="w-3 h-3 rounded-sm object-contain" />
+                        <img src={bbcLogo} alt="BBC" className="w-3 h-3 rounded-sm object-contain" />
+                      </div>
+                      <span>Sources • {news.sourcesCount}</span>
                     </div>
-                    <span>Sources • {news.sourcesCount}</span>
+
+                    {/* Asset Classes */}
+                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                      <div className="flex gap-1">
+                        {news.impactedCompanies.slice(0, 3).map((company, index) => (
+                          <span 
+                            key={company} 
+                            className="px-2 py-1 bg-muted/50 rounded-sm font-medium"
+                          >
+                            {company}
+                          </span>
+                        ))}
+                        {news.impactedCompanies.length > 3 && (
+                          <span className="px-2 py-1 bg-muted/50 rounded-sm font-medium">
+                            +{news.impactedCompanies.length - 3}
+                          </span>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
