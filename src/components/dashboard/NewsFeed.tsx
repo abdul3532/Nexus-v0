@@ -126,6 +126,10 @@ export function NewsFeed() {
                     <p className="text-sm text-muted-foreground mb-3 leading-relaxed">
                       {news.summary}
                     </p>
+                    
+                    <div className="text-xs text-muted-foreground">
+                      {news.publishedAt}
+                    </div>
                   </div>
                 </div>
 
