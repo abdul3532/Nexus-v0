@@ -45,209 +45,250 @@ interface NewsItem {
 
 const mockNews: NewsItem[] = [
   {
-    id: "1",
-    category: "Fed Speech",
-    title: "Powell signals potential pause in rate hikes amid economic uncertainty",
-    summary: "Fed Chair Powell delivered dovish remarks suggesting a potential pause in the rate hiking cycle. His speech highlighted recent economic uncertainty, moderating inflation pressures, and a softening labor market, which together provide the Fed with more flexibility. The market responded positively, with equities rallying and bond yields dropping.",
-    impact: "positive",
-    impactScore: 2,
-    sentiment: "hawkish vs. house view: +2",
-    date: "2024-09-20",
-    time: "14:23:45",
-    source: "Reuters",
-    confidence: 87,
-    affectedCompanies: ["AAPL", "MSFT", "TSLA"],
-    assetTags: ["US", "SPY", "Financial"],
-    latency: "15ms",
-    detailedSummary: {
-      whatHappened: "Fed Chair Powell delivered dovish remarks suggesting a potential pause in rate hiking cycle",
-      marketReaction: "Markets rally 2.1%, bond yields drop 15bps, USD weakens",
-      who: "Jerome Powell, Federal Reserve Chair",
-      whyItMatters: "Moderating inflation pressures and labor market softening provide flexibility",
-      magnitude: "High - potential policy shift affecting $50T+ in markets"
+    "id": "1",
+    "category": "Product/Technology Release",
+    "title": "Meta launches AI-powered smart glasses with new connectivity features",
+    "summary": "Meta unveiled its latest AI smart glasses, which introduce enhanced connectivity and on-device AI capabilities. The product aims to reduce reliance on external devices, integrating native voice commands, spatial audio, and real-time language translation. Early reactions note strong potential for augmented reality applications but question battery life and price point.",
+    "impact": "neutral",
+    "impactScore": 3,
+    "sentiment": "neutral vs. house view: 0",
+    "date": "2025-09-17",
+    "time": "00:00:00",
+    "source": "https://edition.cnn.com/2025/09/17/tech/meta-ai-smart-glasses-connect",
+    "confidence": 90,
+    "affectedCompanies": ["META"],
+    "assetTags": ["Technology", "AR/VR", "Wearables"],
+    "latency": "20ms",
+    "detailedSummary": {
+      "whatHappened": "Meta launched AI smart glasses that incorporate on-device AI processing, voice activation, and improved connectivity features",
+      "marketReaction": "Shares rose modestly post-announcement; tech blogs praised innovation but noted concerns over battery life and cost",
+      "who": "Meta",
+      "whyItMatters": "These glasses could shift usage from smartphone-dependence to wearable AI interfaces, affecting AR/VR competition and user experience",
+      "magnitude": "Medium - potential consumer electronics disruption in AR/VR space"
     },
-    modelAnalysis: {
-      keyFacts: [
-        "Powell mentioned 'considerable progress' on inflation",
-        "Labor market showing signs of rebalancing",
-        "Committee will proceed carefully with future decisions"
+    "modelAnalysis": {
+      "keyFacts": [
+        "On-device AI processing to reduce latency",
+        "Real-time translation and voice assistant features",
+        "Spatial audio and lightweight design emphasized"
       ],
-      sources: ["Source 1", "Source 2"]
+      "sources": ["CNN"]
     },
-    houseViewContext: {
-      currentStance: "Expecting 2 more 25bps hikes before pause",
-      comparison: "This signal suggests earlier pause than anticipated",
-      relevance: "+2 hawkish deviation from house view"
+    "houseViewContext": {
+      "currentStance": "House expects incremental updates in AR devices",
+      "comparison": "This is a more ambitious connectivity-first iteration than prior models",
+      "relevance": "0 neutral deviation from house view"
     },
-    portfolioImpact: {
-      affectedAssets: ["US Equities (+)", "US Bonds (+)", "USD (-)", "Emerging Markets (+)"],
-      overallImpact: "Positive for equity allocation, favorable for duration positioning",
-      preInterpretationNote: "A dovish Fed stance may prompt investors to increase equity and bond duration exposure, while reducing defensive allocations. Tactical portfolio shifts are likely as market sentiment improves.",
-    },
+    "portfolioImpact": {
+      "affectedAssets": ["Meta (+)", "Apple (− potential competitive pressure)"],
+      "overallImpact": "Potential upside in wearables and AR players; margins under pressure if R&D and materials costs are high",
+      "preInterpretationNote": "If well received, these glasses could lead to increased consumer interest in AR devices; downside risk includes cost, battery constraints, and adoption hurdles."
+    }
   },
   {
-    id: "2",
-    category: "Earnings Call",
-    title: "Microsoft beats expectations, raises AI infrastructure guidance",
-    summary: "Microsoft reported strong Q4 earnings, with cloud revenue exceeding expectations and a significant increase in AI infrastructure guidance. The company highlighted robust enterprise AI adoption, which is driving growth and validating the multi-trillion dollar AI market opportunity. Tech stocks rallied in response.",
-    impact: "positive",
-    impactScore: 3,
-    sentiment: "AI theme: strong positive",
-    date: "2024-09-20",
-    time: "14:15:10",
-    source: "Bloomberg",
-    confidence: 91,
-    affectedCompanies: ["MSFT", "GOOGL"],
-    assetTags: ["US", "Technology"],
-    latency: "12ms",
-    detailedSummary: {
-      whatHappened: "Microsoft reported strong Q4 earnings with cloud revenue exceeding expectations",
-      marketReaction: "MSFT up 5%, tech sector rallies, AI stocks outperform",
-      who: "Microsoft Corporation",
-      whyItMatters: "Validates enterprise AI adoption thesis and cloud growth sustainability",
-      magnitude: "High - reinforces multi-trillion dollar AI market opportunity"
+    "id": "2",
+    "category": "Earnings Call",
+    "title": "Microsoft beats expectations, raises AI infrastructure guidance",
+    "summary": "Microsoft reported strong Q4 earnings, with cloud revenue exceeding expectations and a significant increase in AI infrastructure guidance. The company highlighted robust enterprise AI adoption, which is driving growth and validating the multi-trillion dollar AI market opportunity. Tech stocks rallied in response.",
+    "impact": "positive",
+    "impactScore": 3,
+    "sentiment": "AI theme: strong positive",
+    "date": "2024-09-20",
+    "time": "14:15:10",
+    "source": "https://www.bloomberg.com/news/articles/2025-07-30/microsoft-s-quarterly-cloud-sales-profit-exceeded-expectations",
+    "confidence": 91,
+    "affectedCompanies": ["MSFT", "GOOGL"],
+    "assetTags": ["US", "Technology"],
+    "latency": "12ms",
+    "detailedSummary": {
+      "whatHappened": "Microsoft reported strong Q4 earnings with cloud revenue exceeding expectations",
+      "marketReaction": "MSFT up 5%, tech sector rallies, AI stocks outperform",
+      "who": "Microsoft Corporation",
+      "whyItMatters": "Validates enterprise AI adoption thesis and cloud growth sustainability",
+      "magnitude": "High - reinforces multi-trillion dollar AI market opportunity"
     },
-    modelAnalysis: {
-      keyFacts: [
+    "modelAnalysis": {
+      "keyFacts": [
         "Azure revenue grew 29% YoY vs 25% expected",
         "AI services contributing 12% to Azure revenue",
         "Raised FY25 capex guidance by $2B for AI infrastructure"
       ],
-      sources: ["Earnings Report", "Management Commentary"]
+      "sources": ["Earnings Report", "Management Commentary"]
     },
-    houseViewContext: {
-      currentStance: "Overweight technology, AI infrastructure plays",
-      comparison: "Results exceed our bullish expectations",
-      relevance: "Confirms our positive AI investment thesis"
+    "houseViewContext": {
+      "currentStance": "Overweight technology, AI infrastructure plays",
+      "comparison": "Results exceed our bullish expectations",
+      "relevance": "Confirms our positive AI investment thesis"
     },
-    portfolioImpact: {
-      affectedAssets: ["Technology Stocks (+)", "AI Infrastructure (+)", "Cloud Services (+)"],
-      overallImpact: "Strong positive for tech allocation, validates AI infrastructure investments",
-      preInterpretationNote: "Strong AI and cloud results could lead to increased portfolio weights in technology and infrastructure, as investors seek exposure to growth themes.",
-    },
+    "portfolioImpact": {
+      "affectedAssets": ["Technology Stocks (+)", "AI Infrastructure (+)", "Cloud Services (+)"],
+      "overallImpact": "Strong positive for tech allocation, validates AI infrastructure investments",
+      "preInterpretationNote": "Strong AI and cloud results could lead to increased portfolio weights in technology and infrastructure, as investors seek exposure to growth themes."
+    }
   },
   {
-    id: "3",
-    category: "ECB Minutes",
-    title: "ECB officials express concern over persistent core inflation",
-    summary: "ECB meeting minutes revealed growing unease among policymakers about persistent core inflation, especially in the services sector. Despite headline inflation moderating, the underlying price pressures remain, suggesting a potentially extended tightening cycle in Europe. The euro and bond yields responded accordingly.",
-    impact: "negative",
-    impactScore: -1,
-    sentiment: "dovish vs. house view: -1",
-    date: "2024-09-20",
-    time: "14:18:22",
-    source: "Financial Times",
-    confidence: 72,
-    affectedCompanies: ["EU Banks", "EUR Assets"],
-    assetTags: ["EU", "EWG", "FEZ", "Monetary Policy"],
-    latency: "28ms",
-    detailedSummary: {
-      whatHappened: "ECB meeting minutes showed officials concerned about persistent core inflation",
-      marketReaction: "EUR strengthens, EU bond yields rise, banking stocks mixed",
-      who: "European Central Bank Officials",
-      whyItMatters: "Suggests potential for extended tightening cycle in Europe",
-      magnitude: "Medium - affects EUR 13T eurozone economy"
+    "id": "3",
+    "category": "Rates/Markets",
+    "title": "Wall Street bets on faster, deeper Fed cuts than policymakers project",
+    "summary": "Futures pricing shows investors expect the Fed’s policy rate to fall substantially below the Fed’s own projections over the next 12–24 months, supporting stocks and easing borrowing costs. Strategists warn markets may be underestimating the Fed’s caution given lingering inflation risks.",
+    "impact": "neutral",
+    "impactScore": 1,
+    "sentiment": "dovish vs. house view: +1",
+    "date": "2025-09-20",
+    "time": "00:00:00",
+    "source": "https://www.wsj.com/economy/central-banking/fed-cuts-rates-by-quarter-point-and-signals-more-are-likely-dba38600",
+    "confidence": 82,
+    "affectedCompanies": ["JPM", "BAC", "MS", "ITB", "XLF"],
+    "assetTags": ["US", "Treasuries", "Rates", "Equities"],
+    "latency": "18ms",
+    "detailedSummary": {
+      "whatHappened": "Rate futures imply steeper and earlier easing than the Fed’s median path",
+      "marketReaction": "Treasury yields drift lower; equities supported; credit spreads tighter",
+      "who": "Wall Street investors; Federal Reserve",
+      "whyItMatters": "Mismatch between market pricing and Fed guidance can drive volatility around data/FOMC",
+      "magnitude": "Medium — broad cross-asset implications"
     },
-    modelAnalysis: {
-      keyFacts: [
-        "Core inflation remains sticky at 4.2%",
-        "Services inflation showing persistence",
-        "Labor market tightness continues"
+    "modelAnalysis": {
+      "keyFacts": [
+        "Futures imply policy rate below ~3% by 2026 vs. Fed ~3.4%",
+        "Lower yields easing mortgage/corporate borrowing costs",
+        "Analysts caution on inflation and Fed’s cautious stance"
       ],
-      sources: ["ECB Minutes", "Policy Statement"]
+      "sources": ["WSJ: Wall Street Bets Rates Will Drop Much More Than the Fed's Forecasts"]
     },
-    houseViewContext: {
-      currentStance: "Expected gradual policy normalization",
-      comparison: "More hawkish than anticipated",
-      relevance: "May require adjustment to EU duration positioning"
+    "houseViewContext": {
+      "currentStance": "Gradual cuts with data dependency",
+      "comparison": "Markets price faster easing than house baseline",
+      "relevance": "+1 dovish deviation from house view"
     },
-    portfolioImpact: {
-      affectedAssets: ["EU Bonds (-)", "EUR (+)", "EU Banks (+)"],
-      overallImpact: "Negative for EU duration, positive for banking sector exposure",
-      preInterpretationNote: "Sticky core inflation may encourage investors to review eurozone bond holdings and consider selective exposure to financials, but broad portfolio changes are unlikely.",
-    },
+    "portfolioImpact": {
+      "affectedAssets": ["US Equities (+)", "US Bonds (+)", "USD (−)"],
+      "overallImpact": "Supportive for duration and equity risk; watch for repricing if inflation runs hot",
+      "preInterpretationNote": "Consider adding duration on dips; keep hedges for upside inflation surprises."
+    }
   },
   {
-    id: "4",
-    category: "Economic Data",
-    title: "Swiss inflation accelerates unexpectedly to 2.1% in December",
-    summary: "Swiss inflation accelerated to 2.1% in December, driven by higher housing and energy costs. The surprise CPI print puts pressure on the Swiss National Bank's policy stance, though core inflation remains contained. The CHF strengthened modestly, while Swiss bonds came under pressure.",
-    impact: "neutral",
-    impactScore: 1,
-    sentiment: "CHF positioning impact",
-    date: "2024-09-20",
-    time: "14:12:33",
-    source: "Reuters",
-    confidence: 68,
-    affectedCompanies: ["Swiss Assets"],
-    assetTags: ["USD", "CHF", "CH", "Central Bank"],
-    latency: "45ms",
-    detailedSummary: {
-      whatHappened: "Swiss CPI rose to 2.1% vs 1.8% expected",
-      marketReaction: "CHF strengthens modestly, Swiss bonds under pressure",
-      who: "Swiss National Bank",
-      whyItMatters: "May influence SNB's ultra-accommodative policy stance",
-      magnitude: "Low - affects smaller Swiss market"
+    "id": "4",
+    "category": "Policy/Immigration",
+    "title": "Administration plans $100,000 annual fee for H-1B visas; unveils $1m ‘gold card’",
+    "summary": "New measures would impose a $100,000 yearly fee on H-1B visas and introduce a $1 million residency ‘gold card,’ aiming to curb perceived misuse and raise revenue. Tech firms warn the plan could hurt competitiveness and talent pipelines.",
+    "impact": "negative",
+    "impactScore": 3,
+    "sentiment": "restrictive vs. house view: −2",
+    "date": "2025-09-20",
+    "time": "00:00:00",
+    "source": "https://www.washingtonpost.com/politics/2025/09/19/trump-h1b-visa-fee-immigration/",
+    "confidence": 85,
+    "affectedCompanies": ["META", "GOOGL", "MSFT", "AMZN", "NVDA"],
+    "assetTags": ["US", "Tech", "Immigration", "Policy"],
+    "latency": "17ms",
+    "detailedSummary": {
+      "whatHappened": "White House outlines major H-1B fee increase and a high-dollar residency program",
+      "marketReaction": "Tech under relative pressure; policy risk premium rises",
+      "who": "U.S. Administration; DHS; tech employers",
+      "whyItMatters": "Raises cost of skilled visas, potentially slowing hiring and R&D velocity",
+      "magnitude": "High — material labor-supply/CapEx ramifications for large-cap tech"
     },
-    modelAnalysis: {
-      keyFacts: [
-        "Housing costs main driver of inflation spike",
-        "Energy prices also contributed",
-        "Core inflation remains contained"
+    "modelAnalysis": {
+      "keyFacts": [
+        "Proposed $100k annual H-1B fee",
+        "Introduction of $1m ‘gold card’ residency option",
+        "Industry backlash on competitiveness and innovation"
       ],
-      sources: ["Swiss Statistics Office", "SNB Commentary"]
+      "sources": ["WSJ: Trump to Add $100,000 Fee to H-1B Visas", "Reuters: Trump to impose $100,000 fee per year for H-1B visas"]
     },
-    houseViewContext: {
-      currentStance: "Neutral on CHF, expect SNB stability",
-      comparison: "Slight positive for CHF vs our neutral view",
-      relevance: "Minor adjustment to CHF positioning may be warranted"
+    "houseViewContext": {
+      "currentStance": "Policy risk elevated but manageable",
+      "comparison": "Proposal is more restrictive than baseline expectations",
+      "relevance": "−2 bearish deviation for mega-cap tech hiring"
     },
-    portfolioImpact: {
-      affectedAssets: ["CHF (+)", "Swiss Bonds (-)", "Swiss Equities (neutral)"],
-      overallImpact: "Limited impact, minor CHF strength expected",
-      preInterpretationNote: "Swiss inflation data may prompt minor adjustments in CHF and Swiss bond allocations, but global portfolios are unlikely to see significant changes.",
-    },
+    "portfolioImpact": {
+      "affectedAssets": ["US Large-Cap Tech (−)", "IT Services (−)", "US Dollar (neutral)"],
+      "overallImpact": "Headwind for margin/innovation where teams rely on H-1B talent",
+      "preInterpretationNote": "Consider trimming richly valued names most exposed to skilled-visa flows; reassess AI hiring bottlenecks."
+    }
   },
   {
-    id: "5",
-    category: "Geopolitical",
-    title: "Trade tensions escalate as new tariff measures announced",
-    summary: "Global trade tensions escalated as new tariff measures were announced, targeting key industrial sectors and threatening to disrupt supply chains. Retaliatory actions are expected, which could reignite inflationary pressures and increase risk-off sentiment across markets. Defensive assets outperformed in response.",
-    impact: "negative",
-    impactScore: -2,
-    sentiment: "Risk-off sentiment",
-    date: "2024-09-20",
-    time: "14:08:55",
-    source: "Wall Street Journal",
-    confidence: 75,
-    affectedCompanies: ["Global Trade", "Supply Chain"],
-    assetTags: ["GLD", "TLT", "Global", "Safe Haven"],
-    latency: "67ms",
-    detailedSummary: {
-      whatHappened: "New tariff measures announced affecting multiple trade partners",
-      marketReaction: "Risk-off sentiment, defensive assets outperform",
-      who: "Trade Policy Officials",
-      whyItMatters: "Could disrupt global supply chains and reignite inflation",
-      magnitude: "High - affects global trade flows worth trillions"
+    "id": "4",
+    "category": "Media/Regulation",
+    "title": "Disney’s abrupt suspension of ‘Jimmy Kimmel Live!’ followed affiliate pushback",
+    "summary": "Disney executives pulled ‘Jimmy Kimmel Live!’ after affiliates signaled they would indefinitely preempt the program. The move followed regulatory scrutiny and mounting station pressure, forcing a rapid programming shift.",
+    "impact": "neutral",
+    "impactScore": 1,
+    "sentiment": "neutral vs. house view: 0",
+    "date": "2025-09-18",
+    "time": "00:00:00",
+    "source": "https://www.wsj.com/business/media/jimmy-kimmel-decision-behind-the-scenes-e1ecbbf2",
+    "confidence": 72,
+    "affectedCompanies": ["DIS", "CMCSA", "PARA"],
+    "assetTags": ["US", "Media", "Broadcast"],
+    "latency": "21ms",
+    "detailedSummary": {
+      "whatHappened": "Affiliates indicated long-term preemption; Disney pulled the late-night show",
+      "marketReaction": "Limited stock impact; ad-slot reshuffles and schedule changes",
+      "who": "Disney; affiliates; FCC officials",
+      "whyItMatters": "Highlights affiliate leverage and regulatory pressure on broadcast content",
+      "magnitude": "Low/Medium — programming/advertising revenue considerations"
     },
-    modelAnalysis: {
-      keyFacts: [
-        "Tariffs target key industrial sectors",
-        "Retaliatory measures expected from trading partners",
-        "Supply chain disruption likely in Q1 2025"
+    "modelAnalysis": {
+      "keyFacts": [
+        "Affiliates warned of indefinite preemption",
+        "Behind-the-scenes decisioning at Disney",
+        "Regulatory context cited"
       ],
-      sources: ["Trade Ministry", "Industry Reports"]
+      "sources": ["WSJ: Inside Disney’s Abrupt Decision to Suspend Jimmy Kimmel Live!"]
     },
-    houseViewContext: {
-      currentStance: "Monitoring geopolitical risks carefully",
-      comparison: "Higher risk escalation than anticipated",
-      relevance: "May require defensive positioning adjustments"
+    "houseViewContext": {
+      "currentStance": "Linear TV headwinds persist; focus on DTC pivot",
+      "comparison": "In-line with ongoing volatility in broadcast scheduling",
+      "relevance": "Neutral for long-term thesis; operational noise"
     },
-    portfolioImpact: {
-      affectedAssets: ["Safe Havens (+)", "Trade-sensitive sectors (-)", "Emerging Markets (-)"],
-      overallImpact: "Negative for risk assets, positive for defensive positioning",
-      preInterpretationNote: "Rising trade tensions could drive a shift toward safe havens and defensive sectors, with reduced allocations to emerging markets and trade-sensitive stocks.",
+    "portfolioImpact": {
+      "affectedAssets": ["Legacy Broadcast (−)", "Streaming (neutral)"],
+      "overallImpact": "Minor to modest impact; advertising mix and schedule resets to watch",
+      "preInterpretationNote": "Maintain focus on DTC KPIs; limited need for positioning changes."
+    }
+  },
+  {
+    "id": "5",
+    "category": "Fed Speech",
+    "title": "Powell: risks to inflation are ‘tilted to the upside’ despite rate cuts",
+    "summary": "In remarks, Chair Powell said inflation risks remain skewed higher, implying the Fed will proceed cautiously with further easing. Messaging tempers expectations for rapid cuts and keeps optionality for data-dependent policy.",
+    "impact": "negative",
+    "impactScore": 2,
+    "sentiment": "hawkish vs. house view: −1",
+    "date": "2025-09-20",
+    "time": "00:00:00",
+    "source": "https://www.wsj.com/video/fed-powell-on-rate-cut-risks-to-inflation-are-tilted-to-the-upside/EEE44DEC-E7E0-4E01-8631-61C8E54F2295?mod=articletype_trending_now_video_pos4",
+    "confidence": 80,
+    "affectedCompanies": ["ITB", "XLY", "SPY"],
+    "assetTags": ["US", "Fed", "Rates"],
+    "latency": "16ms",
+    "detailedSummary": {
+      "whatHappened": "Powell emphasized upside inflation risks after a recent cut",
+      "marketReaction": "Front-end yields steady/higher; equities fade intraday gains",
+      "who": "Jerome Powell; Federal Reserve",
+      "whyItMatters": "Signals slower cutting cycle; reins in market’s dovish bets",
+      "magnitude": "Medium — guidance sensitive for front-end rates"
     },
+    "modelAnalysis": {
+      "keyFacts": [
+        "‘Tilted to the upside’ phrasing on inflation risk",
+        "Reiterated data-dependent approach",
+        "Pushback against aggressive rate-cut expectations"
+      ],
+      "sources": ["WSJ Video: Powell on rate-cut risks to inflation"]
+    },
+    "houseViewContext": {
+      "currentStance": "Measured easing path with inflation vigilance",
+      "comparison": "Slightly more hawkish than market pricing",
+      "relevance": "−1 vs. house view; maintain caution on duration beta"
+    },
+    "portfolioImpact": {
+      "affectedAssets": ["US Bonds (− short end)", "USD (+)", "US Equities (neutral)"],
+      "overallImpact": "Curb excessive duration risk; favor quality within equities",
+      "preInterpretationNote": "Maintain optionality via barbell duration and inflation hedges."
+    }
   },
 ];
 

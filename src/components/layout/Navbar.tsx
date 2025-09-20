@@ -85,11 +85,6 @@ export function Navbar() {
                         damping: 30,
                       }}
                     >
-                      <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-8 h-1 bg-primary rounded-t-full">
-                        <div className="absolute w-12 h-6 bg-primary/30 rounded-full blur-md -top-2 -left-2" />
-                        <div className="absolute w-8 h-6 bg-primary/30 rounded-full blur-md -top-1" />
-                        <div className="absolute w-4 h-4 bg-primary/20 rounded-full blur-sm top-0 left-2" />
-                      </div>
                     </motion.div>
                   )}
                 </Link>
@@ -105,17 +100,13 @@ export function Navbar() {
                 <Button variant="ghost" className="flex items-center gap-2 px-3">
                   <Avatar className="h-10 w-10">
                     <AvatarFallback className="bg-primary text-primary-foreground text-sm">
-                      JD
+                      SW
                     </AvatarFallback>
                   </Avatar>
                   <ChevronDown className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56 bg-card border border-border">
-                <DropdownMenuItem className="flex items-center gap-2 cursor-pointer">
-                  <User className="h-4 w-4" />
-                  Profile
-                </DropdownMenuItem>
                 <DropdownMenuItem className="flex items-center gap-2 cursor-pointer">
                   <Settings className="h-4 w-4" />
                   Settings
