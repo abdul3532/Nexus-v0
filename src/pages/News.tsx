@@ -4,7 +4,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Eye, ThumbsUp, MessageCircle, Share2, Clock, TrendingUp, TrendingDown } from "lucide-react";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Eye, ThumbsUp, MessageCircle, Share2, Clock, TrendingUp, TrendingDown, Filter, ChevronDown, BarChart3, DollarSign, Banknote, Coins } from "lucide-react";
 
 interface NewsItem {
   id: string;
@@ -42,6 +44,27 @@ interface NewsItem {
     overallImpact: string;
   };
 }
+
+interface FilterState {
+  assetClasses: string[];
+  fixedIncome: string[];
+  currencies: string[];
+  commodities: string[];
+}
+
+const initialFilters: FilterState = {
+  assetClasses: [],
+  fixedIncome: [],
+  currencies: [],
+  commodities: []
+};
+
+const filterOptions = {
+  assetClasses: ["US Equity", "EU Equity", "CH Equity", "UK Equity", "JP Equity", "EM Equity"],
+  fixedIncome: ["Government", "Corporate"],
+  currencies: ["USD", "CHF", "EUR", "JPY"],
+  commodities: ["Gold", "Oil", "Silver"]
+};
 
 const mockNews: NewsItem[] = [
   {
@@ -249,11 +272,52 @@ const mockNews: NewsItem[] = [
 const News = () => {
   const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [filters, setFilters] = useState<FilterState>(initialFilters);
+  const [isFilterOpen, setIsFilterOpen] = useState(true);
 
   const handleNewsClick = (news: NewsItem) => {
     setSelectedNews(news);
     setIsDialogOpen(true);
   };
+
+  const handleFilterChange = (category: keyof FilterState, value: string, checked: boolean) => {
+    setFilters(prev => ({
+      ...prev,
+      [category]: checked 
+        ? [...prev[category], value]
+        : prev[category].filter(item => item !== value)
+    }));
+  };
+
+  const isFilterActive = () => {
+    return Object.values(filters).some(category => category.length > 0);
+  };
+
+  const filteredNews = mockNews.filter(news => {
+    if (!isFilterActive()) return true;
+    
+    // Check if news matches any active filters
+    const matchesAssetClass = filters.assetClasses.length === 0 || 
+      filters.assetClasses.some(filter => 
+        news.assetTags.some(tag => tag.toLowerCase().includes(filter.split(' ')[0].toLowerCase()))
+      );
+    
+    const matchesCurrency = filters.currencies.length === 0 ||
+      filters.currencies.some(currency => 
+        news.assetTags.includes(currency)
+      );
+    
+    const matchesFixedIncome = filters.fixedIncome.length === 0 ||
+      (filters.fixedIncome.includes("Government") && news.category.includes("Fed")) ||
+      (filters.fixedIncome.includes("Corporate") && news.category.includes("Earnings"));
+    
+    const matchesCommodities = filters.commodities.length === 0 ||
+      filters.commodities.some(commodity => 
+        news.assetTags.some(tag => tag.toLowerCase().includes(commodity.toLowerCase()))
+      );
+
+    return matchesAssetClass && matchesCurrency && matchesFixedIncome && matchesCommodities;
+  });
 
   const getImpactColor = (impact: string, score: number) => {
     if (impact === "positive" || score > 0) return "text-financial-positive";
@@ -280,9 +344,146 @@ const News = () => {
           <p className="text-muted-foreground">Real-time market signals with AI-powered analysis</p>
         </div>
 
-        {/* News Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {mockNews.map((news) => (
+        {/* Main Content with Sidebar */}
+        <div className="flex gap-6">
+          {/* Filter Sidebar */}
+          <div className={`transition-all duration-300 ${isFilterOpen ? 'w-80' : 'w-12'}`}>
+            <Card className="sticky top-6">
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    <Filter className="h-4 w-4" />
+                    {isFilterOpen && <span className="font-medium">Portfolio Filters</span>}
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setIsFilterOpen(!isFilterOpen)}
+                    className="h-8 w-8 p-0"
+                  >
+                    <ChevronDown className={`h-4 w-4 transition-transform ${isFilterOpen ? 'rotate-180' : 'rotate-90'}`} />
+                  </Button>
+                </div>
+
+                {isFilterOpen && (
+                  <div className="space-y-4">
+                    {/* Asset Classes */}
+                    <Collapsible defaultOpen>
+                      <CollapsibleTrigger className="flex items-center justify-between w-full p-2 hover:bg-muted rounded-lg">
+                        <div className="flex items-center gap-2">
+                          <BarChart3 className="h-4 w-4" />
+                          <span className="text-sm font-medium">Asset Classes</span>
+                        </div>
+                        <ChevronDown className="h-4 w-4" />
+                      </CollapsibleTrigger>
+                      <CollapsibleContent className="space-y-2 pt-2 pl-6">
+                        {filterOptions.assetClasses.map((option) => (
+                          <div key={option} className="flex items-center space-x-2">
+                            <Checkbox
+                              id={`asset-${option}`}
+                              checked={filters.assetClasses.includes(option)}
+                              onCheckedChange={(checked) => 
+                                handleFilterChange('assetClasses', option, checked as boolean)
+                              }
+                            />
+                            <label htmlFor={`asset-${option}`} className="text-sm cursor-pointer">
+                              {option}
+                            </label>
+                          </div>
+                        ))}
+                      </CollapsibleContent>
+                    </Collapsible>
+
+                    {/* Fixed Income */}
+                    <Collapsible defaultOpen>
+                      <CollapsibleTrigger className="flex items-center justify-between w-full p-2 hover:bg-muted rounded-lg">
+                        <div className="flex items-center gap-2">
+                          <DollarSign className="h-4 w-4" />
+                          <span className="text-sm font-medium">Fixed Income</span>
+                        </div>
+                        <ChevronDown className="h-4 w-4" />
+                      </CollapsibleTrigger>
+                      <CollapsibleContent className="space-y-2 pt-2 pl-6">
+                        {filterOptions.fixedIncome.map((option) => (
+                          <div key={option} className="flex items-center space-x-2">
+                            <Checkbox
+                              id={`fixed-${option}`}
+                              checked={filters.fixedIncome.includes(option)}
+                              onCheckedChange={(checked) => 
+                                handleFilterChange('fixedIncome', option, checked as boolean)
+                              }
+                            />
+                            <label htmlFor={`fixed-${option}`} className="text-sm cursor-pointer">
+                              {option}
+                            </label>
+                          </div>
+                        ))}
+                      </CollapsibleContent>
+                    </Collapsible>
+
+                    {/* Currencies */}
+                    <Collapsible defaultOpen>
+                      <CollapsibleTrigger className="flex items-center justify-between w-full p-2 hover:bg-muted rounded-lg">
+                        <div className="flex items-center gap-2">
+                          <Banknote className="h-4 w-4" />
+                          <span className="text-sm font-medium">Currencies</span>
+                        </div>
+                        <ChevronDown className="h-4 w-4" />
+                      </CollapsibleTrigger>
+                      <CollapsibleContent className="space-y-2 pt-2 pl-6">
+                        {filterOptions.currencies.map((option) => (
+                          <div key={option} className="flex items-center space-x-2">
+                            <Checkbox
+                              id={`currency-${option}`}
+                              checked={filters.currencies.includes(option)}
+                              onCheckedChange={(checked) => 
+                                handleFilterChange('currencies', option, checked as boolean)
+                              }
+                            />
+                            <label htmlFor={`currency-${option}`} className="text-sm cursor-pointer">
+                              {option}
+                            </label>
+                          </div>
+                        ))}
+                      </CollapsibleContent>
+                    </Collapsible>
+
+                    {/* Commodities */}
+                    <Collapsible defaultOpen>
+                      <CollapsibleTrigger className="flex items-center justify-between w-full p-2 hover:bg-muted rounded-lg">
+                        <div className="flex items-center gap-2">
+                          <Coins className="h-4 w-4" />
+                          <span className="text-sm font-medium">Commodities</span>
+                        </div>
+                        <ChevronDown className="h-4 w-4" />
+                      </CollapsibleTrigger>
+                      <CollapsibleContent className="space-y-2 pt-2 pl-6">
+                        {filterOptions.commodities.map((option) => (
+                          <div key={option} className="flex items-center space-x-2">
+                            <Checkbox
+                              id={`commodity-${option}`}
+                              checked={filters.commodities.includes(option)}
+                              onCheckedChange={(checked) => 
+                                handleFilterChange('commodities', option, checked as boolean)
+                              }
+                            />
+                            <label htmlFor={`commodity-${option}`} className="text-sm cursor-pointer">
+                              {option}
+                            </label>
+                          </div>
+                        ))}
+                      </CollapsibleContent>
+                    </Collapsible>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* News Grid */}
+          <div className="flex-1">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {filteredNews.map((news) => (
             <Card
               key={news.id}
               className={`transition-all duration-200 hover:shadow-md cursor-pointer ${getImpactBgColor(news.impact, news.impactScore)}`}
@@ -356,6 +557,8 @@ const News = () => {
               </CardContent>
             </Card>
           ))}
+        </div>
+          </div>
         </div>
 
         {/* News Detail Dialog */}
