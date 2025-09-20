@@ -80,7 +80,7 @@ const Portfolio = () => {
 
         {/* Add Company Button */}
         <div className="mb-8">
-          <Button onClick={handleAddCompany} className="flex items-center gap-2 bg-white dark:bg-black text-black dark:text-white border border-black dark:border-white">
+          <Button onClick={handleAddCompany} className="flex items-center gap-2 bg-white dark:bg-black text-black dark:text-white border border-black dark:border-white  hover:bg-white/90 hover:dark:bg-black/80 hover:shadow-md transition-all duration-300">
             <Plus className="h-4 w-4" />
             Add Company
           </Button>
@@ -103,8 +103,6 @@ const Portfolio = () => {
                       <p className="text-sm text-muted-foreground">{company.name}</p>
                       <div className="flex items-center gap-4 text-sm text-muted-foreground mt-1">
                         <span>Sector: {company.sector}</span>
-                        <span>•</span>
-                        <span>Market Cap: {company.marketCap}</span>
                       </div>
                     </div>
                   </div>

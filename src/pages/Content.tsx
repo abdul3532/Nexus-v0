@@ -146,14 +146,14 @@ The Investment Team`
               <div className="bg-muted/50 p-4 rounded-lg h-full">
                 <p className="text-sm text-muted-foreground mb-2">Top stories:</p>
                 <ul className="space-y-3 text-sm">
-                  <li>• <strong>Fed Rate Decision:</strong> Central bank maintains current rates amid inflation concerns, signaling cautious approach to future monetary policy</li>
-                  <li>• <strong>Tech Earnings Beat:</strong> Major technology companies report stronger than expected quarterly results, driving market optimism</li>
-                  <li>• <strong>Oil Price Surge:</strong> Crude oil jumps 8% following geopolitical tensions and supply chain disruptions in key producing regions</li>
-                  <li>• <strong>Bank Stress Tests:</strong> All major financial institutions pass regulatory stress tests with comfortable capital buffers</li>
-                  <li>• <strong>Healthcare M&A Wave:</strong> Pharmaceutical sector sees $50B in merger announcements as companies consolidate for R&D efficiency</li>
-                  <li>• <strong>Renewable Energy Breakthrough:</strong> New solar technology promises 40% efficiency gains, potentially reshaping energy sector valuations</li>
-                  <li>• <strong>Inflation Data Mixed:</strong> Core CPI shows moderation while services inflation remains sticky, complicating Fed policy outlook</li>
-                  <li>• <strong>China Trade Update:</strong> New bilateral trade agreements signed, reducing tariff barriers for select industries</li>
+                  <li>• <strong>Meta AI Glasses:</strong> Meta launched smart glasses with AI translation and spatial audio; adoption hurdles remain</li>
+                  <li>• <strong>Microsoft Earnings:</strong> Strong Q4 cloud and AI revenue beat lifted tech stocks</li>
+                  <li>• <strong>Rate Cut Bets:</strong> Markets expect faster Fed cuts than policymakers project, boosting equities</li>
+                  <li>• <strong>H-1B Visa Fees:</strong> Plan for $100k H-1B fee and $1m ‘gold card’ draws tech backlash</li>
+                  <li>• <strong>Disney Pulls Kimmel:</strong> Affiliates’ pushback forces abrupt suspension of late-night show</li>
+                  <li>• <strong>Powell Caution:</strong> Fed Chair warns inflation risks remain, tempering cut expectations</li>
+                  <li>• <strong>Equities at Highs:</strong> Global stocks hit records as risk-on flows tighten credit spreads</li>
+                  <li>• <strong>Robinhood Startup Fund:</strong> New retail vehicle offers access to unlisted start-ups, raising risk concerns</li>
                 </ul>
               </div>
               <div className="flex flex-row justify-end h-full w-full">

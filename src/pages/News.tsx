@@ -105,7 +105,7 @@ const mockNews: NewsItem[] = [
       "relevance": "0 neutral deviation from house view"
     },
     "portfolioImpact": {
-      "affectedAssets": ["Meta (+)", "Apple (− potential competitive pressure)"],
+      "affectedAssets": ["Meta (+)", "Apple (- potential competitive pressure)"],
       "overallImpact": "Potential upside in wearables and AR players; margins under pressure if R&D and materials costs are high",
       "preInterpretationNote": "If well received, these glasses could lead to increased consumer interest in AR devices; downside risk includes cost, battery constraints, and adoption hurdles."
     }
@@ -617,22 +617,6 @@ const News = () => {
           <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
             {selectedNews && (
               <>
-                <DialogHeader>
-                  <DialogTitle className="text-xl font-semibold pr-8">
-                    <div className="flex items-center justify-between w-full">
-                      <span>Event Detail</span>
-                      <div className="flex items-center gap-4 text-sm mr-8">
-                        <span className="text-muted-foreground">
-                          {selectedNews.date} {selectedNews.time} UTC
-                        </span>
-                        <span className={getImpactColor(selectedNews.impact, selectedNews.impactScore)}>
-                          {formatConfidence(selectedNews.confidence)}
-                        </span>
-                      </div>
-                    </div>
-                  </DialogTitle>
-                </DialogHeader>
-
                 <div className="space-y-6">
                   {/* Title */}
                   <h2 className="text-xl font-semibold">{selectedNews.title}</h2>
@@ -647,18 +631,27 @@ const News = () => {
 
                   {/* Pre-interpretation of Implications (Portfolio Impact) */}
                   <div className="space-y-4">
-                    <h3 className="text-lg font-medium">Implications</h3>
                     <div className="space-y-3">
                       <div>
-                        <h4 className="font-medium mb-2">Affected Assets</h4>
-                        <div className="flex flex-wrap gap-2">
-                          {selectedNews.portfolioImpact.affectedAssets.map((asset, index) => (
-                            <Badge key={index} variant="outline" className="text-xs">
-                              {asset}
-                            </Badge>
-                          ))}
-                        </div>
+                      <h4 className="font-medium mb-2">Affected Assets</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedNews.portfolioImpact.affectedAssets.map((asset, index) => (
+                          <Badge 
+                            key={index} 
+                            variant="outline"
+                            className={`text-xs ${
+                              asset.includes('(+)') 
+                                ? 'bg-financial-positive-bg border border-financial-positive/20 text-financial-positive-foreground' 
+                                : asset.includes('(-') 
+                                ? 'bg-financial-negative-bg border border-financial-negative/20 text-financial-negative-foreground'
+                                : 'bg-financial-neutral border border-border text-muted-foreground'
+                            }`}
+                          >
+                            {asset}
+                          </Badge>
+                        ))}
                       </div>
+                    </div>
                       <div>
                         <h4 className="font-medium mb-2">Overall Impact</h4>
                         <p className="text-sm text-muted-foreground">{selectedNews.portfolioImpact.overallImpact}</p>
