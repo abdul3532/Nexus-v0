@@ -141,7 +141,7 @@ export function NewsFeed() {
                       {news.sentimentScore}
                     </div>
                     {/* Sentiment Meter */}
-                    <div className="w-16 h-2 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 rounded-full relative">
+                    <div className="w-[35px] h-2 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 rounded-full relative">
                       <div 
                         className="absolute top-0 w-2 h-2 bg-black border-2 border-white rounded-full transform -translate-y-0"
                         style={{ left: `${(news.sentimentScore / 1000) * 100}%` }}
