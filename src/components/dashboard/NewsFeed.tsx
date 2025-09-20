@@ -287,21 +287,6 @@ export function NewsFeed() {
         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
           {selectedNews && (
             <>
-              <DialogHeader>
-                <DialogTitle className="text-xl font-semibold pr-8">
-                  <div className="flex items-center justify-between w-full">
-                    <span>Event Detail</span>
-                    <div className="flex items-center gap-4 text-sm mr-8">
-                      <span className="text-muted-foreground">
-                        {selectedNews.date} {selectedNews.time} UTC
-                      </span>
-                      <span className="text-green-600 font-medium">
-                        {selectedNews.confidence}% confidence
-                      </span>
-                    </div>
-                  </div>
-                </DialogTitle>
-              </DialogHeader>
 
               <div className="space-y-6">
                 {/* Title */}
@@ -317,7 +302,6 @@ export function NewsFeed() {
 
                 {/* Implications */}
                 <div className="space-y-4">
-                  <h3 className="text-lg font-medium">Implications</h3>
                   <div className="space-y-3">
                     <div>
                       <h4 className="font-medium mb-2">Affected Assets</h4>
@@ -325,12 +309,13 @@ export function NewsFeed() {
                         {selectedNews.portfolioImpact.affectedAssets.map((asset, index) => (
                           <Badge 
                             key={index} 
+                            variant="outline"
                             className={`text-xs ${
                               asset.includes('(+)') 
-                                ? 'bg-blue-500 text-white hover:bg-blue-600' 
+                                ? 'bg-financial-positive-bg border border-financial-positive/20 text-financial-positive-foreground' 
                                 : asset.includes('(-)') 
-                                ? 'bg-red-500 text-white hover:bg-red-600'
-                                : 'bg-gray-500 text-white hover:bg-gray-600'
+                                ? 'bg-financial-negative-bg border border-financial-negative/20 text-financial-negative-foreground'
+                                : 'bg-financial-neutral border border-border text-muted-foreground'
                             }`}
                           >
                             {asset}

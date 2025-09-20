@@ -129,17 +129,17 @@ export const NewsCard: React.FC<NewsCardProps> = ({ news, onClick }) => {
 
             {/* Asset Classes */}
             <div className="flex items-center gap-1">
-              {news.assetTags.slice(0, 2).map((tag, index) => (
+              {news.assetTags.slice(0, 1).map((tag, index) => (
                 <span 
                   key={tag} 
-                  className="px-2 py-1 bg-muted/50 rounded-sm font-medium"
+                  className="px-2 py-1 bg-white border border-primary rounded-sm font-medium "
                 >
                   {tag}
                 </span>
               ))}
-              {news.assetTags.length > 2 && (
-                <span className="px-2 py-1 bg-muted/50 rounded-sm font-medium">
-                  +{news.assetTags.length - 2}
+              {news.assetTags.length > 1 && (
+                <span className="px-2 py-1 bg-white border border-primary rounded-sm font-medium">
+                  +{news.assetTags.length - 1}
                 </span>
               )}
             </div>

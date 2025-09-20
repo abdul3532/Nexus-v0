@@ -455,12 +455,6 @@ const News = () => {
     return "text-muted-foreground";
   };
 
-  const getImpactBgColor = (impact: string, score: number) => {
-    if (impact === "positive" || score > 0) return "bg-financial-positive-bg border-financial-positive/20";
-    if (impact === "negative" || score < 0) return "bg-financial-negative-bg border-financial-negative/20";
-    return "bg-card border-border";
-  };
-
   const formatConfidence = (confidence: number) => {
     return `${confidence}% confidence`;
   };
