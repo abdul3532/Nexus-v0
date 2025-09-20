@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ChevronDown, Settings, LogOut, User, Menu, Home, Newspaper, Briefcase, FileText } from "lucide-react";
 import { motion } from "framer-motion";
 import logo from "@/assets/logo.png";
@@ -23,6 +23,7 @@ const navigation = [
 
 export function Navbar() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("");
   const [isMobile, setIsMobile] = useState(false);
 
@@ -97,8 +98,17 @@ export function Navbar() {
             })}
           </div>
 
-          {/* Right side - Theme Toggle and Profile */}
+          {/* Right side - Settings, Theme Toggle and Profile */}
           <div className="flex items-center gap-2">
+            <Button 
+              variant="outline" 
+              size="icon"
+              onClick={() => navigate('/settings')}
+              className="h-10 w-10"
+            >
+              <Settings className="h-[1.2rem] w-[1.2rem]" />
+              <span className="sr-only">Settings</span>
+            </Button>
             <ThemeToggle />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
