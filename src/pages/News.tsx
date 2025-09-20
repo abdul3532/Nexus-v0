@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Eye, ThumbsUp, MessageCircle, Share2, Clock, TrendingUp, TrendingDown, Filter, ChevronDown, BarChart3, DollarSign, Banknote, Coins } from "lucide-react";
+import { Clock, ExternalLink } from "lucide-react";
+import cnnLogo from "@/assets/logos/cnn-logo.png";
+import bbcLogo from "@/assets/logos/bbc-logo.png";
 
 interface NewsItem {
   id: string;
@@ -46,27 +46,6 @@ interface NewsItem {
   };
 }
 
-interface FilterState {
-  assetClasses: string[];
-  fixedIncome: string[];
-  currencies: string[];
-  commodities: string[];
-}
-
-const initialFilters: FilterState = {
-  assetClasses: [],
-  fixedIncome: [],
-  currencies: [],
-  commodities: []
-};
-
-const filterOptions = {
-  assetClasses: ["US Equity", "EU Equity", "CH Equity", "UK Equity", "JP Equity", "EM Equity"],
-  fixedIncome: ["Government", "Corporate"],
-  currencies: ["USD", "CHF", "EUR", "JPY"],
-  commodities: ["Gold", "Oil", "Silver"]
-};
-
 const mockNews: NewsItem[] = [
   {
     id: "1",
@@ -105,8 +84,8 @@ const mockNews: NewsItem[] = [
     },
     portfolioImpact: {
       affectedAssets: ["US Equities (+)", "US Bonds (+)", "USD (-)", "Emerging Markets (+)"],
-  overallImpact: "Positive for equity allocation, favorable for duration positioning",
-        preInterpretationNote: "A dovish Fed stance may prompt investors to increase equity and bond duration exposure, while reducing defensive allocations. Tactical portfolio shifts are likely as market sentiment improves.",
+      overallImpact: "Positive for equity allocation, favorable for duration positioning",
+      preInterpretationNote: "A dovish Fed stance may prompt investors to increase equity and bond duration exposure, while reducing defensive allocations. Tactical portfolio shifts are likely as market sentiment improves.",
     },
   },
   {
@@ -146,8 +125,8 @@ const mockNews: NewsItem[] = [
     },
     portfolioImpact: {
       affectedAssets: ["Technology Stocks (+)", "AI Infrastructure (+)", "Cloud Services (+)"],
-  overallImpact: "Strong positive for tech allocation, validates AI infrastructure investments",
-        preInterpretationNote: "Strong AI and cloud results could lead to increased portfolio weights in technology and infrastructure, as investors seek exposure to growth themes.",
+      overallImpact: "Strong positive for tech allocation, validates AI infrastructure investments",
+      preInterpretationNote: "Strong AI and cloud results could lead to increased portfolio weights in technology and infrastructure, as investors seek exposure to growth themes.",
     },
   },
   {
@@ -187,8 +166,8 @@ const mockNews: NewsItem[] = [
     },
     portfolioImpact: {
       affectedAssets: ["EU Bonds (-)", "EUR (+)", "EU Banks (+)"],
-  overallImpact: "Negative for EU duration, positive for banking sector exposure",
-        preInterpretationNote: "Sticky core inflation may encourage investors to review eurozone bond holdings and consider selective exposure to financials, but broad portfolio changes are unlikely.",
+      overallImpact: "Negative for EU duration, positive for banking sector exposure",
+      preInterpretationNote: "Sticky core inflation may encourage investors to review eurozone bond holdings and consider selective exposure to financials, but broad portfolio changes are unlikely.",
     },
   },
   {
@@ -228,8 +207,8 @@ const mockNews: NewsItem[] = [
     },
     portfolioImpact: {
       affectedAssets: ["CHF (+)", "Swiss Bonds (-)", "Swiss Equities (neutral)"],
-  overallImpact: "Limited impact, minor CHF strength expected",
-        preInterpretationNote: "Swiss inflation data may prompt minor adjustments in CHF and Swiss bond allocations, but global portfolios are unlikely to see significant changes.",
+      overallImpact: "Limited impact, minor CHF strength expected",
+      preInterpretationNote: "Swiss inflation data may prompt minor adjustments in CHF and Swiss bond allocations, but global portfolios are unlikely to see significant changes.",
     },
   },
   {
@@ -269,460 +248,223 @@ const mockNews: NewsItem[] = [
     },
     portfolioImpact: {
       affectedAssets: ["Safe Havens (+)", "Trade-sensitive sectors (-)", "Emerging Markets (-)"],
-  overallImpact: "Negative for risk assets, positive for defensive positioning",
-        preInterpretationNote: "Rising trade tensions could drive a shift toward safe havens and defensive sectors, with reduced allocations to emerging markets and trade-sensitive stocks.",
+      overallImpact: "Negative for risk assets, positive for defensive positioning",
+      preInterpretationNote: "Rising trade tensions could drive a shift toward safe havens and defensive sectors, with reduced allocations to emerging markets and trade-sensitive stocks.",
     },
-  },
-  {
-    id: "6",
-    category: "Tech Regulation",
-    title: "EU passes landmark AI regulation bill",
-    summary: "The European Union has passed a landmark bill regulating the use of artificial intelligence, setting new standards for transparency, safety, and ethical use. The legislation is expected to impact global tech companies and shape the future of AI development.",
-    impact: "neutral",
-    impactScore: 0,
-    sentiment: "Regulatory clarity",
-    date: "2024-09-20",
-    time: "13:55:00",
-    source: "Politico",
-    confidence: 80,
-    affectedCompanies: ["META", "GOOGL", "EU Tech"],
-    assetTags: ["EU", "Technology", "AI"],
-    latency: "30ms",
-    detailedSummary: {
-      whatHappened: "EU Parliament approved comprehensive AI regulation bill",
-      marketReaction: "Tech stocks mixed, regulatory risk priced in",
-      who: "EU Lawmakers",
-      whyItMatters: "Sets precedent for global AI governance",
-      magnitude: "Medium - impacts major tech firms operating in EU"
-    },
-    modelAnalysis: {
-      keyFacts: [
-        "Bill covers transparency, safety, and ethical standards",
-        "Global tech firms must comply with new rules",
-        "Potential for similar laws in other regions"
-      ],
-      sources: ["EU Parliament", "Tech Policy Analysts"]
-    },
-    houseViewContext: {
-      currentStance: "Neutral on regulatory risk",
-      comparison: "Regulatory clarity may reduce uncertainty",
-      relevance: "May stabilize tech sector sentiment"
-    },
-    portfolioImpact: {
-      affectedAssets: ["EU Tech (neutral)", "Global AI (neutral)"],
-      overallImpact: "Limited immediate impact, long-term implications for compliance costs",
-        preInterpretationNote: "New AI regulations may increase compliance costs for tech firms, but long-term clarity could support stable portfolio allocations in the sector.",
-  },
-  },
-  {
-    id: "7",
-    category: "Commodities",
-    title: "Oil prices surge after OPEC+ surprise production cut",
-    summary: "Oil prices jumped sharply after OPEC+ announced an unexpected production cut, aiming to stabilize global markets amid demand uncertainty. The move is expected to impact inflation and energy sector performance worldwide.",
-    impact: "positive",
-    impactScore: 2,
-    sentiment: "Energy sector boost",
-    date: "2024-09-20",
-    time: "13:40:00",
-    source: "CNBC",
-    confidence: 85,
-    affectedCompanies: ["OPEC", "Energy Stocks"],
-    assetTags: ["Oil", "Energy", "Commodities"],
-    latency: "22ms",
-    detailedSummary: {
-      whatHappened: "OPEC+ announced surprise production cut",
-      marketReaction: "Oil prices up 8%, energy stocks rally",
-      who: "OPEC+ Members",
-      whyItMatters: "Aims to stabilize prices amid demand uncertainty",
-      magnitude: "High - global energy market impact"
-    },
-    modelAnalysis: {
-      keyFacts: [
-        "Production cut larger than expected",
-        "Global supply to tighten in Q4",
-        "Inflationary pressures may increase"
-      ],
-      sources: ["OPEC Statement", "Market Analysts"]
-    },
-    houseViewContext: {
-      currentStance: "Neutral on oil, overweight energy equities",
-      comparison: "Production cut exceeds expectations",
-      relevance: "Supports bullish energy sector outlook"
-    },
-    portfolioImpact: {
-      affectedAssets: ["Oil (+)", "Energy Stocks (+)", "Inflation-sensitive assets (-)"],
-      overallImpact: "Positive for energy sector, inflation risk for broader markets",
-        preInterpretationNote: "OPEC+ production cuts may boost energy sector allocations, while higher oil prices could prompt portfolio adjustments to hedge inflation risk.",
-  },
   },
 ];
 
 const News = () => {
   const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [filters, setFilters] = useState<FilterState>(initialFilters);
-  const [isFilterOpen, setIsFilterOpen] = useState(true);
 
   const handleNewsClick = (news: NewsItem) => {
     setSelectedNews(news);
     setIsDialogOpen(true);
   };
 
-  const handleFilterChange = (category: keyof FilterState, value: string, checked: boolean) => {
-    setFilters(prev => ({
-      ...prev,
-      [category]: checked 
-        ? [...prev[category], value]
-        : prev[category].filter(item => item !== value)
-    }));
-  };
-
-  const isFilterActive = () => {
-    return Object.values(filters).some(category => category.length > 0);
-  };
-
-  const filteredNews = mockNews.filter(news => {
-    if (!isFilterActive()) return true;
-    
-    // Check if news matches any active filters
-    const matchesAssetClass = filters.assetClasses.length === 0 || 
-      filters.assetClasses.some(filter => 
-        news.assetTags.some(tag => tag.toLowerCase().includes(filter.split(' ')[0].toLowerCase()))
-      );
-    
-    const matchesCurrency = filters.currencies.length === 0 ||
-      filters.currencies.some(currency => 
-        news.assetTags.includes(currency)
-      );
-    
-    const matchesFixedIncome = filters.fixedIncome.length === 0 ||
-      (filters.fixedIncome.includes("Government") && news.category.includes("Fed")) ||
-      (filters.fixedIncome.includes("Corporate") && news.category.includes("Earnings"));
-    
-    const matchesCommodities = filters.commodities.length === 0 ||
-      filters.commodities.some(commodity => 
-        news.assetTags.some(tag => tag.toLowerCase().includes(commodity.toLowerCase()))
-      );
-
-    return matchesAssetClass && matchesCurrency && matchesFixedIncome && matchesCommodities;
-  });
-
-  const getImpactColor = (impact: string, score: number) => {
-    if (impact === "positive" || score > 0) return "text-financial-positive";
-    if (impact === "negative" || score < 0) return "text-financial-negative";
-    return "text-muted-foreground";
-  };
-
-  const getImpactBgColor = (impact: string, score: number) => {
-    if (impact === "positive" || score > 0) return "bg-financial-positive-bg border-financial-positive/20";
-    if (impact === "negative" || score < 0) return "bg-financial-negative-bg border-financial-negative/20";
-    return "bg-card border-border";
-  };
-
-  const formatConfidence = (confidence: number) => {
-    return `${confidence}% confidence`;
-  };
-
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-4">Financial News</h1>
-          <p className="text-muted-foreground">Real-time market signals with AI-powered analysis</p>
-        </div>
-
-        {/* Main Content with Sidebar */}
-        <div className="flex gap-6">
-          {/* Filter Sidebar */}
-          <div className={`transition-all duration-300 ${isFilterOpen ? 'w-80' : 'w-12'}`}>
-            <Card className="sticky top-6">
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-2">
-                    <Filter className="h-4 w-4" />
-                    {isFilterOpen && <span className="font-medium">Portfolio Filters</span>}
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setIsFilterOpen(!isFilterOpen)}
-                    className="h-8 w-8 p-0"
-                  >
-                    <ChevronDown className={`h-4 w-4 transition-transform ${isFilterOpen ? 'rotate-180' : 'rotate-90'}`} />
-                  </Button>
-                </div>
-
-                {isFilterOpen && (
-                  <div className="space-y-4">
-                    {/* Asset Classes */}
-                    <Collapsible defaultOpen>
-                      <CollapsibleTrigger className="flex items-center justify-between w-full p-2 hover:bg-muted rounded-lg">
-                        <div className="flex items-center gap-2">
-                          <BarChart3 className="h-4 w-4" />
-                          <span className="text-sm font-medium">Asset Classes</span>
-                        </div>
-                        <ChevronDown className="h-4 w-4" />
-                      </CollapsibleTrigger>
-                      <CollapsibleContent className="space-y-2 pt-2 pl-6">
-                        {filterOptions.assetClasses.map((option) => (
-                          <div key={option} className="flex items-center space-x-2">
-                            <Checkbox
-                              id={`asset-${option}`}
-                              checked={filters.assetClasses.includes(option)}
-                              onCheckedChange={(checked) => 
-                                handleFilterChange('assetClasses', option, checked as boolean)
-                              }
-                            />
-                            <label htmlFor={`asset-${option}`} className="text-sm cursor-pointer">
-                              {option}
-                            </label>
-                          </div>
-                        ))}
-                      </CollapsibleContent>
-                    </Collapsible>
-
-                    {/* Fixed Income */}
-                    <Collapsible defaultOpen>
-                      <CollapsibleTrigger className="flex items-center justify-between w-full p-2 hover:bg-muted rounded-lg">
-                        <div className="flex items-center gap-2">
-                          <DollarSign className="h-4 w-4" />
-                          <span className="text-sm font-medium">Fixed Income</span>
-                        </div>
-                        <ChevronDown className="h-4 w-4" />
-                      </CollapsibleTrigger>
-                      <CollapsibleContent className="space-y-2 pt-2 pl-6">
-                        {filterOptions.fixedIncome.map((option) => (
-                          <div key={option} className="flex items-center space-x-2">
-                            <Checkbox
-                              id={`fixed-${option}`}
-                              checked={filters.fixedIncome.includes(option)}
-                              onCheckedChange={(checked) => 
-                                handleFilterChange('fixedIncome', option, checked as boolean)
-                              }
-                            />
-                            <label htmlFor={`fixed-${option}`} className="text-sm cursor-pointer">
-                              {option}
-                            </label>
-                          </div>
-                        ))}
-                      </CollapsibleContent>
-                    </Collapsible>
-
-                    {/* Currencies */}
-                    <Collapsible defaultOpen>
-                      <CollapsibleTrigger className="flex items-center justify-between w-full p-2 hover:bg-muted rounded-lg">
-                        <div className="flex items-center gap-2">
-                          <Banknote className="h-4 w-4" />
-                          <span className="text-sm font-medium">Currencies</span>
-                        </div>
-                        <ChevronDown className="h-4 w-4" />
-                      </CollapsibleTrigger>
-                      <CollapsibleContent className="space-y-2 pt-2 pl-6">
-                        {filterOptions.currencies.map((option) => (
-                          <div key={option} className="flex items-center space-x-2">
-                            <Checkbox
-                              id={`currency-${option}`}
-                              checked={filters.currencies.includes(option)}
-                              onCheckedChange={(checked) => 
-                                handleFilterChange('currencies', option, checked as boolean)
-                              }
-                            />
-                            <label htmlFor={`currency-${option}`} className="text-sm cursor-pointer">
-                              {option}
-                            </label>
-                          </div>
-                        ))}
-                      </CollapsibleContent>
-                    </Collapsible>
-
-                    {/* Commodities */}
-                    <Collapsible defaultOpen>
-                      <CollapsibleTrigger className="flex items-center justify-between w-full p-2 hover:bg-muted rounded-lg">
-                        <div className="flex items-center gap-2">
-                          <Coins className="h-4 w-4" />
-                          <span className="text-sm font-medium">Commodities</span>
-                        </div>
-                        <ChevronDown className="h-4 w-4" />
-                      </CollapsibleTrigger>
-                      <CollapsibleContent className="space-y-2 pt-2 pl-6">
-                        {filterOptions.commodities.map((option) => (
-                          <div key={option} className="flex items-center space-x-2">
-                            <Checkbox
-                              id={`commodity-${option}`}
-                              checked={filters.commodities.includes(option)}
-                              onCheckedChange={(checked) => 
-                                handleFilterChange('commodities', option, checked as boolean)
-                              }
-                            />
-                            <label htmlFor={`commodity-${option}`} className="text-sm cursor-pointer">
-                              {option}
-                            </label>
-                          </div>
-                        ))}
-                      </CollapsibleContent>
-                    </Collapsible>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* News Grid */}
-          <div className="flex-1">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {filteredNews.map((news) => (
-            <Card
-              key={news.id}
-              className={`transition-all duration-200 hover:shadow-md cursor-pointer ${getImpactBgColor(news.impact, news.impactScore)}`}
-              onClick={() => handleNewsClick(news)}
-            >
-              <CardContent className="p-6">
-                {/* Header with category and confidence */}
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-muted-foreground">{news.category}</span>
-                    <Clock className="h-3 w-3 text-muted-foreground" />
-                    <span className="text-xs text-muted-foreground">{news.time}</span>
-                  </div>
-                  <span className={`text-sm font-medium ${getImpactColor(news.impact, news.impactScore)}`}>
-                    {formatConfidence(news.confidence)}
-                  </span>
-                </div>
-
-                {/* Title */}
-                <h3 className="text-lg font-semibold mb-3 leading-tight">{news.title}</h3>
-
-                {/* Summary */}
-                <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{news.summary}</p>
-
-                {/* Asset Tags */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {news.assetTags.map((tag) => (
-                    <Badge key={tag} variant="secondary" className="text-xs">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-
-                {/* Bottom row with impact and actions */}
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className={`flex items-center gap-1 ${getImpactColor(news.impact, news.impactScore)}`}>
-                      {news.impactScore > 0 ? (
-                        <TrendingUp className="h-4 w-4" />
-                      ) : news.impactScore < 0 ? (
-                        <TrendingDown className="h-4 w-4" />
-                      ) : null}
-                      <span className="text-sm font-medium">
-                        Impact: {news.impactScore > 0 ? `+${news.impactScore}` : news.impactScore}
-                      </span>
-                    </div>
-                    <span className="text-xs text-muted-foreground">{news.sentiment}</span>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <div className="flex items-center gap-1">
-                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                        <ThumbsUp className="h-4 w-4" />
-                      </Button>
-                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                        <MessageCircle className="h-4 w-4" />
-                      </Button>
-                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                        <Share2 className="h-4 w-4" />
-                      </Button>
-                    </div>
-                    <div className="text-xs text-muted-foreground">
-                      <div>Latency: {news.latency}</div>
-                      <div className="text-financial-positive">Real-time</div>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-          </div>
-        </div>
-
-        {/* News Detail Dialog */}
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-            {selectedNews && (
-              <>
-                <DialogHeader>
-                  <DialogTitle className="text-xl font-semibold pr-8">
-                    <div className="flex items-center justify-between w-full">
-                      <span>Event Detail</span>
-                      <div className="flex items-center gap-4 text-sm mr-8">
-                        <span className="text-muted-foreground">
-                          {selectedNews.date} {selectedNews.time} UTC
-                        </span>
-                        <span className={getImpactColor(selectedNews.impact, selectedNews.impactScore)}>
-                          {formatConfidence(selectedNews.confidence)}
-                        </span>
-                      </div>
-                    </div>
-                  </DialogTitle>
-                </DialogHeader>
-
-                <div className="space-y-6">
-                  {/* Title */}
-                  <h2 className="text-xl font-semibold">{selectedNews.title}</h2>
-
-                  {/* Summary */}
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-medium">Summary</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {selectedNews.summary}
-                    </p>
-                  </div>
-
-                  {/* Pre-interpretation of Implications (Portfolio Impact) */}
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-medium">Implications</h3>
-                    <div className="space-y-3">
-                      <div>
-                        <h4 className="font-medium mb-2">Affected Assets</h4>
-                        <div className="flex flex-wrap gap-2">
-                          {selectedNews.portfolioImpact.affectedAssets.map((asset, index) => (
-                            <Badge key={index} variant="outline" className="text-xs">
-                              {asset}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                      <div>
-                        <h4 className="font-medium mb-2">Overall Impact</h4>
-                        <p className="text-sm text-muted-foreground">{selectedNews.portfolioImpact.overallImpact}</p>
-                        {selectedNews.portfolioImpact.preInterpretationNote && (
-                          <p className="text-xs text-muted-foreground mt-2">{selectedNews.portfolioImpact.preInterpretationNote}</p>
+      <div className="container mx-auto px-4 pt-20">
+        <Card className="bg-dashboard-surface border-dashboard-border">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-lg">
+              <Clock className="h-5 w-5" />
+              Today's Important Financial News
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {mockNews.map((news) => (
+                <div
+                  key={news.id}
+                  onClick={() => handleNewsClick(news)}
+                  className={`p-4 rounded-lg border transition-all duration-200 hover:shadow-md cursor-pointer ${
+                    news.impact === "positive"
+                      ? "bg-financial-positive-bg border-financial-positive/20 hover:border-financial-positive/40"
+                      : news.impact === "negative"
+                      ? "bg-financial-negative-bg border-financial-negative/20 hover:border-financial-negative/40"
+                      : "bg-financial-neutral border-border hover:border-border"
+                  }`}
+                >
+                  <div className="flex gap-4">
+                    {/* Main Content - 3/4 */}
+                    <div className="w-3/4 min-w-0 flex items-start gap-3">
+                      <div className="flex-shrink-0 mt-1">
+                        {news.impact === "positive" ? (
+                          <div className="w-3 h-3 rounded-full bg-financial-positive" />
+                        ) : news.impact === "negative" ? (
+                          <div className="w-3 h-3 rounded-full bg-financial-negative" />
+                        ) : (
+                          <div className="w-3 h-3 rounded-full bg-muted" />
                         )}
                       </div>
-                    </div>
-                  </div>
-
-                  {/* Sources */}
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-medium">Sources</h3>
-                    <div className="space-y-1">
-                      {selectedNews.modelAnalysis.sources.map((source, index) => (
-                        <div key={index} className="text-sm text-primary underline cursor-pointer">
-                          📎 {source}
+                      
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-start justify-between gap-2 mb-2">
+                          <h3 className="font-semibold text-sm leading-tight">
+                            {news.title}
+                          </h3>
+                          <Button 
+                            variant="ghost" 
+                            size="sm" 
+                            className="flex-shrink-0"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            // External link functionality would be implemented here
+                          }}
+                          >
+                            <ExternalLink className="h-4 w-4" />
+                          </Button>
                         </div>
-                      ))}
+                        
+                        <p className="text-sm text-muted-foreground mb-3 leading-relaxed">
+                          {news.summary}
+                        </p>
+                        
+                        <div className="text-xs text-muted-foreground">
+                          {news.time}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Sentiment Section - 1/4 */}
+                    <div className="w-1/4 flex flex-col items-center justify-center space-y-2 border-l border-border pl-4">
+                      {/* Sentiment Meter */}
+                      <div className="text-center">
+                          <div className="w-[140px] h-2 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 rounded-full relative mb-2">
+                          <div 
+                            className="absolute top-0 w-3 h-3 bg-black border-2 border-white rounded-full transform -translate-y-0.5 -translate-x-1.5 shadow-sm"
+                            style={{ left: `${Math.max(0, Math.min(100, ((news.confidence - 50) / 50) * 100))}%` }}
+                          />
+                        </div>
+                        {/* Meter Labels */}
+                        <div className="flex justify-between text-xs text-muted-foreground w-[140px]">
+                          <span>Critical</span>
+                          <span>Great News</span>
+                        </div>
+                      </div>
+
+                      {/* Sources and Asset Classes Row */}
+                      <div className="flex items-center justify-center gap-2 w-full text-xs text-muted-foreground">
+                        {/* Sources Count */}
+                        <div className="flex items-center gap-1">
+                          <div className="flex gap-1">
+                            <img src={cnnLogo} alt="CNN" className="w-3 h-3 rounded-sm object-contain" />
+                            <img src={bbcLogo} alt="BBC" className="w-3 h-3 rounded-sm object-contain" />
+                          </div>
+                          <span>Sources • {news.modelAnalysis.sources.length}</span>
+                        </div>
+
+                        {/* Asset Classes */}
+                        <div className="flex items-center gap-1">
+                          {news.assetTags.slice(0, 2).map((tag, index) => (
+                            <span 
+                              key={tag} 
+                              className="px-2 py-1 bg-muted/50 rounded-sm font-medium"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                          {news.assetTags.length > 2 && (
+                            <span className="px-2 py-1 bg-muted/50 rounded-sm font-medium">
+                              +{news.assetTags.length - 2}
+                            </span>
+                          )}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </>
-            )}
-          </DialogContent>
-        </Dialog>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
       </div>
+
+      {/* Dialog for detailed news view */}
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          {selectedNews && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-xl font-semibold pr-8">
+                  <div className="flex items-center justify-between w-full">
+                    <span>Event Detail</span>
+                    <div className="flex items-center gap-4 text-sm mr-8">
+                      <span className="text-muted-foreground">
+                        {selectedNews.date} {selectedNews.time} UTC
+                      </span>
+                      <span className="text-green-600 font-medium">
+                        {selectedNews.confidence}% confidence
+                      </span>
+                    </div>
+                  </div>
+                </DialogTitle>
+              </DialogHeader>
+
+              <div className="space-y-6">
+                {/* Title */}
+                <h2 className="text-xl font-semibold">{selectedNews.title}</h2>
+
+                {/* Summary */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-medium">Summary</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {selectedNews.summary}
+                  </p>
+                </div>
+
+                {/* Implications */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-medium">Implications</h3>
+                  <div className="space-y-3">
+                    <div>
+                      <h4 className="font-medium mb-2">Affected Assets</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedNews.portfolioImpact.affectedAssets.map((asset, index) => (
+                          <Badge 
+                            key={index} 
+                            className={`text-xs ${
+                              asset.includes('(+)') 
+                                ? 'bg-blue-500 text-white hover:bg-blue-600' 
+                                : asset.includes('(-)') 
+                                ? 'bg-red-500 text-white hover:bg-red-600'
+                                : 'bg-gray-500 text-white hover:bg-gray-600'
+                            }`}
+                          >
+                            {asset}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <h4 className="font-medium mb-2">Overall Impact</h4>
+                      <p className="text-sm text-muted-foreground">{selectedNews.portfolioImpact.overallImpact}</p>
+                      {selectedNews.portfolioImpact.preInterpretationNote && (
+                        <p className="text-xs text-muted-foreground mt-2">{selectedNews.portfolioImpact.preInterpretationNote}</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Sources */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-medium">Sources</h3>
+                  <div className="space-y-1">
+                    {selectedNews.modelAnalysis.sources.map((source, index) => (
+                      <div key={index} className="text-sm text-primary underline cursor-pointer">
+                        📎 {source}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
