@@ -128,13 +128,7 @@ export function NewsFeed() {
                       {news.summary}
                     </p>
                     
-                    <div className="flex items-center justify-between flex-wrap gap-2">
-                      <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                        <span className="font-medium">{news.source}</span>
-                        <span>•</span>
-                        <span>{news.publishedAt}</span>
-                      </div>
-                      
+                    <div className="flex items-center justify-end flex-wrap gap-2">
                       <div className="flex items-center gap-2">
                         <div className="flex gap-1">
                           {news.impactedCompanies.map((company) => (
