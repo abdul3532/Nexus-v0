@@ -153,9 +153,9 @@ export function NewsFeed() {
                   </div>
 
                   {/* Sources and Asset Classes Row */}
-                  <div className="flex items-center justify-center gap-4 w-full">
+                  <div className="flex items-center justify-center gap-2 w-full text-xs text-muted-foreground">
                     {/* Sources Count */}
-                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                    <div className="flex items-center gap-1">
                       <div className="flex gap-1">
                         <img src={cnnLogo} alt="CNN" className="w-3 h-3 rounded-sm object-contain" />
                         <img src={bbcLogo} alt="BBC" className="w-3 h-3 rounded-sm object-contain" />
@@ -164,22 +164,20 @@ export function NewsFeed() {
                     </div>
 
                     {/* Asset Classes */}
-                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                      <div className="flex gap-1">
-                        {news.impactedCompanies.slice(0, 2).map((company, index) => (
-                          <span 
-                            key={company} 
-                            className="px-2 py-1 bg-muted/50 rounded-sm font-medium"
-                          >
-                            {company}
-                          </span>
-                        ))}
-                        {news.impactedCompanies.length > 2 && (
-                          <span className="px-2 py-1 bg-muted/50 rounded-sm font-medium">
-                            +{news.impactedCompanies.length - 2}
-                          </span>
-                        )}
-                      </div>
+                    <div className="flex items-center gap-1">
+                      {news.impactedCompanies.slice(0, 2).map((company, index) => (
+                        <span 
+                          key={company} 
+                          className="px-2 py-1 bg-muted/50 rounded-sm font-medium"
+                        >
+                          {company}
+                        </span>
+                      ))}
+                      {news.impactedCompanies.length > 2 && (
+                        <span className="px-2 py-1 bg-muted/50 rounded-sm font-medium">
+                          +{news.impactedCompanies.length - 2}
+                        </span>
+                      )}
                     </div>
                   </div>
                 </div>
