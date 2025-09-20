@@ -69,11 +69,17 @@ export function PortfolioImpact() {
               }`}
             >
               <div className="flex items-start justify-between mb-2">
-                <div>
-                  <h3 className="font-semibold text-sm">{company.symbol}</h3>
-                  <p className="text-xs text-muted-foreground truncate">
-                    {company.name}
-                  </p>
+                <div className="flex items-center gap-3">
+                  {/* Company Logo */}
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold text-sm">
+                    {company.symbol.substring(0, 2)}
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-sm">{company.symbol}</h3>
+                    <p className="text-xs text-muted-foreground truncate">
+                      {company.name}
+                    </p>
+                  </div>
                 </div>
                 <div className="flex items-center gap-1">
                   {company.impact === "positive" ? (
@@ -81,18 +87,6 @@ export function PortfolioImpact() {
                   ) : company.impact === "negative" ? (
                     <TrendingDown className="h-4 w-4 text-financial-negative" />
                   ) : null}
-                  <span
-                    className={`text-sm font-medium ${
-                      company.impact === "positive"
-                        ? "text-financial-positive-foreground"
-                        : company.impact === "negative"
-                        ? "text-financial-negative-foreground"
-                        : "text-muted-foreground"
-                    }`}
-                  >
-                    {company.change > 0 ? "+" : ""}
-                    {company.change}%
-                  </span>
                 </div>
               </div>
               <div className="flex justify-between items-center">
