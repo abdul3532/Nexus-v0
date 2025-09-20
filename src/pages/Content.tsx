@@ -3,11 +3,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Navbar } from "@/components/layout/Navbar";
-import { FileText, Mic, Mail, Star } from "lucide-react";
+import { FileText, Mic, Mail, Star, Download } from "lucide-react";
 
 const Content = () => {
   const [isWeeklySummaryLoading, setIsWeeklySummaryLoading] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState('');
+  const [isTopStoriesLoading, setIsTopStoriesLoading] = useState(false);
+  const [isTopStoriesGenerated, setIsTopStoriesGenerated] = useState(false);
+  const [topStoriesLoadingMessage, setTopStoriesLoadingMessage] = useState('');
   
   const [weeklyContent, setWeeklyContent] = useState({
     summary: `The financial markets experienced significant volatility this week as investors grappled with mixed economic signals. The Federal Reserve's latest policy statements suggested a more cautious approach to future rate adjustments, leading to increased uncertainty across major indices.
@@ -112,9 +115,59 @@ The Investment Team`
     }
   }, [isWeeklySummaryLoading]);
 
+  useEffect(() => {
+    if (isTopStoriesLoading) {
+      console.log('Top stories loading started');
+      
+      // First message
+      setTopStoriesLoadingMessage('Fetching market data...');
+      
+      const timer1 = setTimeout(() => {
+        setTopStoriesLoadingMessage('Analyzing trending stories...');
+      }, 5000);
+      
+      const timer2 = setTimeout(() => {
+        setTopStoriesLoadingMessage('Generating insights...');
+      }, 15000);
+      
+      const timer3 = setTimeout(() => {
+        setTopStoriesLoadingMessage('Finalizing report...');
+      }, 25000);
+      
+      const timer4 = setTimeout(() => {
+        console.log('Top stories loading completed');
+        setIsTopStoriesLoading(false);
+        setIsTopStoriesGenerated(true);
+        setTopStoriesLoadingMessage('');
+      }, 30000);
+      
+      return () => {
+        clearTimeout(timer1);
+        clearTimeout(timer2);
+        clearTimeout(timer3);
+        clearTimeout(timer4);
+      };
+    }
+  }, [isTopStoriesLoading]);
+
   const handleWeeklySummaryOpen = () => {
     console.log('Button clicked, starting loading'); // Debug log
     setIsWeeklySummaryLoading(true);
+  };
+
+  const handleGenerateTopStories = () => {
+    console.log('Generate top stories clicked, starting loading');
+    setIsTopStoriesLoading(true);
+  };
+
+  const handleDownloadPDF = () => {
+    // Create a link to the PDF and trigger download
+    const link = document.createElement('a');
+    link.href = '/assets/biggest_stories_of_the_week.pdf';
+    link.download = 'biggest_stories_of_the_week.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -135,32 +188,51 @@ The Investment Team`
           <Card className="h-full">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Star className="h-5 w-5" />
                 Biggest Stories of the Week
               </CardTitle>
               <CardDescription>
                 Top financial news stories with key takeaways
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4 h-full">
-              <div className="bg-muted/50 p-4 rounded-lg">
-                <p className="text-sm text-muted-foreground mb-2">Top stories:</p>
-                <ul className="space-y-3 text-sm">
-                  <li>• <strong>Meta AI Glasses:</strong> Meta launched smart glasses with AI translation and spatial audio; adoption hurdles remain</li>
-                  <li>• <strong>Microsoft Earnings:</strong> Strong Q4 cloud and AI revenue beat lifted tech stocks</li>
-                  <li>• <strong>Rate Cut Bets:</strong> Markets expect faster Fed cuts than policymakers project, boosting equities</li>
-                  <li>• <strong>H-1B Visa Fees:</strong> Plan for $100k H-1B fee and $1m ‘gold card’ draws tech backlash</li>
-                  <li>• <strong>Disney Pulls Kimmel:</strong> Affiliates’ pushback forces abrupt suspension of late-night show</li>
-                  <li>• <strong>Powell Caution:</strong> Fed Chair warns inflation risks remain, tempering cut expectations</li>
-                  <li>• <strong>Equities at Highs:</strong> Global stocks hit records as risk-on flows tighten credit spreads</li>
-                  <li>• <strong>Robinhood Startup Fund:</strong> New retail vehicle offers access to unlisted start-ups, raising risk concerns</li>
-                </ul>
+            <CardContent className="flex flex-col h-full">
+              <div className="flex-grow space-y-4">
+                <div className="bg-muted/50 p-4 rounded-lg">
+                  <p className="text-sm text-muted-foreground mb-2">Top stories:</p>
+                  <ul className="space-y-3 text-sm">
+                    <li>• <strong>Meta AI Glasses:</strong> Meta launched smart glasses with AI translation and spatial audio; adoption hurdles remain</li>
+                    <li>• <strong>Microsoft Earnings:</strong> Strong Q4 cloud and AI revenue beat lifted tech stocks</li>
+                    <li>• <strong>Rate Cut Bets:</strong> Markets expect faster Fed cuts than policymakers project, boosting equities</li>
+                    <li>• <strong>H-1B Visa Fees:</strong> Plan for $100k H-1B fee and $1m 'gold card' draws tech backlash</li>
+                    <li>• <strong>Disney Pulls Kimmel:</strong> Affiliates' pushback forces abrupt suspension of late-night show</li>
+                    <li>• <strong>Powell Caution:</strong> Fed Chair warns inflation risks remain, tempering cut expectations</li>
+                    <li>• <strong>Equities at Highs:</strong> Global stocks hit records as risk-on flows tighten credit spreads</li>
+                    <li>• <strong>Robinhood Startup Fund:</strong> New retail vehicle offers access to unlisted start-ups, raising risk concerns</li>
+                  </ul>
+                </div>
               </div>
-              <div className="flex flex-col">
-                <Button className="w-full bg-white dark:bg-black text-black dark:text-white border border-black dark:border-white hover:bg-white/90 hover:dark:bg-black/80 hover:shadow-md transition-all duration-300">Generate Top Stories</Button>
+              <div className="mb-24 pt-4">
+                {isTopStoriesLoading ? (
+                  <div className="flex flex-col items-center justify-center space-y-4 py-3">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                    <p className="text-sm font-medium text-center">{topStoriesLoadingMessage}</p>
+                  </div>
+                ) : isTopStoriesGenerated ? (
+                  <Button 
+                    onClick={handleDownloadPDF}
+                    className="w-full bg-white dark:bg-black text-black dark:text-white border border-black dark:border-white hover:bg-white/90 hover:dark:bg-black/80 hover:shadow-md transition-all duration-300"
+                  >
+                    <Download className="mr-2h-4 w-4" /> Download Top Stories PDF
+                  </Button>
+                ) : (
+                  <Button 
+                    onClick={handleGenerateTopStories}
+                    className="w-full bg-white dark:bg-black text-black dark:text-white border border-black dark:border-white hover:bg-white/90 hover:dark:bg-black/80 hover:shadow-md transition-all duration-300"
+                  >
+                    Generate Top Stories
+                  </Button>
+                )}
               </div>
             </CardContent>
-            
           </Card>
 
           {/* Right Panel - Three Stacked Cards */}
@@ -169,7 +241,6 @@ The Investment Team`
             <Card className="h-fit">
               <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-2 text-lg">
-                  <FileText className="h-4 w-4" />
                   Weekly Summary
                 </CardTitle>
                 <CardDescription className="text-xs">
@@ -213,7 +284,6 @@ The Investment Team`
             <Card className="h-fit">
               <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-2 text-lg">
-                  <Mic className="h-4 w-4" />
                   Podcast Suggestions
                 </CardTitle>
                 <CardDescription className="text-xs">
@@ -250,7 +320,6 @@ The Investment Team`
             <Card className="h-fit">
               <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-2 text-lg">
-                  <Mail className="h-4 w-4" />
                   Newsletter Suggestions
                 </CardTitle>
                 <CardDescription className="text-xs">
@@ -296,13 +365,13 @@ The Investment Team`
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Button variant="outline" className="justify-start bg-white dark:bg-black text-black dark:text-white border border-black dark:border-white hover:bg-white/90 hover:dark:bg-black/80 hover:shadow-md transition-all duration-300">
-                Week of Dec 9-15, 2024
+                Week of Sept 1-7, 2025
               </Button>
               <Button variant="outline" className="justify-start bg-white dark:bg-black text-black dark:text-white border border-black dark:border-white hover:bg-white/90 hover:dark:bg-black/80 hover:shadow-md transition-all duration-300">
-                Week of Dec 2-8, 2024
+                Week of Sept 8-14, 2025
               </Button>
               <Button variant="outline" className="justify-start bg-white dark:bg-black text-black dark:text-white border border-black dark:border-white hover:bg-white/90 hover:dark:bg-black/80 hover:shadow-md transition-all duration-300">
-                Week of Nov 25-Dec 1, 2024
+                Week of Sept 15-21, 2025
               </Button>
             </div>
           </CardContent>
