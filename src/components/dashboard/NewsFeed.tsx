@@ -153,7 +153,7 @@ export function NewsFeed() {
                   </div>
 
                   {/* Sources Count */}
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                  <div className="flex items-center justify-start gap-1 text-xs text-muted-foreground mr-8">
                     <div className="flex gap-1">
                       <img src={cnnLogo} alt="CNN" className="w-3 h-3 rounded-sm object-contain" />
                       <img src={bbcLogo} alt="BBC" className="w-3 h-3 rounded-sm object-contain" />
