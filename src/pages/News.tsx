@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Eye, ThumbsUp, MessageCircle, Share2, Clock, TrendingUp, TrendingDown, Filter, ChevronDown, BarChart3, DollarSign, Banknote, Coins } from "lucide-react";
+import { NewsCard } from "@/components/ui/NewsCard";
 
 interface NewsItem {
   id: string;
@@ -443,14 +444,8 @@ const News = () => {
                     <Filter className="h-4 w-4" />
                     {isFilterOpen && <span className="font-medium">Portfolio Filters</span>}
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setIsFilterOpen(!isFilterOpen)}
-                    className="h-8 w-8 p-0"
-                  >
-                    <ChevronDown className={`h-4 w-4 transition-transform ${isFilterOpen ? 'rotate-180' : 'rotate-90'}`} />
-                  </Button>
+                  
+                   
                 </div>
 
                 {isFilterOpen && (
@@ -569,84 +564,17 @@ const News = () => {
           </div>
 
           {/* News Grid */}
-          <div className="flex-1">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {filteredNews.map((news) => (
-            <Card
-              key={news.id}
-              className={`transition-all duration-200 hover:shadow-md cursor-pointer ${getImpactBgColor(news.impact, news.impactScore)}`}
-              onClick={() => handleNewsClick(news)}
-            >
-              <CardContent className="p-6">
-                {/* Header with category and confidence */}
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-muted-foreground">{news.category}</span>
-                    <Clock className="h-3 w-3 text-muted-foreground" />
-                    <span className="text-xs text-muted-foreground">{news.time}</span>
-                  </div>
-                  <span className={`text-sm font-medium ${getImpactColor(news.impact, news.impactScore)}`}>
-                    {formatConfidence(news.confidence)}
-                  </span>
-                </div>
-
-                {/* Title */}
-                <h3 className="text-lg font-semibold mb-3 leading-tight">{news.title}</h3>
-
-                {/* Summary */}
-                <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{news.summary}</p>
-
-                {/* Asset Tags */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {news.assetTags.map((tag) => (
-                    <Badge key={tag} variant="secondary" className="text-xs">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-
-                {/* Bottom row with impact and actions */}
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className={`flex items-center gap-1 ${getImpactColor(news.impact, news.impactScore)}`}>
-                      {news.impactScore > 0 ? (
-                        <TrendingUp className="h-4 w-4" />
-                      ) : news.impactScore < 0 ? (
-                        <TrendingDown className="h-4 w-4" />
-                      ) : null}
-                      <span className="text-sm font-medium">
-                        Impact: {news.impactScore > 0 ? `+${news.impactScore}` : news.impactScore}
-                      </span>
-                    </div>
-                    <span className="text-xs text-muted-foreground">{news.sentiment}</span>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <div className="flex items-center gap-1">
-                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                        <ThumbsUp className="h-4 w-4" />
-                      </Button>
-                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                        <MessageCircle className="h-4 w-4" />
-                      </Button>
-                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                        <Share2 className="h-4 w-4" />
-                      </Button>
-                    </div>
-                    <div className="text-xs text-muted-foreground">
-                      <div>Latency: {news.latency}</div>
-                      <div className="text-financial-positive">Real-time</div>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-          </div>
+          <CardContent>
+            <div className="space-y-4">
+              {mockNews.map((news) => (
+                <NewsCard
+                  key={news.id}
+                  news={news}
+                  onClick={handleNewsClick}
+                />
+              ))}
+            </div>
+          </CardContent>
         </div>
 
         {/* News Detail Dialog */}
