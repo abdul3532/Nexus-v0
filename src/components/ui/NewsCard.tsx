@@ -83,7 +83,6 @@ export const NewsCard: React.FC<NewsCardProps> = ({ news, onClick }) => {
                 className="flex-shrink-0"
                 onClick={(e) => {
                   e.stopPropagation();
-                  // External link functionality would be implemented here
                 }}
               >
                 <ExternalLink className="h-4 w-4" />

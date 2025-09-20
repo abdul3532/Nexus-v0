@@ -80,7 +80,7 @@ const Portfolio = () => {
 
         {/* Add Company Button */}
         <div className="mb-8">
-          <Button onClick={handleAddCompany} className="flex items-center gap-2">
+          <Button onClick={handleAddCompany} className="flex items-center gap-2 bg-white dark:bg-black text-black dark:text-white border border-black dark:border-white">
             <Plus className="h-4 w-4" />
             Add Company
           </Button>
@@ -93,8 +93,8 @@ const Portfolio = () => {
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                      <Building2 className="h-6 w-6 text-primary" />
+                    <div className="w-12 h-12 bg-black/10 dark:bg-white/10 rounded-lg flex items-center justify-center">
+                      <Building2 className="h-6 w-6 text-black dark:text-white" />
                     </div>
                     <div>
                       <div className="flex items-center gap-3 mb-1">
