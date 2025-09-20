@@ -563,95 +563,117 @@ const News = () => {
 
         {/* News Detail Dialog */}
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto p-0 bg-gray-900 border-gray-800">
+          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
             {selectedNews && (
               <>
-                {/* Blue Header */}
-                <div className="bg-blue-600 p-6 text-white">
-                  <div className="flex items-start justify-between mb-4">
-                    <h1 className="text-2xl font-bold leading-tight pr-4">{selectedNews.title}</h1>
-                    <Badge className="bg-green-500/20 text-green-400 border-green-500/30 whitespace-nowrap">
-                      {formatConfidence(selectedNews.confidence)}
-                    </Badge>
-                  </div>
-                  <p className="text-blue-100 text-sm">
-                    {selectedNews.date} {selectedNews.time} UTC
-                  </p>
-                </div>
+                <DialogHeader>
+                  <DialogTitle className="flex items-center justify-between">
+                    <span>Event Detail</span>
+                    <div className="flex items-center gap-4 text-sm">
+                      <span className="text-muted-foreground">
+                        {selectedNews.date} {selectedNews.time} UTC
+                      </span>
+                      <span className={getImpactColor(selectedNews.impact, selectedNews.impactScore)}>
+                        {formatConfidence(selectedNews.confidence)}
+                      </span>
+                    </div>
+                  </DialogTitle>
+                </DialogHeader>
 
-                <div className="p-6 space-y-8 text-white">
-                  {/* Market Implication */}
+                <div className="space-y-6">
+                  {/* Title */}
+                  <h2 className="text-xl font-semibold">{selectedNews.title}</h2>
+
+                  {/* Summary Section */}
                   <div className="space-y-4">
-                    <h2 className="text-xl font-semibold text-blue-400">Market Implication</h2>
-                    <div className="bg-green-600/20 border border-green-500/30 rounded-lg p-4">
-                      <p className="text-green-400 font-semibold mb-2">
-                        {selectedNews.impact === "positive" ? "Bullish signal" : selectedNews.impact === "negative" ? "Bearish signal" : "Neutral signal"} for {selectedNews.category.toLowerCase()}.
-                      </p>
-                      <p className="text-gray-300 leading-relaxed">
-                        {selectedNews.portfolioImpact.overallImpact}
-                      </p>
+                    <h3 className="text-lg font-medium">Summary</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <h4 className="font-medium mb-2">What happened</h4>
+                        <p className="text-sm text-muted-foreground">{selectedNews.detailedSummary.whatHappened}</p>
+                      </div>
+                      <div>
+                        <h4 className="font-medium mb-2">Market reaction</h4>
+                        <p className="text-sm text-muted-foreground">{selectedNews.detailedSummary.marketReaction}</p>
+                      </div>
+                      <div>
+                        <h4 className="font-medium mb-2">Who</h4>
+                        <p className="text-sm text-muted-foreground">{selectedNews.detailedSummary.who}</p>
+                      </div>
+                      <div>
+                        <h4 className="font-medium mb-2">Why it matters</h4>
+                        <p className="text-sm text-muted-foreground">{selectedNews.detailedSummary.whyItMatters}</p>
+                      </div>
+                      <div className="md:col-span-2">
+                        <h4 className="font-medium mb-2">Magnitude</h4>
+                        <p className="text-sm text-muted-foreground">{selectedNews.detailedSummary.magnitude}</p>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Summary */}
+                  {/* Model Analysis */}
                   <div className="space-y-4">
-                    <h2 className="text-xl font-semibold text-blue-400">Summary</h2>
-                    <div className="border-l-4 border-blue-500 pl-4 mb-6">
-                      <p className="text-gray-300 leading-relaxed">
-                        {selectedNews.detailedSummary.whatHappened}
-                      </p>
-                    </div>
-                    
-                    {/* Data Cards Grid */}
-                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-                      {selectedNews.modelAnalysis.keyFacts.map((fact, index) => {
-                        // Extract key metrics from facts for better display
-                        let title = "";
-                        let value = "";
-                        
-                        if (fact.includes("Azure revenue grew")) {
-                          title = "Azure Growth";
-                          value = "29% YoY vs 25% expected";
-                        } else if (fact.includes("AI services contributing")) {
-                          title = "AI Contribution";
-                          value = "12% to Azure revenue";
-                        } else if (fact.includes("Raised FY25 capex")) {
-                          title = "Capex Guidance";
-                          value = "+$2B for AI infrastructure";
-                        } else if (fact.includes("MSFT up")) {
-                          title = "Stock Movement";
-                          value = "MSFT up 5%";
-                        } else {
-                          // Generic handling for other facts
-                          title = `Key Fact ${index + 1}`;
-                          value = fact.substring(0, 50) + "...";
-                        }
-                        
-                        return (
-                          <div key={index} className="bg-gray-800/50 border border-gray-700 rounded-lg p-4">
-                            <h4 className="text-gray-400 text-sm mb-1">{title}</h4>
-                            <p className="text-blue-400 font-semibold text-lg">{value}</p>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Sources */}
-                  <div className="space-y-4">
-                    <h2 className="text-xl font-semibold text-blue-400">Sources</h2>
-                    <div className="border-l-4 border-yellow-500 pl-4">
-                      <div className="flex flex-wrap gap-3">
-                        {selectedNews.modelAnalysis.sources.map((source, index) => (
-                          <div key={index} className="flex items-center gap-2 bg-gray-800/30 rounded-full px-3 py-1 border border-gray-700">
-                            <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                            <span className="text-blue-400 text-sm">{source}</span>
-                          </div>
-                        ))}
-                        <div className="flex items-center gap-2 bg-gray-800/30 rounded-full px-3 py-1 border border-gray-700">
-                          <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                          <span className="text-blue-400 text-sm">Management Commentary</span>
+                    <h3 className="text-lg font-medium">Model Analysis</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <h4 className="font-medium mb-2">Key Facts</h4>
+                        <ul className="space-y-1">
+                          {selectedNews.modelAnalysis.keyFacts.map((fact, index) => (
+                            <li key={index} className="text-sm text-muted-foreground">• {fact}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 className="font-medium mb-2">Sources</h4>
+                        <div className="space-y-1">
+                          {selectedNews.modelAnalysis.sources.map((source, index) => (
+                            <div key={index} className="text-sm text-primary underline cursor-pointer">
+                              📎 {source}
+                            </div>
+                          ))}
                         </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* House View Context */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-medium">House View Context</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div>
+                        <h4 className="font-medium mb-2">Current Stance</h4>
+                        <p className="text-sm text-muted-foreground">{selectedNews.houseViewContext.currentStance}</p>
+                      </div>
+                      <div>
+                        <h4 className="font-medium mb-2">Comparison</h4>
+                        <p className="text-sm text-muted-foreground">{selectedNews.houseViewContext.comparison}</p>
+                      </div>
+                      <div>
+                        <h4 className="font-medium mb-2">Relevance</h4>
+                        <p className={`text-sm font-medium ${getImpactColor(selectedNews.impact, selectedNews.impactScore)}`}>
+                          {selectedNews.houseViewContext.relevance}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Portfolio Impact */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-medium">Portfolio Impact</h3>
+                    <div className="space-y-3">
+                      <div>
+                        <h4 className="font-medium mb-2">Affected Assets</h4>
+                        <div className="flex flex-wrap gap-2">
+                          {selectedNews.portfolioImpact.affectedAssets.map((asset, index) => (
+                            <Badge key={index} variant="outline" className="text-xs">
+                              {asset}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                      <div>
+                        <h4 className="font-medium mb-2">Overall Impact</h4>
+                        <p className="text-sm text-muted-foreground">{selectedNews.portfolioImpact.overallImpact}</p>
                       </div>
                     </div>
                   </div>
