@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ChevronDown, Settings, LogOut, User, Menu, Home, Newspaper, Briefcase, FileText } from "lucide-react";
 import { motion } from "framer-motion";
 import logo from "@/assets/logo.png";
@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
+import { SettingsModal } from "@/components/settings/SettingsModal";
 
 const navigation = [
   { name: "Home", href: "/", icon: Home },
@@ -23,9 +24,9 @@ const navigation = [
 
 export function Navbar() {
   const location = useLocation();
-  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("");
   const [isMobile, setIsMobile] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   useEffect(() => {
     // Set active tab based on current location
@@ -98,7 +99,7 @@ export function Navbar() {
             <Button 
               variant="outline" 
               size="icon"
-              onClick={() => navigate('/settings')}
+              onClick={() => setIsSettingsOpen(true)}
               className="h-10 w-10"
             >
               <Settings className="h-[1.2rem] w-[1.2rem]" />
@@ -131,6 +132,9 @@ export function Navbar() {
           </div>
         </div>
       </div>
+      
+      {/* Settings Modal */}
+      <SettingsModal open={isSettingsOpen} onOpenChange={setIsSettingsOpen} />
     </nav>
   );
 }
