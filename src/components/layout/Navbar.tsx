@@ -44,7 +44,7 @@ export function Navbar() {
   }, []);
 
   return (
-    <nav className="bg-navbar-bg sticky top-0 z-50">
+    <nav className="bg-background/80 backdrop-blur-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Left side - Logo and Menu */}
@@ -56,7 +56,7 @@ export function Navbar() {
           </div>
 
           {/* Center - Tubelight Navigation */}
-          <div className="flex items-center gap-3 bg-background/5 border border-border backdrop-blur-lg py-1 px-1 rounded-full shadow-lg">
+          <div className="flex items-center gap-3 bg-card/50 border border-border backdrop-blur-lg py-1 px-1 rounded-full shadow-lg">
             {navigation.map((item) => {
               const Icon = item.icon;
               const isActive = location.pathname === item.href;
@@ -68,8 +68,8 @@ export function Navbar() {
                   onClick={() => setActiveTab(item.name)}
                   className={`relative cursor-pointer text-sm font-semibold px-6 py-2 rounded-full transition-colors ${
                     isActive 
-                      ? "text-white" 
-                      : "text-foreground/80 hover:text-white"
+                      ? "text-primary" 
+                      : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   <span className="hidden md:inline">{item.name}</span>
@@ -79,7 +79,7 @@ export function Navbar() {
                   {isActive && (
                     <motion.div
                       layoutId="lamp"
-                      className="absolute inset-0 w-full bg-white/5 rounded-full -z-10"
+                      className="absolute inset-0 w-full bg-primary/10 rounded-full -z-10"
                       initial={false}
                       transition={{
                         type: "spring",
@@ -87,10 +87,10 @@ export function Navbar() {
                         damping: 30,
                       }}
                     >
-                      <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-8 h-1 bg-white rounded-t-full">
-                        <div className="absolute w-12 h-6 bg-white/20 rounded-full blur-md -top-2 -left-2" />
-                        <div className="absolute w-8 h-6 bg-white/20 rounded-full blur-md -top-1" />
-                        <div className="absolute w-4 h-4 bg-white/20 rounded-full blur-sm top-0 left-2" />
+                      <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-8 h-1 bg-primary rounded-t-full">
+                        <div className="absolute w-12 h-6 bg-primary/30 rounded-full blur-md -top-2 -left-2" />
+                        <div className="absolute w-8 h-6 bg-primary/30 rounded-full blur-md -top-1" />
+                        <div className="absolute w-4 h-4 bg-primary/20 rounded-full blur-sm top-0 left-2" />
                       </div>
                     </motion.div>
                   )}
@@ -113,7 +113,7 @@ export function Navbar() {
                   <ChevronDown className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56 bg-popover">
+              <DropdownMenuContent align="end" className="w-56 bg-card border border-border">
                 <DropdownMenuItem className="flex items-center gap-2 cursor-pointer">
                   <User className="h-4 w-4" />
                   Profile
