@@ -42,6 +42,7 @@ interface NewsItem {
   portfolioImpact: {
     affectedAssets: string[];
     overallImpact: string;
+    preInterpretationNote?: string;
   };
 }
 
@@ -71,7 +72,7 @@ const mockNews: NewsItem[] = [
     id: "1",
     category: "Fed Speech",
     title: "Powell signals potential pause in rate hikes amid economic uncertainty",
-    summary: "Fed Chair Powell delivered dovish remarks suggesting a potential pause in rate hiking cycle",
+    summary: "Fed Chair Powell delivered dovish remarks suggesting a potential pause in the rate hiking cycle. His speech highlighted recent economic uncertainty, moderating inflation pressures, and a softening labor market, which together provide the Fed with more flexibility. The market responded positively, with equities rallying and bond yields dropping.",
     impact: "positive",
     impactScore: 2,
     sentiment: "hawkish vs. house view: +2",
@@ -104,14 +105,15 @@ const mockNews: NewsItem[] = [
     },
     portfolioImpact: {
       affectedAssets: ["US Equities (+)", "US Bonds (+)", "USD (-)", "Emerging Markets (+)"],
-      overallImpact: "Positive for equity allocation, favorable for duration positioning"
-    }
+  overallImpact: "Positive for equity allocation, favorable for duration positioning",
+        preInterpretationNote: "A dovish Fed stance may prompt investors to increase equity and bond duration exposure, while reducing defensive allocations. Tactical portfolio shifts are likely as market sentiment improves.",
+    },
   },
   {
     id: "2",
     category: "Earnings Call",
     title: "Microsoft beats expectations, raises AI infrastructure guidance",
-    summary: "Strong cloud revenue growth and increased AI capex projections signal continued momentum in enterprise AI adoption.",
+    summary: "Microsoft reported strong Q4 earnings, with cloud revenue exceeding expectations and a significant increase in AI infrastructure guidance. The company highlighted robust enterprise AI adoption, which is driving growth and validating the multi-trillion dollar AI market opportunity. Tech stocks rallied in response.",
     impact: "positive",
     impactScore: 3,
     sentiment: "AI theme: strong positive",
@@ -144,14 +146,15 @@ const mockNews: NewsItem[] = [
     },
     portfolioImpact: {
       affectedAssets: ["Technology Stocks (+)", "AI Infrastructure (+)", "Cloud Services (+)"],
-      overallImpact: "Strong positive for tech allocation, validates AI infrastructure investments"
-    }
+  overallImpact: "Strong positive for tech allocation, validates AI infrastructure investments",
+        preInterpretationNote: "Strong AI and cloud results could lead to increased portfolio weights in technology and infrastructure, as investors seek exposure to growth themes.",
+    },
   },
   {
     id: "3",
     category: "ECB Minutes",
     title: "ECB officials express concern over persistent core inflation",
-    summary: "Meeting minutes reveal growing unease among policymakers about sticky services inflation despite recent headline moderation.",
+    summary: "ECB meeting minutes revealed growing unease among policymakers about persistent core inflation, especially in the services sector. Despite headline inflation moderating, the underlying price pressures remain, suggesting a potentially extended tightening cycle in Europe. The euro and bond yields responded accordingly.",
     impact: "negative",
     impactScore: -1,
     sentiment: "dovish vs. house view: -1",
@@ -184,14 +187,15 @@ const mockNews: NewsItem[] = [
     },
     portfolioImpact: {
       affectedAssets: ["EU Bonds (-)", "EUR (+)", "EU Banks (+)"],
-      overallImpact: "Negative for EU duration, positive for banking sector exposure"
-    }
+  overallImpact: "Negative for EU duration, positive for banking sector exposure",
+        preInterpretationNote: "Sticky core inflation may encourage investors to review eurozone bond holdings and consider selective exposure to financials, but broad portfolio changes are unlikely.",
+    },
   },
   {
     id: "4",
     category: "Economic Data",
     title: "Swiss inflation accelerates unexpectedly to 2.1% in December",
-    summary: "Higher-than-expected CPI print driven by housing and energy costs, putting pressure on SNB policy stance.",
+    summary: "Swiss inflation accelerated to 2.1% in December, driven by higher housing and energy costs. The surprise CPI print puts pressure on the Swiss National Bank's policy stance, though core inflation remains contained. The CHF strengthened modestly, while Swiss bonds came under pressure.",
     impact: "neutral",
     impactScore: 1,
     sentiment: "CHF positioning impact",
@@ -224,14 +228,15 @@ const mockNews: NewsItem[] = [
     },
     portfolioImpact: {
       affectedAssets: ["CHF (+)", "Swiss Bonds (-)", "Swiss Equities (neutral)"],
-      overallImpact: "Limited impact, minor CHF strength expected"
-    }
+  overallImpact: "Limited impact, minor CHF strength expected",
+        preInterpretationNote: "Swiss inflation data may prompt minor adjustments in CHF and Swiss bond allocations, but global portfolios are unlikely to see significant changes.",
+    },
   },
   {
     id: "5",
     category: "Geopolitical",
     title: "Trade tensions escalate as new tariff measures announced",
-    summary: "Additional trade restrictions threaten to disrupt supply chains and increase inflationary pressures globally.",
+    summary: "Global trade tensions escalated as new tariff measures were announced, targeting key industrial sectors and threatening to disrupt supply chains. Retaliatory actions are expected, which could reignite inflationary pressures and increase risk-off sentiment across markets. Defensive assets outperformed in response.",
     impact: "negative",
     impactScore: -2,
     sentiment: "Risk-off sentiment",
@@ -264,9 +269,92 @@ const mockNews: NewsItem[] = [
     },
     portfolioImpact: {
       affectedAssets: ["Safe Havens (+)", "Trade-sensitive sectors (-)", "Emerging Markets (-)"],
-      overallImpact: "Negative for risk assets, positive for defensive positioning"
-    }
-  }
+  overallImpact: "Negative for risk assets, positive for defensive positioning",
+        preInterpretationNote: "Rising trade tensions could drive a shift toward safe havens and defensive sectors, with reduced allocations to emerging markets and trade-sensitive stocks.",
+    },
+  },
+  {
+    id: "6",
+    category: "Tech Regulation",
+    title: "EU passes landmark AI regulation bill",
+    summary: "The European Union has passed a landmark bill regulating the use of artificial intelligence, setting new standards for transparency, safety, and ethical use. The legislation is expected to impact global tech companies and shape the future of AI development.",
+    impact: "neutral",
+    impactScore: 0,
+    sentiment: "Regulatory clarity",
+    date: "2024-09-20",
+    time: "13:55:00",
+    source: "Politico",
+    confidence: 80,
+    affectedCompanies: ["META", "GOOGL", "EU Tech"],
+    assetTags: ["EU", "Technology", "AI"],
+    latency: "30ms",
+    detailedSummary: {
+      whatHappened: "EU Parliament approved comprehensive AI regulation bill",
+      marketReaction: "Tech stocks mixed, regulatory risk priced in",
+      who: "EU Lawmakers",
+      whyItMatters: "Sets precedent for global AI governance",
+      magnitude: "Medium - impacts major tech firms operating in EU"
+    },
+    modelAnalysis: {
+      keyFacts: [
+        "Bill covers transparency, safety, and ethical standards",
+        "Global tech firms must comply with new rules",
+        "Potential for similar laws in other regions"
+      ],
+      sources: ["EU Parliament", "Tech Policy Analysts"]
+    },
+    houseViewContext: {
+      currentStance: "Neutral on regulatory risk",
+      comparison: "Regulatory clarity may reduce uncertainty",
+      relevance: "May stabilize tech sector sentiment"
+    },
+    portfolioImpact: {
+      affectedAssets: ["EU Tech (neutral)", "Global AI (neutral)"],
+      overallImpact: "Limited immediate impact, long-term implications for compliance costs",
+        preInterpretationNote: "New AI regulations may increase compliance costs for tech firms, but long-term clarity could support stable portfolio allocations in the sector.",
+  },
+  },
+  {
+    id: "7",
+    category: "Commodities",
+    title: "Oil prices surge after OPEC+ surprise production cut",
+    summary: "Oil prices jumped sharply after OPEC+ announced an unexpected production cut, aiming to stabilize global markets amid demand uncertainty. The move is expected to impact inflation and energy sector performance worldwide.",
+    impact: "positive",
+    impactScore: 2,
+    sentiment: "Energy sector boost",
+    date: "2024-09-20",
+    time: "13:40:00",
+    source: "CNBC",
+    confidence: 85,
+    affectedCompanies: ["OPEC", "Energy Stocks"],
+    assetTags: ["Oil", "Energy", "Commodities"],
+    latency: "22ms",
+    detailedSummary: {
+      whatHappened: "OPEC+ announced surprise production cut",
+      marketReaction: "Oil prices up 8%, energy stocks rally",
+      who: "OPEC+ Members",
+      whyItMatters: "Aims to stabilize prices amid demand uncertainty",
+      magnitude: "High - global energy market impact"
+    },
+    modelAnalysis: {
+      keyFacts: [
+        "Production cut larger than expected",
+        "Global supply to tighten in Q4",
+        "Inflationary pressures may increase"
+      ],
+      sources: ["OPEC Statement", "Market Analysts"]
+    },
+    houseViewContext: {
+      currentStance: "Neutral on oil, overweight energy equities",
+      comparison: "Production cut exceeds expectations",
+      relevance: "Supports bullish energy sector outlook"
+    },
+    portfolioImpact: {
+      affectedAssets: ["Oil (+)", "Energy Stocks (+)", "Inflation-sensitive assets (-)"],
+      overallImpact: "Positive for energy sector, inflation risk for broader markets",
+        preInterpretationNote: "OPEC+ production cuts may boost energy sector allocations, while higher oil prices could prompt portfolio adjustments to hedge inflation risk.",
+  },
+  },
 ];
 
 const News = () => {
@@ -596,7 +684,7 @@ const News = () => {
 
                   {/* Pre-interpretation of Implications (Portfolio Impact) */}
                   <div className="space-y-4">
-                    <h3 className="text-lg font-medium">Pre-interpretation of Implications</h3>
+                    <h3 className="text-lg font-medium">Implications</h3>
                     <div className="space-y-3">
                       <div>
                         <h4 className="font-medium mb-2">Affected Assets</h4>
@@ -611,6 +699,9 @@ const News = () => {
                       <div>
                         <h4 className="font-medium mb-2">Overall Impact</h4>
                         <p className="text-sm text-muted-foreground">{selectedNews.portfolioImpact.overallImpact}</p>
+                        {selectedNews.portfolioImpact.preInterpretationNote && (
+                          <p className="text-xs text-muted-foreground mt-2">{selectedNews.portfolioImpact.preInterpretationNote}</p>
+                        )}
                       </div>
                     </div>
                   </div>
