@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 // Import company logos
 import appleLogo from "@/assets/logos/apple-logo.png";
 import teslaLogo from "@/assets/logos/tesla-logo.png";
-import microsoftLogo from "@/assets/logos/microsoft-logo-updated.png";
+import microsoftLogo from "@/assets/logos/microsoft-logo-latest.png";
 import metaLogo from "@/assets/logos/meta-logo.png";
 
 interface CompanyImpact {
