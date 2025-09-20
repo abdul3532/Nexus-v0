@@ -17,14 +17,15 @@ const App = () => (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <TooltipProvider>
         <div className="relative min-h-screen">
-          {/* Animated squares background */}
+          {/* Grid background pattern */}
           <div className="fixed inset-0 z-0">
             <Squares 
-              direction="diagonal"
-              speed={0.3}
-              squareSize={60}
-              borderColor="hsl(var(--border))"
-              hoverFillColor="hsl(var(--accent))"
+              direction="right"
+              speed={0.2}
+              squareSize={40}
+              borderColor="rgba(255, 255, 255, 0.1)"
+              hoverFillColor="rgba(255, 255, 255, 0.05)"
+              className="opacity-50"
             />
           </div>
           
