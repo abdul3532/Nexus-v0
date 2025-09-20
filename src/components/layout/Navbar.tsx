@@ -29,7 +29,7 @@ export function Navbar() {
           {/* Left side - Logo and Menu */}
           <div className="flex items-center">
             <Button variant="ghost" className="flex items-center gap-3 px-3 py-2">
-              <img src={logo} alt="Logo" className="h-8 w-8 object-contain" />
+              <img src={logo} alt="Logo" className="h-8 w-8 object-contain rounded-full" />
               <Menu className="h-5 w-5" />
             </Button>
           </div>
