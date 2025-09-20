@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ChevronDown, Settings, LogOut, User, Menu, Home, Newspaper, Briefcase } from "lucide-react";
+import { ChevronDown, Settings, LogOut, User, Menu, Home, Newspaper, Briefcase, FileText } from "lucide-react";
 import { motion } from "framer-motion";
 import logo from "@/assets/logo.png";
 import {
@@ -18,6 +18,7 @@ const navigation = [
   { name: "Home", href: "/", icon: Home },
   { name: "News", href: "/news", icon: Newspaper },
   { name: "Portfolio", href: "/portfolio", icon: Briefcase },
+  { name: "Content", href: "/content", icon: FileText },
 ];
 
 export function Navbar() {
