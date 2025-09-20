@@ -584,82 +584,17 @@ const News = () => {
                   {/* Title */}
                   <h2 className="text-xl font-semibold">{selectedNews.title}</h2>
 
-                  {/* Summary Section */}
+                  {/* Summary */}
                   <div className="space-y-4">
                     <h3 className="text-lg font-medium">Summary</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <h4 className="font-medium mb-2">What happened</h4>
-                        <p className="text-sm text-muted-foreground">{selectedNews.detailedSummary.whatHappened}</p>
-                      </div>
-                      <div>
-                        <h4 className="font-medium mb-2">Market reaction</h4>
-                        <p className="text-sm text-muted-foreground">{selectedNews.detailedSummary.marketReaction}</p>
-                      </div>
-                      <div>
-                        <h4 className="font-medium mb-2">Who</h4>
-                        <p className="text-sm text-muted-foreground">{selectedNews.detailedSummary.who}</p>
-                      </div>
-                      <div>
-                        <h4 className="font-medium mb-2">Why it matters</h4>
-                        <p className="text-sm text-muted-foreground">{selectedNews.detailedSummary.whyItMatters}</p>
-                      </div>
-                      <div className="md:col-span-2">
-                        <h4 className="font-medium mb-2">Magnitude</h4>
-                        <p className="text-sm text-muted-foreground">{selectedNews.detailedSummary.magnitude}</p>
-                      </div>
-                    </div>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {selectedNews.summary}
+                    </p>
                   </div>
 
-                  {/* Model Analysis */}
+                  {/* Pre-interpretation of Implications (Portfolio Impact) */}
                   <div className="space-y-4">
-                    <h3 className="text-lg font-medium">Model Analysis</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <h4 className="font-medium mb-2">Key Facts</h4>
-                        <ul className="space-y-1">
-                          {selectedNews.modelAnalysis.keyFacts.map((fact, index) => (
-                            <li key={index} className="text-sm text-muted-foreground">• {fact}</li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div>
-                        <h4 className="font-medium mb-2">Sources</h4>
-                        <div className="space-y-1">
-                          {selectedNews.modelAnalysis.sources.map((source, index) => (
-                            <div key={index} className="text-sm text-primary underline cursor-pointer">
-                              📎 {source}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* House View Context */}
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-medium">House View Context</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      <div>
-                        <h4 className="font-medium mb-2">Current Stance</h4>
-                        <p className="text-sm text-muted-foreground">{selectedNews.houseViewContext.currentStance}</p>
-                      </div>
-                      <div>
-                        <h4 className="font-medium mb-2">Comparison</h4>
-                        <p className="text-sm text-muted-foreground">{selectedNews.houseViewContext.comparison}</p>
-                      </div>
-                      <div>
-                        <h4 className="font-medium mb-2">Relevance</h4>
-                        <p className={`text-sm font-medium ${getImpactColor(selectedNews.impact, selectedNews.impactScore)}`}>
-                          {selectedNews.houseViewContext.relevance}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Portfolio Impact */}
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-medium">Portfolio Impact</h3>
+                    <h3 className="text-lg font-medium">Pre-interpretation of Implications</h3>
                     <div className="space-y-3">
                       <div>
                         <h4 className="font-medium mb-2">Affected Assets</h4>
@@ -675,6 +610,18 @@ const News = () => {
                         <h4 className="font-medium mb-2">Overall Impact</h4>
                         <p className="text-sm text-muted-foreground">{selectedNews.portfolioImpact.overallImpact}</p>
                       </div>
+                    </div>
+                  </div>
+
+                  {/* Sources */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-medium">Sources</h3>
+                    <div className="space-y-1">
+                      {selectedNews.modelAnalysis.sources.map((source, index) => (
+                        <div key={index} className="text-sm text-primary underline cursor-pointer">
+                          📎 {source}
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
