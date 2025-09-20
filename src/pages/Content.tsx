@@ -95,9 +95,10 @@ The Investment Team`
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Biggest Stories - Left Panel */}
-          <Card className="lg:row-span-3">
+        {/* Main Grid Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          {/* Left Panel - Biggest Stories */}
+          <Card className="h-fit lg:min-h-[600px]">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Star className="h-5 w-5" />
@@ -125,29 +126,29 @@ The Investment Team`
             </CardContent>
           </Card>
 
-          {/* Right Column - Three Panels */}
-          <div className="lg:col-span-2 space-y-6">
+          {/* Right Panel - Three Stacked Cards */}
+          <div className="space-y-4">
             {/* Weekly Summary */}
             <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <FileText className="h-5 w-5" />
+              <CardHeader className="pb-3">
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <FileText className="h-4 w-4" />
                   Weekly Summary
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="text-xs">
                   AI-powered weekly market overview and key insights
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="bg-muted/50 p-4 rounded-lg">
-                  <p className="text-sm text-muted-foreground mb-2">This week's highlights:</p>
-                  <p className="text-sm line-clamp-3">
-                    {weeklyContent.summary.substring(0, 150)}...
+              <CardContent className="space-y-3">
+                <div className="bg-muted/50 p-3 rounded-lg">
+                  <p className="text-xs text-muted-foreground mb-1">This week's highlights:</p>
+                  <p className="text-xs line-clamp-2">
+                    {weeklyContent.summary.substring(0, 120)}...
                   </p>
                 </div>
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button className="w-full">View Full Summary</Button>
+                    <Button size="sm" className="w-full">View Full Summary</Button>
                   </DialogTrigger>
                   <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
                     <DialogHeader>
@@ -166,25 +167,25 @@ The Investment Team`
 
             {/* Podcast Suggestions */}
             <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Mic className="h-5 w-5" />
+              <CardHeader className="pb-3">
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <Mic className="h-4 w-4" />
                   Podcast Suggestions
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="text-xs">
                   AI-generated topics and discussion points for your podcast
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="bg-muted/50 p-4 rounded-lg">
-                  <p className="text-sm text-muted-foreground mb-2">Suggested episode structure:</p>
-                  <p className="text-sm line-clamp-3">
-                    5 engaging segments including Fed policy deep-dive, sector rotation analysis, and expert interview on market volatility...
+              <CardContent className="space-y-3">
+                <div className="bg-muted/50 p-3 rounded-lg">
+                  <p className="text-xs text-muted-foreground mb-1">Suggested episode structure:</p>
+                  <p className="text-xs line-clamp-2">
+                    5 engaging segments including Fed policy deep-dive, sector rotation analysis, and expert interview...
                   </p>
                 </div>
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button className="w-full">View Episode Suggestions</Button>
+                    <Button size="sm" className="w-full">View Episode Suggestions</Button>
                   </DialogTrigger>
                   <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
                     <DialogHeader>
@@ -203,25 +204,25 @@ The Investment Team`
 
             {/* Newsletter Suggestions */}
             <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Mail className="h-5 w-5" />
+              <CardHeader className="pb-3">
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <Mail className="h-4 w-4" />
                   Newsletter Suggestions
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="text-xs">
                   Content recommendations and templates for your newsletter
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="bg-muted/50 p-4 rounded-lg">
-                  <p className="text-sm text-muted-foreground mb-2">Newsletter template preview:</p>
-                  <p className="text-sm line-clamp-3">
+              <CardContent className="space-y-3">
+                <div className="bg-muted/50 p-3 rounded-lg">
+                  <p className="text-xs text-muted-foreground mb-1">Newsletter template preview:</p>
+                  <p className="text-xs line-clamp-2">
                     Subject line suggestions, market spotlight recommendations, and subscriber engagement strategies...
                   </p>
                 </div>
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button className="w-full">View Newsletter Suggestions</Button>
+                    <Button size="sm" className="w-full">View Newsletter Suggestions</Button>
                   </DialogTrigger>
                   <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
                     <DialogHeader>
@@ -240,7 +241,7 @@ The Investment Team`
           </div>
         </div>
 
-        {/* Archive Section */}
+        {/* Archive Section - Full Width Bottom */}
         <Card>
           <CardHeader>
             <CardTitle>Content Archive</CardTitle>
