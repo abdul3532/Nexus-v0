@@ -136,7 +136,7 @@ export function NewsFeed() {
                 </div>
 
                 {/* Sentiment Section - 1/4 */}
-                <div className="w-1/4 flex flex-col items-center justify-center space-y-3 border-l border-border pl-4">
+                <div className="w-1/4 flex flex-col items-center justify-center space-y-2 border-l border-border pl-4">
                   {/* Sentiment Meter */}
                   <div className="text-center">
                     <div className="w-[140px] h-2 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 rounded-full relative mb-2">
