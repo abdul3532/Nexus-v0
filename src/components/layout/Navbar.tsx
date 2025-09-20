@@ -49,7 +49,7 @@ export function Navbar() {
         <div className="flex justify-between items-center h-16">
           {/* Left side - Logo and Menu */}
           <div className="flex items-center">
-            <img src={logo} alt="Logo" className="h-8 w-8 object-wrap rounded-full" />
+            <img src={logo} alt="Logo" className="h-10 w-10 object-wrap rounded-full" />
           </div>
 
           {/* Center - Tubelight Navigation */}
@@ -102,7 +102,7 @@ export function Navbar() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="flex items-center gap-2 px-3">
-                  <Avatar className="h-8 w-8">
+                  <Avatar className="h-10 w-10">
                     <AvatarFallback className="bg-primary text-primary-foreground text-sm">
                       JD
                     </AvatarFallback>
