@@ -2,6 +2,12 @@ import { TrendingUp, TrendingDown, Building2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
+// Import company logos
+import appleLogo from "@/assets/logos/apple-logo.png";
+import teslaLogo from "@/assets/logos/tesla-logo.png";
+import microsoftLogo from "@/assets/logos/microsoft-logo.png";
+import metaLogo from "@/assets/logos/meta-logo.png";
+
 interface CompanyImpact {
   id: string;
   name: string;
@@ -46,6 +52,14 @@ const mockCompanies: CompanyImpact[] = [
   },
 ];
 
+// Logo mapping
+const companyLogos: Record<string, string> = {
+  AAPL: appleLogo,
+  TSLA: teslaLogo,
+  MSFT: microsoftLogo,
+  META: metaLogo,
+};
+
 export function PortfolioImpact() {
   return (
     <Card className="bg-dashboard-surface border-dashboard-border">
@@ -71,8 +85,12 @@ export function PortfolioImpact() {
               <div className="flex items-start justify-between mb-2">
                 <div className="flex items-center gap-3">
                   {/* Company Logo */}
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold text-sm">
-                    {company.symbol.substring(0, 2)}
+                  <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center overflow-hidden">
+                    <img 
+                      src={companyLogos[company.symbol]} 
+                      alt={`${company.name} logo`}
+                      className="w-8 h-8 object-contain"
+                    />
                   </div>
                   <div>
                     <h3 className="font-semibold text-sm">{company.symbol}</h3>
