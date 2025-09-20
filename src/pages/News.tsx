@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Eye, ThumbsUp, MessageCircle, Share2, Clock, TrendingUp, TrendingDown, Filter, ChevronDown, BarChart3, DollarSign, Banknote, Coins } from "lucide-react";
+import { Eye, ThumbsUp, MessageCircle, Share2, Clock, TrendingUp, TrendingDown, Filter, ChevronDown, BarChart3, DollarSign, Banknote, Coins, AlertTriangle } from "lucide-react";
 import { NewsCard } from "@/components/ui/NewsCard";
 
 interface NewsItem {
@@ -399,11 +399,72 @@ const mockNews: NewsItem[] = [
   }
 ];
 
+// Define an urgent news item with additional properties
+interface UrgentNewsItem extends NewsItem {
+  isUrgent: boolean;
+  urgentTag: string;
+}
+
 const News = () => {
   const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [filters, setFilters] = useState<FilterState>(initialFilters);
   const [isFilterOpen, setIsFilterOpen] = useState(true);
+  const [showUrgentNews, setShowUrgentNews] = useState(false);
+  
+  // Create an urgent news item
+  const urgentNews: UrgentNewsItem = {
+    ...mockNews[1], // Use existing news as a base
+    id: "urgent-1",
+    title: "BREAKING: Federal Reserve announces emergency rate hike of 75 basis points",
+    summary: "In an unscheduled meeting, the Federal Reserve has raised rates by 75 basis points, citing unexpected inflation data. Markets are experiencing significant volatility in response to this emergency action.",
+    impact: "negative",
+    impactScore: 5,
+    sentiment: "hawkish vs. house view: -3",
+    date: "2025-09-21", // Current date
+    time: "Just now",
+    confidence: 40,
+    isUrgent: true,
+    urgentTag: "URGENT",
+    category: "Central Bank/Monetary Policy",
+    source: "https://www.federalreserve.gov/newsevents/pressreleases/monetary20250921a.htm",
+    affectedCompanies: ["SPY", "QQQ", "AAPL", "MSFT", "GOOGL", "AMZN"],
+    assetTags: ["US", "Rates", "Equities"],
+    detailedSummary: {
+      whatHappened: "Federal Reserve announces emergency 75 basis point rate hike outside of regular schedule",
+      marketReaction: "Equity futures tumbling, bond yields spiking, volatility surging",
+      who: "Federal Reserve, Chair Powell",
+      whyItMatters: "Dramatic shift in monetary policy indicating serious inflation concerns",
+      magnitude: "Critical - immediate cross-asset implications"
+    },
+    modelAnalysis: {
+      keyFacts: [
+        "75bp emergency hike outside regular schedule",
+        "Inflation data cited as primary driver",
+        "First emergency rate action in 3 years"
+      ],
+      sources: ["Federal Reserve Press Release", "Bloomberg"]
+    },
+    houseViewContext: {
+      currentStance: "Measured easing path expected",
+      comparison: "Dramatic shift from previous guidance",
+      relevance: "-3 severe deviation from house view"
+    },
+    portfolioImpact: {
+      affectedAssets: ["US Equities (-)", "US Bonds (-)", "USD (+)", "Gold (-)"],
+      overallImpact: "Significantly negative for risk assets; recalibration of rate expectations needed",
+      preInterpretationNote: "Consider defensive positioning, reducing duration risk, and increasing cash allocation"
+    }
+  };
+
+  // Set timer to show urgent news after 5 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowUrgentNews(true);
+    }, 2000);
+    
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleNewsClick = (news: NewsItem) => {
     setSelectedNews(news);
@@ -423,7 +484,10 @@ const News = () => {
     return Object.values(filters).some(category => category.length > 0);
   };
 
-  const filteredNews = mockNews.filter(news => {
+  // Add urgent news to the list when it's visible
+  const allNews = showUrgentNews ? [urgentNews, ...mockNews] : mockNews;
+  
+  const filteredNews = allNews.filter(news => {
     if (!isFilterActive()) return true;
     
     // Check if news matches any active filters
@@ -467,6 +531,41 @@ const News = () => {
           <h1 className="text-3xl font-bold mb-4">Financial News</h1>
           <p className="text-muted-foreground">Real-time market signals with AI-powered analysis</p>
         </div>
+
+        {/* Urgent News Alert */}
+        {showUrgentNews && (
+          <div className="mb-6 animate-in zoom-in-95 fade-in duration-300">
+            <Card className="border-financial-negative overflow-hidden">
+              <div className="bg-financial-negative-bg border-b border-financial-negative p-3 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <AlertTriangle className="h-5 w-5 text-financial-negative" />
+                  <span className="font-bold text-financial-negative">Breaking News</span>
+                  <Badge variant="destructive" className="ml-2 uppercase font-bold text-[10px] py-0">
+                    {urgentNews.urgentTag}
+                  </Badge>
+                </div>
+                <span className="text-xs text-financial-negative-foreground bg-financial-negative-bg/50 px-2 py-1 rounded-full">
+                  Just Now
+                </span>
+              </div>
+              <CardContent className="p-4 bg-financial-negative-bg/10">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div>
+                    <h3 className="font-bold text-lg">{urgentNews.title}</h3>
+                    <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{urgentNews.summary}</p>
+                  </div>
+                  <Button 
+                    onClick={() => handleNewsClick(urgentNews)} 
+                    variant="destructive"
+                    className="min-w-[150px] self-start sm:self-center"
+                  >
+                    View Details
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
 
         {/* Main Content with Sidebar */}
         <div className="flex gap-6">
@@ -601,7 +700,7 @@ const News = () => {
           {/* News Grid */}
           <CardContent>
             <div className="space-y-4">
-              {mockNews.map((news) => (
+              {filteredNews.map((news) => (
                 <NewsCard
                   key={news.id}
                   news={news}

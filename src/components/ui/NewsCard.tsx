@@ -1,8 +1,9 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, AlertTriangle } from "lucide-react";
 import cnnLogo from "@/assets/logos/cnn-logo.png";
 import bbcLogo from "@/assets/logos/bbc-logo.png";
+import { Badge } from "@/components/ui/badge";
 
 interface NewsItem {
   id: string;
@@ -40,6 +41,8 @@ interface NewsItem {
     overallImpact: string;
     preInterpretationNote?: string;
   };
+  isUrgent?: boolean;
+  urgentTag?: string;
 }
 
 interface NewsCardProps {
@@ -52,7 +55,9 @@ export const NewsCard: React.FC<NewsCardProps> = ({ news, onClick }) => {
     <div
       onClick={() => onClick(news)}
       className={`p-4 rounded-lg border transition-all duration-200 hover:shadow-md cursor-pointer ${
-        news.impact === "positive"
+        news.isUrgent
+          ? "border-2 border-financial-negative/70 hover:border-financial-negative bg-financial-negative-bg/10"
+          : news.impact === "positive"
           ? "border-2 border-financial-positive/40 hover:border-financial-positive/40"
           : news.impact === "negative"
           ? "border-2 border-financial-negative/40 hover:border-financial-negative/40"
@@ -63,7 +68,9 @@ export const NewsCard: React.FC<NewsCardProps> = ({ news, onClick }) => {
         {/* Main Content - 3/4 */}
         <div className="w-3/4 min-w-0 flex items-start gap-3">
           <div className="flex-shrink-0 mt-1">
-            {news.impact === "positive" ? (
+            {news.isUrgent ? (
+              <AlertTriangle className="w-4 h-4 text-financial-negative" />
+            ) : news.impact === "positive" ? (
               <div className="w-3 h-3 rounded-full bg-financial-positive" />
             ) : news.impact === "negative" ? (
               <div className="w-3 h-3 rounded-full bg-financial-negative" />
@@ -76,6 +83,11 @@ export const NewsCard: React.FC<NewsCardProps> = ({ news, onClick }) => {
             <div className="flex items-start justify-between gap-2 mb-2">
               <h3 className="font-semibold text-lg leading-tight">
                 {news.title}
+                {news.isUrgent && news.urgentTag && (
+                  <Badge variant="destructive" className="ml-2 uppercase font-bold text-[10px] py-0">
+                    {news.urgentTag}
+                  </Badge>
+                )}
               </h3>
             </div>
             

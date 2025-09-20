@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -25,7 +25,44 @@ interface SettingsModalProps {
   onOpenChange: (open: boolean) => void;
 }
 
+// Define a type for our link items
+type LinkItem = {
+  id: string;
+  url: string;
+  category: string;
+};
+
 export const SettingsModal = ({ open, onOpenChange }: SettingsModalProps) => {
+  // State for links
+  const [links, setLinks] = useState<LinkItem[]>([
+    { id: '1', url: 'https://www.ft.com/news-feed', category: 'Business News' },
+    { id: '2', url: 'https://www.bloomberg.com/latest', category: 'Business News' },
+    { id: '3', url: 'https://finance.yahoo.com/topic/latest-news/', category: 'Market News' },
+    { id: '4', url: 'https://www.reuters.com/business/finance/', category: 'Business News' },
+  ]);
+  
+  // State for new link inputs
+  const [newLinkUrl, setNewLinkUrl] = useState('');
+  const [newLinkCategory, setNewLinkCategory] = useState('Business News');
+
+  // Function to add a new link
+  const addLink = () => {
+    if (newLinkUrl.trim() === '') return;
+    
+    const newLink: LinkItem = {
+      id: Date.now().toString(), // Simple unique ID
+      url: newLinkUrl.trim(),
+      category: newLinkCategory || 'Business News',
+    };
+    
+    setLinks([...links, newLink]);
+    setNewLinkUrl(''); // Clear the input
+  };
+
+  // Function to remove a link
+  const removeLink = (id: string) => {
+    setLinks(links.filter(link => link.id !== id));
+  };
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
@@ -82,51 +119,63 @@ export const SettingsModal = ({ open, onOpenChange }: SettingsModalProps) => {
               <div className="space-y-3">
                 <Label>Current Links</Label>
                 <div className="space-y-2">
-                  {/* Placeholder Links */}
-                  <div className="flex items-center justify-between p-3 border rounded-lg bg-card">
-                    <div className="flex-1">
-                      <p className="text-sm font-medium">https://www.ft.com/news-feed</p>
-                      <p className="text-xs text-muted-foreground">Business News</p>
+                  {links.map((link) => (
+                    <div key={link.id} className="flex items-center justify-between p-3 border rounded-lg bg-card">
+                      <div className="flex-1">
+                        <p className="text-sm font-medium">{link.url}</p>
+                        <p className="text-xs text-muted-foreground">{link.category}</p>
+                      </div>
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="text-destructive hover:text-destructive"
+                        onClick={() => removeLink(link.id)}
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
                     </div>
-                    <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive">
-                      <X className="h-4 w-4" />
-                    </Button>
-                  </div>
-                  <div className="flex items-center justify-between p-3 border rounded-lg bg-card">
-                    <div className="flex-1">
-                      <p className="text-sm font-medium">https://www.bloomberg.com/latest</p>
-                      <p className="text-xs text-muted-foreground">Business News</p>
-                    </div>
-                    <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive">
-                      <X className="h-4 w-4" />
-                    </Button>
-                  </div>
-                  <div className="flex items-center justify-between p-3 border rounded-lg bg-card">
-                    <div className="flex-1">
-                      <p className="text-sm font-medium">https://finance.yahoo.com/topic/latest-news/</p>
-                      <p className="text-xs text-muted-foreground">Market News</p>
-                    </div>
-                    <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive">
-                      <X className="h-4 w-4" />
-                    </Button>
-                  </div>
-                  <div className="flex items-center justify-between p-3 border rounded-lg bg-card">
-                    <div className="flex-1">
-                      <p className="text-sm font-medium">https://www.reuters.com/business/finance/</p>
-                      <p className="text-xs text-muted-foreground">Business News</p>
-                    </div>
-                    <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive">
-                      <X className="h-4 w-4" />
-                    </Button>
-                  </div>
+                  ))}
                 </div>
               </div>
               <Separator />
               <div className="space-y-2">
                 <Label>Add New Link</Label>
-                <div className="flex gap-2">
-                  <Input placeholder="https://example.com/feed" className="flex-1" />
-                  <Button size="sm" className=' bg-white dark:bg-black text-black dark:text-white border border-black dark:border-white hover:bg-white/90 hover:dark:bg-black/80 hover:shadow-md transition-all duration-300'>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+                  <div className="md:col-span-2">
+                    <Input 
+                      placeholder="https://example.com/feed" 
+                      value={newLinkUrl}
+                      onChange={(e) => setNewLinkUrl(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          addLink();
+                        }
+                      }}
+                      className="w-full"
+                    />
+                  </div>
+                  <Select 
+                    value={newLinkCategory} 
+                    onValueChange={setNewLinkCategory}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Category" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Business News">Business News</SelectItem>
+                      <SelectItem value="Market News">Market News</SelectItem>
+                      <SelectItem value="Financial News">Financial News</SelectItem>
+                      <SelectItem value="Technology News">Technology News</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="flex justify-end">
+                  <Button 
+                    size="sm" 
+                    className='bg-white dark:bg-black text-black dark:text-white border border-black dark:border-white hover:bg-white/90 hover:dark:bg-black/80 hover:shadow-md transition-all duration-300'
+                    onClick={addLink}
+                  >
                     <Plus className="h-4 w-4 mr-2" />
                     Add
                   </Button>
