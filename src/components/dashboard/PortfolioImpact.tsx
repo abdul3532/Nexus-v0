@@ -24,7 +24,7 @@ const mockCompanies: CompanyImpact[] = [
     symbol: "AAPL",
     impact: "positive",
     change: 2.3,
-    newsCount: 4,
+    newsCount: 3,
   },
   {
     id: "2",
@@ -32,7 +32,7 @@ const mockCompanies: CompanyImpact[] = [
     symbol: "TSLA",
     impact: "negative",
     change: -1.8,
-    newsCount: 7,
+    newsCount: 2,
   },
   {
     id: "3",
@@ -48,7 +48,7 @@ const mockCompanies: CompanyImpact[] = [
     symbol: "META",
     impact: "negative",
     change: -0.9,
-    newsCount: 5,
+    newsCount: 4,
   },
 ];
 
@@ -64,9 +64,8 @@ export function PortfolioImpact() {
   return (
     <Card className="bg-dashboard-surface border-dashboard-border">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-lg">
-          <Building2 className="h-5 w-5" />
-          Portfolio Companies - Today's Impact
+        <CardTitle className="flex items-center gap-2 text-xl">
+          Portfolio - Today's Impact Previsions
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -114,17 +113,6 @@ export function PortfolioImpact() {
                 >
                   {company.newsCount} news
                 </Badge>
-                <span
-                  className={`text-xs ${
-                    company.impact === "positive"
-                      ? "text-financial-positive-foreground"
-                      : company.impact === "negative"
-                      ? "text-financial-negative-foreground"
-                      : "text-muted-foreground"
-                  }`}
-                >
-                  {company.impact === "positive" ? "Positive" : company.impact === "negative" ? "Negative" : "Neutral"}
-                </span>
               </div>
             </div>
           ))}

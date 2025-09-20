@@ -4,6 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { NewsCard } from "@/components/ui/NewsCard";
+import { Button } from "@/components/ui/button";
+import { Share2 } from "lucide-react";
 
 interface NewsItem {
   id: string;
@@ -184,8 +186,7 @@ export function NewsFeed() {
     <>
       <Card className="bg-dashboard-surface border-dashboard-border">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-lg">
-            <Clock className="h-5 w-5" />
+          <CardTitle className="flex items-center gap-2 text-xl">
             Today's Important Financial News
           </CardTitle>
         </CardHeader>
@@ -213,58 +214,70 @@ export function NewsFeed() {
                 <h2 className="text-xl font-semibold">{selectedNews.title}</h2>
 
                 {/* Summary */}
-                <div className="space-y-4">
-                  <h3 className="text-lg font-medium">Summary</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {selectedNews.summary}
-                  </p>
-                </div>
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-medium">Summary</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {selectedNews.summary}
+                    </p>
+                    <Button 
+                      variant="secondary" 
+                      size="sm" 
+                      className="mt-2  bg-white dark:bg-black text-black dark:text-white border border-black dark:border-white hover:bg-white/90 hover:dark:bg-black/80 hover:shadow-md transition-all duration-300"
+                    >
+                      View Full Analysis
+                    </Button>
+                  </div>
 
-                {/* Implications */}
-                <div className="space-y-4">
-                  <div className="space-y-3">
-                    <div>
-                      <h4 className="font-medium mb-2">Affected Assets</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {selectedNews.portfolioImpact.affectedAssets.map((asset, index) => (
-                          <Badge 
-                            key={index} 
-                            variant="outline"
-                            className={`text-xs ${
-                              asset.includes('(+)') 
-                                ? 'bg-financial-positive-bg border border-financial-positive/20 text-financial-positive-foreground' 
-                                : asset.includes('(-)') 
-                                ? 'bg-financial-negative-bg border border-financial-negative/20 text-financial-negative-foreground'
-                                : 'bg-financial-neutral border border-border text-muted-foreground'
-                            }`}
-                          >
-                            {asset}
-                          </Badge>
-                        ))}
+                  {/* Pre-interpretation of Implications (Portfolio Impact) */}
+                  <div className="space-y-4">
+                    <div className="space-y-3">
+                      <div>
+                        <h4 className="font-medium mb-2">Overall Impact</h4>
+                        <p className="text-sm text-muted-foreground">{selectedNews.portfolioImpact.overallImpact}</p>
+                        {selectedNews.portfolioImpact.preInterpretationNote && (
+                          <p className="text-xs text-muted-foreground mt-2">{selectedNews.portfolioImpact.preInterpretationNote}</p>
+                        )}
+                        <div className="flex flex-wrap gap-2 mt-4">
+                          {selectedNews.portfolioImpact.affectedAssets.map((asset, index) => (
+                            <Badge 
+                              key={index} 
+                              variant="outline"
+                              className={`text-xs ${
+                                asset.includes('(+)') 
+                                  ? 'bg-financial-positive-bg border border-financial-positive/20 text-financial-positive-foreground' 
+                                  : asset.includes('(-') || asset.includes('(-)') 
+                                  ? 'bg-financial-negative-bg border border-financial-negative/20 text-financial-negative-foreground'
+                                  : 'bg-financial-neutral border border-border text-muted-foreground'
+                              }`}
+                            >
+                              {asset}
+                            </Badge>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                    <div>
-                      <h4 className="font-medium mb-2">Overall Impact</h4>
-                      <p className="text-sm text-muted-foreground">{selectedNews.portfolioImpact.overallImpact}</p>
-                      {selectedNews.portfolioImpact.preInterpretationNote && (
-                        <p className="text-xs text-muted-foreground mt-2">{selectedNews.portfolioImpact.preInterpretationNote}</p>
-                      )}
+                  </div>
+
+                  {/* Sources */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-medium">Sources</h3>
+                    <div className="space-y-1">
+                      {selectedNews.modelAnalysis.sources.map((source, index) => (
+                        <div key={index} className="text-sm text-primary underline cursor-pointer">
+                          📎 {source}
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
-
-                {/* Sources */}
-                <div className="space-y-4">
-                  <h3 className="text-lg font-medium">Sources</h3>
-                  <div className="space-y-1">
-                    {selectedNews.modelAnalysis.sources.map((source, index) => (
-                      <div key={index} className="text-sm text-primary underline cursor-pointer">
-                        📎 {source}
-                      </div>
-                    ))}
-                  </div>
+                <div className="flex flex-row gap-4">
+                  {/* Share button */}
+                  <Button size="sm" className="w-1/8 bg-white dark:bg-black text-black dark:text-white border border-black dark:border-white hover:bg-white/90 hover:dark:bg-black/80 hover:shadow-md transition-all duration-300" variant="outline">
+                    <Share2 className="h-4 w-4 mr-2" />
+                    Share
+                  </Button>
+                  <Button size="sm" className="w-1/8 bg-white dark:bg-black text-black dark:text-white border border-black dark:border-white hover:bg-white/90 hover:dark:bg-black/80 hover:shadow-md transition-all duration-300">Generate Report</Button>
                 </div>
-              </div>
             </>
           )}
         </DialogContent>

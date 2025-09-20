@@ -57,12 +57,83 @@ export const SettingsModal = ({ open, onOpenChange }: SettingsModalProps) => {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="lastName">Last Name</Label>   
-                  <Input id="lastName" placeholder="Doe" defaultValue="Van Welking"/>
+                  <Input id="lastName" placeholder="Doe" defaultValue="Van Winkel"/>
                 </div>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
                 <Input id="email" type="email" placeholder="john.doe@example.com" defaultValue="steven.vanwinkel@wellershof.ch" />
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Scraped Links Management */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Link className="h-5 w-5" />
+                Scraped Links Management
+              </CardTitle>
+              <CardDescription>
+                Manage the links that are being scraped for news content
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-3">
+                <Label>Current Links</Label>
+                <div className="space-y-2">
+                  {/* Placeholder Links */}
+                  <div className="flex items-center justify-between p-3 border rounded-lg bg-card">
+                    <div className="flex-1">
+                      <p className="text-sm font-medium">https://www.ft.com/news-feed</p>
+                      <p className="text-xs text-muted-foreground">Business News</p>
+                    </div>
+                    <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive">
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  <div className="flex items-center justify-between p-3 border rounded-lg bg-card">
+                    <div className="flex-1">
+                      <p className="text-sm font-medium">https://www.bloomberg.com/latest</p>
+                      <p className="text-xs text-muted-foreground">Business News</p>
+                    </div>
+                    <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive">
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  <div className="flex items-center justify-between p-3 border rounded-lg bg-card">
+                    <div className="flex-1">
+                      <p className="text-sm font-medium">https://finance.yahoo.com/topic/latest-news/</p>
+                      <p className="text-xs text-muted-foreground">Market News</p>
+                    </div>
+                    <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive">
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  <div className="flex items-center justify-between p-3 border rounded-lg bg-card">
+                    <div className="flex-1">
+                      <p className="text-sm font-medium">https://www.reuters.com/business/finance/</p>
+                      <p className="text-xs text-muted-foreground">Business News</p>
+                    </div>
+                    <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive">
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+              <Separator />
+              <div className="space-y-2">
+                <Label>Add New Link</Label>
+                <div className="flex gap-2">
+                  <Input placeholder="https://example.com/feed" className="flex-1" />
+                  <Button size="sm" className=' bg-white dark:bg-black text-black dark:text-white border border-black dark:border-white hover:bg-white/90 hover:dark:bg-black/80 hover:shadow-md transition-all duration-300'>
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add
+                  </Button>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Add RSS feeds or website URLs to scrape for news content
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -157,67 +228,7 @@ export const SettingsModal = ({ open, onOpenChange }: SettingsModalProps) => {
             </CardContent>
           </Card>
 
-          {/* Scraped Links Management */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Link className="h-5 w-5" />
-                Scraped Links Management
-              </CardTitle>
-              <CardDescription>
-                Manage the links that are being scraped for news content
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-3">
-                <Label>Current Links</Label>
-                <div className="space-y-2">
-                  {/* Placeholder Links */}
-                  <div className="flex items-center justify-between p-3 border rounded-lg bg-card">
-                    <div className="flex-1">
-                      <p className="text-sm font-medium">https://techcrunch.com/feed</p>
-                      <p className="text-xs text-muted-foreground">Tech News</p>
-                    </div>
-                    <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive">
-                      <X className="h-4 w-4" />
-                    </Button>
-                  </div>
-                  <div className="flex items-center justify-between p-3 border rounded-lg bg-card">
-                    <div className="flex-1">
-                      <p className="text-sm font-medium">https://feeds.reuters.com/reuters/businessNews</p>
-                      <p className="text-xs text-muted-foreground">Business News</p>
-                    </div>
-                    <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive">
-                      <X className="h-4 w-4" />
-                    </Button>
-                  </div>
-                  <div className="flex items-center justify-between p-3 border rounded-lg bg-card">
-                    <div className="flex-1">
-                      <p className="text-sm font-medium">https://www.bloomberg.com/feeds/markets</p>
-                      <p className="text-xs text-muted-foreground">Market News</p>
-                    </div>
-                    <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive">
-                      <X className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-              </div>
-              <Separator />
-              <div className="space-y-2">
-                <Label>Add New Link</Label>
-                <div className="flex gap-2">
-                  <Input placeholder="https://example.com/feed" className="flex-1" />
-                  <Button size="sm">
-                    <Plus className="h-4 w-4 mr-2" />
-                    Add
-                  </Button>
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  Add RSS feeds or website URLs to scrape for news content
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+          
 
           {/* Data & Storage */}
           <Card>

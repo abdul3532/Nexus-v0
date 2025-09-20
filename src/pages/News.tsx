@@ -228,7 +228,7 @@ const mockNews: NewsItem[] = [
       "relevance": "−2 bearish deviation for mega-cap tech hiring"
     },
     "portfolioImpact": {
-      "affectedAssets": ["US Large-Cap Tech (−)", "IT Services (−)", "US Dollar (neutral)"],
+      "affectedAssets": ["US Large-Cap Tech (-)", "IT Services (-)", "US Dollar (neutral)"],
       "overallImpact": "Headwind for margin/innovation where teams rely on H-1B talent",
       "preInterpretationNote": "Consider trimming richly valued names most exposed to skilled-visa flows; reassess AI hiring bottlenecks."
     }
@@ -621,43 +621,49 @@ const News = () => {
                   {/* Title */}
                   <h2 className="text-xl font-semibold">{selectedNews.title}</h2>
 
+                 
+
                   {/* Summary */}
                   <div className="space-y-4">
                     <h3 className="text-lg font-medium">Summary</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">
                       {selectedNews.summary}
                     </p>
+                    <Button 
+                      variant="secondary" 
+                      size="sm" 
+                      className="mt-2  bg-white dark:bg-black text-black dark:text-white border border-black dark:border-white hover:bg-white/90 hover:dark:bg-black/80 hover:shadow-md transition-all duration-300"
+                    >
+                      View Full Analysis
+                    </Button>
                   </div>
 
                   {/* Pre-interpretation of Implications (Portfolio Impact) */}
                   <div className="space-y-4">
                     <div className="space-y-3">
                       <div>
-                      <h4 className="font-medium mb-2">Affected Assets</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {selectedNews.portfolioImpact.affectedAssets.map((asset, index) => (
-                          <Badge 
-                            key={index} 
-                            variant="outline"
-                            className={`text-xs ${
-                              asset.includes('(+)') 
-                                ? 'bg-financial-positive-bg border border-financial-positive/20 text-financial-positive-foreground' 
-                                : asset.includes('(-') 
-                                ? 'bg-financial-negative-bg border border-financial-negative/20 text-financial-negative-foreground'
-                                : 'bg-financial-neutral border border-border text-muted-foreground'
-                            }`}
-                          >
-                            {asset}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                      <div>
                         <h4 className="font-medium mb-2">Overall Impact</h4>
                         <p className="text-sm text-muted-foreground">{selectedNews.portfolioImpact.overallImpact}</p>
                         {selectedNews.portfolioImpact.preInterpretationNote && (
                           <p className="text-xs text-muted-foreground mt-2">{selectedNews.portfolioImpact.preInterpretationNote}</p>
                         )}
+                        <div className="flex flex-wrap gap-2 mt-4">
+                          {selectedNews.portfolioImpact.affectedAssets.map((asset, index) => (
+                            <Badge 
+                              key={index} 
+                              variant="outline"
+                              className={`text-xs ${
+                                asset.includes('(+)') 
+                                  ? 'bg-financial-positive-bg border border-financial-positive/20 text-financial-positive-foreground' 
+                                  : asset.includes('(-') || asset.includes('(-)')
+                                  ? 'bg-financial-negative-bg border border-financial-negative/20 text-financial-negative-foreground'
+                                  : 'bg-financial-neutral border border-border text-muted-foreground'
+                              }`}
+                            >
+                              {asset}
+                            </Badge>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -674,6 +680,14 @@ const News = () => {
                     </div>
                   </div>
                 </div>
+                 <div className="flex flex-row gap-4">
+                    {/* Share button */}
+                    <Button size="sm" className="w-1/8 bg-white dark:bg-black text-black dark:text-white border border-black dark:border-white hover:bg-white/90 hover:dark:bg-black/80 hover:shadow-md transition-all duration-300" variant="outline">
+                      <Share2 className="h-4 w-4 mr-2" />
+                      Share
+                    </Button>
+                    <Button size="sm" className="w-1/8 bg-white dark:bg-black text-black dark:text-white border border-black dark:border-white hover:bg-white/90 hover:dark:bg-black/80 hover:shadow-md transition-all duration-300">Generate Report</Button>
+                  </div>
               </>
             )}
           </DialogContent>

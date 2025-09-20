@@ -14,7 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Times New Roman', 'Times', 'serif'],
+        sans: ['EB Garamond', 'serif'],
       },
       colors: {
         border: "hsl(var(--border))",

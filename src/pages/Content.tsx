@@ -142,8 +142,8 @@ The Investment Team`
                 Top financial news stories with key takeaways
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="bg-muted/50 p-4 rounded-lg h-full">
+            <CardContent className="space-y-4 h-full">
+              <div className="bg-muted/50 p-4 rounded-lg">
                 <p className="text-sm text-muted-foreground mb-2">Top stories:</p>
                 <ul className="space-y-3 text-sm">
                   <li>• <strong>Meta AI Glasses:</strong> Meta launched smart glasses with AI translation and spatial audio; adoption hurdles remain</li>
@@ -156,10 +156,11 @@ The Investment Team`
                   <li>• <strong>Robinhood Startup Fund:</strong> New retail vehicle offers access to unlisted start-ups, raising risk concerns</li>
                 </ul>
               </div>
-              <div className="flex flex-row justify-end h-full w-full">
-                <Button className="bg-white dark:bg-black text-black dark:text-white border border-black dark:border-white hover:bg-white/90 hover:dark:bg-black/80 hover:shadow-md transition-all duration-300">Generate Top Stories</Button>
+              <div className="flex flex-col">
+                <Button className="w-full bg-white dark:bg-black text-black dark:text-white border border-black dark:border-white hover:bg-white/90 hover:dark:bg-black/80 hover:shadow-md transition-all duration-300">Generate Top Stories</Button>
               </div>
             </CardContent>
+            
           </Card>
 
           {/* Right Panel - Three Stacked Cards */}

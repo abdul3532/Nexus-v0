@@ -53,10 +53,10 @@ export const NewsCard: React.FC<NewsCardProps> = ({ news, onClick }) => {
       onClick={() => onClick(news)}
       className={`p-4 rounded-lg border transition-all duration-200 hover:shadow-md cursor-pointer ${
         news.impact === "positive"
-          ? "bg-financial-positive-bg border-financial-positive/20 hover:border-financial-positive/40"
+          ? "border-2 border-financial-positive/40 hover:border-financial-positive/40"
           : news.impact === "negative"
-          ? "bg-financial-negative-bg border-financial-negative/20 hover:border-financial-negative/40"
-          : "bg-financial-neutral border-border hover:border-border"
+          ? "border-2 border-financial-negative/40 hover:border-financial-negative/40"
+          : "border-2 border-border hover:border-border"
       }`}
     >
       <div className="flex gap-4">
@@ -68,25 +68,15 @@ export const NewsCard: React.FC<NewsCardProps> = ({ news, onClick }) => {
             ) : news.impact === "negative" ? (
               <div className="w-3 h-3 rounded-full bg-financial-negative" />
             ) : (
-              <div className="w-3 h-3 rounded-full bg-muted" />
+              <div className="w-3 h-3 rounded-full" />
             )}
           </div>
           
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between gap-2 mb-2">
-              <h3 className="font-semibold text-sm leading-tight">
+              <h3 className="font-semibold text-lg leading-tight">
                 {news.title}
               </h3>
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                className="flex-shrink-0"
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-              >
-                <ExternalLink className="h-4 w-4" />
-              </Button>
             </div>
             
             <p className="text-sm text-muted-foreground mb-3 leading-relaxed">
