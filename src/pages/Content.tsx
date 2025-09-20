@@ -1,10 +1,88 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Navbar } from "@/components/layout/Navbar";
 import { FileText, Mic, Mail, Star } from "lucide-react";
 
 const Content = () => {
+  const [weeklyContent, setWeeklyContent] = useState({
+    summary: `The financial markets experienced significant volatility this week as investors grappled with mixed economic signals. The Federal Reserve's latest policy statements suggested a more cautious approach to future rate adjustments, leading to increased uncertainty across major indices.
+
+Key Market Movements:
+• S&P 500 closed down 2.3% for the week
+• Technology sector led declines with a 4.1% drop
+• Energy stocks bucked the trend, gaining 3.8%
+• Treasury yields fluctuated between 4.2% and 4.6%
+
+Economic Indicators:
+• Inflation data came in slightly above expectations at 3.2%
+• Unemployment claims decreased to 210,000
+• Consumer confidence index rose to 112.5
+• Manufacturing PMI contracted to 48.9
+
+Looking ahead, investors will be closely watching earnings reports from major financial institutions and upcoming economic data releases that could provide clearer direction for monetary policy decisions.`,
+    
+    podcastTopics: `1. Federal Reserve Policy Uncertainty (15 mins)
+   - Discuss the recent Fed communications
+   - Impact on different asset classes
+   - Historical context and comparisons
+
+2. Technology Sector Rotation (12 mins)
+   - Why tech stocks are underperforming
+   - Opportunities in other sectors
+   - Valuation concerns and growth prospects
+
+3. Energy Sector Outperformance (10 mins)
+   - Geopolitical factors driving oil prices
+   - Renewable vs traditional energy investments
+   - Long-term sustainability considerations
+
+4. Interview Segment: Portfolio Diversification (20 mins)
+   - Guest: Senior Portfolio Manager
+   - Discussion on asset allocation strategies
+   - Risk management in volatile markets
+
+5. Q&A Segment (8 mins)
+   - Listener questions about market timing
+   - Investment strategy adjustments
+   - Economic recession indicators`,
+
+    newsletter: `Subject: Market Volatility & Strategic Opportunities - Weekly Update
+
+Dear Subscribers,
+
+This week brought renewed volatility to financial markets, presenting both challenges and opportunities for astute investors.
+
+MARKET SPOTLIGHT
+The broad market selloff was primarily driven by uncertainty surrounding Federal Reserve policy. However, this creates potential entry points for quality companies trading at attractive valuations.
+
+SECTOR ANALYSIS
+• Technology: Oversold conditions may present buying opportunities
+• Energy: Continued strength supported by supply constraints
+• Healthcare: Defensive characteristics becoming more attractive
+• Financials: Positioned to benefit from higher interest rates
+
+STOCK PICK OF THE WEEK: Energy Infrastructure
+We're highlighting midstream energy companies with stable cash flows and attractive dividend yields. These assets typically perform well during periods of commodity price volatility.
+
+ECONOMIC CALENDAR AHEAD
+• Tuesday: Consumer Price Index (CPI) data
+• Wednesday: Federal Reserve minutes release
+• Thursday: Initial jobless claims
+• Friday: University of Michigan consumer sentiment
+
+PORTFOLIO STRATEGY
+In this environment, we recommend:
+1. Maintaining diversified allocations
+2. Focusing on quality companies with strong balance sheets
+3. Considering defensive sectors for stability
+4. Keeping some cash available for opportunities
+
+Best regards,
+The Investment Team`
+  });
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -32,14 +110,26 @@ const Content = () => {
             <CardContent className="space-y-4">
               <div className="bg-muted/50 p-4 rounded-lg">
                 <p className="text-sm text-muted-foreground mb-2">This week's highlights:</p>
-                <ul className="space-y-2 text-sm">
-                  <li>• Market volatility increased due to Fed policy uncertainty</li>
-                  <li>• Tech stocks showed mixed performance</li>
-                  <li>• Energy sector outperformed amid geopolitical tensions</li>
-                  <li>• Bond yields reached new monthly highs</li>
-                </ul>
+                <p className="text-sm line-clamp-3">
+                  {weeklyContent.summary.substring(0, 150)}...
+                </p>
               </div>
-              <Button className="w-full">Generate New Summary</Button>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button className="w-full">View Full Summary</Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+                  <DialogHeader>
+                    <DialogTitle>Weekly Market Summary</DialogTitle>
+                    <DialogDescription>
+                      Comprehensive analysis of this week's market movements and economic indicators
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="mt-4">
+                    <pre className="whitespace-pre-wrap text-sm leading-relaxed">{weeklyContent.summary}</pre>
+                  </div>
+                </DialogContent>
+              </Dialog>
             </CardContent>
           </Card>
 
@@ -56,16 +146,27 @@ const Content = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="bg-muted/50 p-4 rounded-lg">
-                <p className="text-sm text-muted-foreground mb-2">Suggested topics:</p>
-                <ul className="space-y-2 text-sm">
-                  <li>• Impact of AI on traditional finance roles</li>
-                  <li>• Cryptocurrency regulation updates</li>
-                  <li>• ESG investing trends in 2024</li>
-                  <li>• Small-cap vs large-cap performance analysis</li>
-                  <li>• Interview: Portfolio diversification strategies</li>
-                </ul>
+                <p className="text-sm text-muted-foreground mb-2">Episode structure preview:</p>
+                <p className="text-sm line-clamp-3">
+                  5 segments planned including Fed policy discussion, sector analysis, and guest interview...
+                </p>
               </div>
-              <Button className="w-full">Generate New Topics</Button>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button className="w-full">View Episode Structure</Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+                  <DialogHeader>
+                    <DialogTitle>Podcast Episode Structure</DialogTitle>
+                    <DialogDescription>
+                      Detailed breakdown of topics and timing for your next episode
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="mt-4">
+                    <pre className="whitespace-pre-wrap text-sm leading-relaxed">{weeklyContent.podcastTopics}</pre>
+                  </div>
+                </DialogContent>
+              </Dialog>
             </CardContent>
           </Card>
 
@@ -82,23 +183,27 @@ const Content = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="bg-muted/50 p-4 rounded-lg">
-                <p className="text-sm text-muted-foreground mb-2">This week's newsletter draft:</p>
-                <div className="space-y-3 text-sm">
-                  <div>
-                    <h4 className="font-semibold">Market Spotlight</h4>
-                    <p>Markets showed resilience despite ongoing concerns...</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Stock Pick of the Week</h4>
-                    <p>Technology sector leader with strong fundamentals...</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Economic Calendar</h4>
-                    <p>Key events to watch in the coming week...</p>
-                  </div>
-                </div>
+                <p className="text-sm text-muted-foreground mb-2">Newsletter preview:</p>
+                <p className="text-sm line-clamp-3">
+                  Subject: Market Volatility & Strategic Opportunities - Comprehensive market analysis with sector insights and stock picks...
+                </p>
               </div>
-              <Button className="w-full">Generate Newsletter</Button>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button className="w-full">View Full Newsletter</Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+                  <DialogHeader>
+                    <DialogTitle>Newsletter Content</DialogTitle>
+                    <DialogDescription>
+                      Complete newsletter ready for distribution to subscribers
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="mt-4">
+                    <pre className="whitespace-pre-wrap text-sm leading-relaxed">{weeklyContent.newsletter}</pre>
+                  </div>
+                </DialogContent>
+              </Dialog>
             </CardContent>
           </Card>
 
