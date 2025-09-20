@@ -124,22 +124,22 @@ The Investment Team`
       
       const timer1 = setTimeout(() => {
         setTopStoriesLoadingMessage('Analyzing trending stories...');
-      }, 5000);
+      }, 2500);
       
       const timer2 = setTimeout(() => {
         setTopStoriesLoadingMessage('Generating insights...');
-      }, 15000);
+      }, 7500);
       
       const timer3 = setTimeout(() => {
         setTopStoriesLoadingMessage('Finalizing report...');
-      }, 25000);
+      }, 12500);
       
       const timer4 = setTimeout(() => {
         console.log('Top stories loading completed');
         setIsTopStoriesLoading(false);
         setIsTopStoriesGenerated(true);
         setTopStoriesLoadingMessage('');
-      }, 30000);
+      }, 15000);
       
       return () => {
         clearTimeout(timer1);

@@ -29,7 +29,7 @@ const mockCompanies: CompanyImpact[] = [
   {
     id: "2",
     name: "Swiss Bonds",
-    symbol: "CHF",
+    symbol: "Switzerland 10Y",
     impact: "positive",
     change: 0.8,
     newsCount: 1,
@@ -55,7 +55,7 @@ const mockCompanies: CompanyImpact[] = [
 // Logo mapping
 const companyLogos: Record<string, string> = {
   AAPL: appleLogo,
-  CHF: swissFlag,
+  "Switzerland 10Y": swissFlag,
   MSFT: microsoftLogo,
   META: metaLogo,
 };
