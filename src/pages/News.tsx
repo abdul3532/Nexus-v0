@@ -567,15 +567,17 @@ const News = () => {
             {selectedNews && (
               <>
                 <DialogHeader>
-                  <DialogTitle className="flex items-center justify-between">
-                    <span>Event Detail</span>
-                    <div className="flex items-center gap-4 text-sm">
-                      <span className="text-muted-foreground">
-                        {selectedNews.date} {selectedNews.time} UTC
-                      </span>
-                      <span className={getImpactColor(selectedNews.impact, selectedNews.impactScore)}>
-                        {formatConfidence(selectedNews.confidence)}
-                      </span>
+                  <DialogTitle className="text-xl font-semibold pr-8">
+                    <div className="flex items-center justify-between w-full">
+                      <span>Event Detail</span>
+                      <div className="flex items-center gap-4 text-sm mr-8">
+                        <span className="text-muted-foreground">
+                          {selectedNews.date} {selectedNews.time} UTC
+                        </span>
+                        <span className={getImpactColor(selectedNews.impact, selectedNews.impactScore)}>
+                          {formatConfidence(selectedNews.confidence)}
+                        </span>
+                      </div>
                     </div>
                   </DialogTitle>
                 </DialogHeader>
