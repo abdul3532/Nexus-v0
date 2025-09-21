@@ -1,73 +1,107 @@
-# Welcome to your Lovable project
+# Nexus - Financial Market Intelligence Platform
 
-## Project info
+Nexus is a modern financial intelligence platform designed to provide real-time market signals with AI-powered analysis, portfolio management, and actionable insights for financial professionals.
 
-**URL**: https://lovable.dev/projects/a1b98174-298c-4033-912d-13250f08ae02
+![Nexus Dashboard](/public/placeholder.svg)
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+- **Real-time Financial News**: Curated, AI-analyzed financial news with impact assessment
+- **Portfolio Management**: Track and manage assets with customizable views
+- **Weekly Reports**: AI-generated market summaries and portfolio impact analysis
+- **Customizable Sources**: Manage news sources and preferences
+- **Smart Filtering**: Filter news by asset class, sector, impact, and more
+- **Responsive Design**: Full functionality across desktop and mobile devices
 
-**Use Lovable**
+## Tech Stack
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/a1b98174-298c-4033-912d-13250f08ae02) and start prompting.
+- **Frontend**: React with TypeScript
+- **Styling**: Tailwind CSS with shadcn/ui components
+- **State Management**: React Context and Hooks
+- **Data Visualization**: Recharts
+- **Routing**: React Router DOM
+- **API Integration**: Axios with centralized configuration
+- **Build Tool**: Vite
+- **Form Handling**: React Hook Form with Zod validation
 
-Changes made via Lovable will be committed automatically to this repo.
+## Getting Started
 
-**Use your preferred IDE**
+### Prerequisites
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- Node.js (v18 or higher)
+- npm or Yarn
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Installation
 
-Follow these steps:
+```bash
+# Clone the repository
+git clone https://github.com/abdul3532/Nexus-v0.git
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# Navigate to project directory
+cd Nexus-v0
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Install dependencies
+npm install
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Create a .env file with required environment variables
+echo "VITE_API_URL=http://localhost:8000/api\nVITE_FRONTEND_API_KEY=your_api_key" > .env
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Development
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+The project structure follows a feature-based organization:
 
-**Use GitHub Codespaces**
+```
+src/
+├── assets/        # Static assets and images
+├── components/    # Reusable UI components
+│   ├── dashboard/ # Dashboard-specific components
+│   ├── layout/    # Layout components (navbar, etc.)
+│   ├── settings/  # Settings-related components
+│   └── ui/        # Base UI components
+├── hooks/         # Custom React hooks
+├── lib/           # Utility functions and shared code
+│   └── api/       # API configuration
+├── pages/         # Main application pages
+└── services/      # API service modules
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### API Services
 
-## What technologies are used for this project?
+The application connects to a FastAPI backend with the following services:
 
-This project is built with:
+- `newsService.ts`: News retrieval and filtering
+- `portfolioService.ts`: Portfolio management
+- `reportService.ts`: Weekly reports
+- `sourceService.ts`: News source management
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Each service is built on top of a centralized API configuration in `lib/api/config.ts`.
 
-## How can I deploy this project?
+## Building for Production
 
-Simply open [Lovable](https://lovable.dev/projects/a1b98174-298c-4033-912d-13250f08ae02) and click on Share -> Publish.
+```bash
+# Generate a production build
+npm run build
 
-## Can I connect a custom domain to my Lovable project?
+# Preview the production build
+npm run preview
+```
 
-Yes, you can!
+## Contributing
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/your-feature-name`
+3. Commit your changes: `git commit -m 'Add some feature'`
+4. Push to the branch: `git push origin feature/your-feature-name`
+5. Submit a pull request
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+
+Developed with ♥ by the Nexus team

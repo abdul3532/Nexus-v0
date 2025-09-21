@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -17,8 +17,10 @@ import {
   Trash2,
   Link,
   Plus,
-  X
+  X,
+  Loader2
 } from "lucide-react";
+import sourceService, { SourceModel, SourceCreate, SourceUpdate } from '@/services/sourceService';
 
 interface SettingsModalProps {
   open: boolean;
@@ -41,9 +43,41 @@ export const SettingsModal = ({ open, onOpenChange }: SettingsModalProps) => {
     { id: '4', url: 'https://www.reuters.com/business/finance/', category: 'Business News' },
   ]);
   
+  // State for sources
+  const [sources, setSources] = useState<SourceModel[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  
   // State for new link inputs
   const [newLinkUrl, setNewLinkUrl] = useState('');
   const [newLinkCategory, setNewLinkCategory] = useState('Business News');
+
+  // State for new source inputs
+  const [newSourceName, setNewSourceName] = useState('');
+  const [newSourceCodename, setNewSourceCodename] = useState('');
+  const [newSourceWebsite, setNewSourceWebsite] = useState('');
+  
+  // Fetch sources when the modal opens
+  useEffect(() => {
+    if (open) {
+      fetchSources();
+    }
+  }, [open]);
+  
+  // Function to fetch sources from API
+  const fetchSources = async () => {
+    try {
+      setLoading(true);
+      const response = await sourceService.getAllSources();
+      setSources(response.items);
+      setError(null);
+    } catch (err) {
+      console.error("Error fetching sources:", err);
+      setError("Failed to load sources. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // Function to add a new link
   const addLink = () => {
@@ -62,6 +96,50 @@ export const SettingsModal = ({ open, onOpenChange }: SettingsModalProps) => {
   // Function to remove a link
   const removeLink = (id: string) => {
     setLinks(links.filter(link => link.id !== id));
+  };
+  
+  // Function to add a new source
+  const addSource = async () => {
+    if (!newSourceName.trim() || !newSourceCodename.trim() || !newSourceWebsite.trim()) {
+      return;
+    }
+    
+    try {
+      setLoading(true);
+      const newSource: SourceCreate = {
+        name: newSourceName.trim(),
+        codename: newSourceCodename.trim(),
+        website: newSourceWebsite.trim()
+      };
+      
+      const createdSource = await sourceService.createSource(newSource);
+      setSources([...sources, createdSource]);
+      
+      // Clear the form
+      setNewSourceName('');
+      setNewSourceCodename('');
+      setNewSourceWebsite('');
+      
+    } catch (err) {
+      console.error("Error creating source:", err);
+      setError("Failed to create source. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  // Function to remove a source
+  const removeSource = async (sourceId: number) => {
+    try {
+      setLoading(true);
+      await sourceService.deleteSource(sourceId);
+      setSources(sources.filter(source => source.id !== sourceId));
+    } catch (err) {
+      console.error("Error deleting source:", err);
+      setError("Failed to delete source. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -182,6 +260,105 @@ export const SettingsModal = ({ open, onOpenChange }: SettingsModalProps) => {
                 </div>
                 <p className="text-xs text-muted-foreground">
                   Add RSS feeds or website URLs to scrape for news content
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* News Sources Management */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Bell className="h-5 w-5" />
+                News Sources Management
+              </CardTitle>
+              <CardDescription>
+                Manage news sources for content aggregation
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {loading ? (
+                <div className="flex justify-center py-4">
+                  <Loader2 className="h-6 w-6 animate-spin text-primary" />
+                </div>
+              ) : error ? (
+                <div className="p-3 bg-destructive/10 text-destructive rounded-md">
+                  {error}
+                  <Button 
+                    variant="link" 
+                    className="px-0 py-0 h-auto text-destructive" 
+                    onClick={fetchSources}
+                  >
+                    Retry
+                  </Button>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  <Label>Current Sources</Label>
+                  <div className="space-y-2">
+                    {sources.map((source) => (
+                      <div key={source.id} className="flex items-center justify-between p-3 border rounded-lg bg-card">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2">
+                            <p className="text-sm font-medium">{source.name}</p>
+                            <span className="px-2 py-0.5 text-xs bg-secondary text-secondary-foreground rounded-full">
+                              {source.codename}
+                            </span>
+                          </div>
+                          <p className="text-xs text-muted-foreground">{source.website}</p>
+                        </div>
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="text-destructive hover:text-destructive"
+                          onClick={() => removeSource(source.id)}
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <Separator />
+
+              <div className="space-y-2">
+                <Label>Add New Source</Label>
+                <div className="grid grid-cols-1 gap-2">
+                  <Input 
+                    placeholder="Source Name (e.g. Financial Times)" 
+                    value={newSourceName}
+                    onChange={(e) => setNewSourceName(e.target.value)}
+                  />
+                  <Input 
+                    placeholder="Codename (e.g. ft)" 
+                    value={newSourceCodename}
+                    onChange={(e) => setNewSourceCodename(e.target.value)}
+                  />
+                  <Input 
+                    placeholder="Website URL (e.g. https://www.ft.com)" 
+                    value={newSourceWebsite}
+                    onChange={(e) => setNewSourceWebsite(e.target.value)}
+                  />
+                </div>
+                <div className="flex justify-end">
+                  <Button 
+                    size="sm"
+                    className='bg-white dark:bg-black text-black dark:text-white border border-black dark:border-white hover:bg-white/90 hover:dark:bg-black/80 hover:shadow-md transition-all duration-300'
+                    onClick={addSource}
+                    disabled={loading}
+                  >
+                    {loading ? (
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    ) : (
+                      <Plus className="h-4 w-4 mr-2" />
+                    )}
+                    Add Source
+                  </Button>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Add official news sources for tracking and attribution
                 </p>
               </div>
             </CardContent>

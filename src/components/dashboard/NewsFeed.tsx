@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Clock } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { NewsCard } from "@/components/ui/NewsCard";
 import { Button } from "@/components/ui/button";
 import { Share2 } from "lucide-react";
+import newsService from "../../services/newsService";
 
 interface NewsItem {
   id: string;
@@ -176,6 +177,29 @@ const mockNews: NewsItem[] = [
 export function NewsFeed() {
   const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [news, setNews] = useState<NewsItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        setLoading(true);
+        const latestNews = await newsService.getLatestNews(3);
+        setNews(latestNews);
+        setError(null);
+      } catch (err) {
+        console.error("Error fetching news:", err);
+        setError("Failed to load news. Using mock data instead.");
+        // Fallback to mock data in case of error
+        setNews(mockNews);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNews();
+  }, []);
 
   const handleNewsClick = (news: NewsItem) => {
     setSelectedNews(news);
@@ -191,15 +215,29 @@ export function NewsFeed() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
-            {mockNews.map((news) => (
-              <NewsCard
-                key={news.id}
-                news={news}
-                onClick={handleNewsClick}
-              />
-            ))}
-          </div>
+          {loading ? (
+            <div className="flex justify-center items-center h-40">
+              <p>Loading news...</p>
+            </div>
+          ) : error ? (
+            <div className="mb-4 p-3 border border-red-300 bg-red-50 dark:bg-red-900/20 rounded-md text-red-600 dark:text-red-400">
+              {error}
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {news.length > 0 ? (
+                news.map((newsItem) => (
+                  <NewsCard
+                    key={newsItem.id}
+                    news={newsItem}
+                    onClick={handleNewsClick}
+                  />
+                ))
+              ) : (
+                <p>No news available at the moment.</p>
+              )}
+            </div>
+          )}
         </CardContent>
       </Card>
 

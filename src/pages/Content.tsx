@@ -4,166 +4,88 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Navbar } from "@/components/layout/Navbar";
 import { FileText, Mic, Mail, Star, Download } from "lucide-react";
+import reportService, { WeeklyAIReport } from "@/services/reportService";
 
 const Content = () => {
+  // State for loading indicators
   const [isWeeklySummaryLoading, setIsWeeklySummaryLoading] = useState(false);
-  const [loadingMessage, setLoadingMessage] = useState('');
   const [isTopStoriesLoading, setIsTopStoriesLoading] = useState(false);
-  const [isTopStoriesGenerated, setIsTopStoriesGenerated] = useState(false);
-  const [topStoriesLoadingMessage, setTopStoriesLoadingMessage] = useState('');
   
-  const [weeklyContent, setWeeklyContent] = useState({
-    summary: `The financial markets experienced significant volatility this week as investors grappled with mixed economic signals. The Federal Reserve's latest policy statements suggested a more cautious approach to future rate adjustments, leading to increased uncertainty across major indices.
+  // State for report data
+  const [weeklyReport, setWeeklyReport] = useState<WeeklyAIReport | null>(null);
+  const [isTopStoriesGenerated, setIsTopStoriesGenerated] = useState(false);
+  const [pdfUrl, setPdfUrl] = useState<string>('');
+  
+  // Loading messages
+  const loadingMessage = "Generating your weekly summary... This may take a moment.";
+  const topStoriesLoadingMessage = "Generating your top stories PDF...";
 
-Key Market Movements:
-• S&P 500 closed down 2.3% for the week
-• Technology sector led declines with a 4.1% drop
-• Energy stocks bucked the trend, gaining 3.8%
-• Treasury yields fluctuated between 4.2% and 4.6%
-
-Economic Indicators:
-• Inflation data came in slightly above expectations at 3.2%
-• Unemployment claims decreased to 210,000
-• Consumer confidence index rose to 112.5
-• Manufacturing PMI contracted to 48.9
-
-Looking ahead, investors will be closely watching earnings reports from major financial institutions and upcoming economic data releases that could provide clearer direction for monetary policy decisions.`,
-    
-    podcastTopics: `1. Federal Reserve Policy Uncertainty (15 mins)
-   - Discuss the recent Fed communications
-   - Impact on different asset classes
-   - Historical context and comparisons
-
-2. Technology Sector Rotation (12 mins)
-   - Why tech stocks are underperforming
-   - Opportunities in other sectors
-   - Valuation concerns and growth prospects
-
-3. Energy Sector Outperformance (10 mins)
-   - Geopolitical factors driving oil prices
-   - Renewable vs traditional energy investments
-   - Long-term sustainability considerations
-
-4. Interview Segment: Portfolio Diversification (20 mins)
-   - Guest: Senior Portfolio Manager
-   - Discussion on asset allocation strategies
-   - Risk management in volatile markets
-
-5. Q&A Segment (8 mins)
-   - Listener questions about market timing
-   - Investment strategy adjustments
-   - Economic recession indicators`,
-
-    newsletter: `Subject: Market Volatility & Strategic Opportunities - Weekly Update
-
-Dear Subscribers,
-
-This week brought renewed volatility to financial markets, presenting both challenges and opportunities for astute investors.
-
-MARKET SPOTLIGHT
-The broad market selloff was primarily driven by uncertainty surrounding Federal Reserve policy. However, this creates potential entry points for quality companies trading at attractive valuations.
-
-SECTOR ANALYSIS
-• Technology: Oversold conditions may present buying opportunities
-• Energy: Continued strength supported by supply constraints
-• Healthcare: Defensive characteristics becoming more attractive
-• Financials: Positioned to benefit from higher interest rates
-
-STOCK PICK OF THE WEEK: Energy Infrastructure
-We're highlighting midstream energy companies with stable cash flows and attractive dividend yields. These assets typically perform well during periods of commodity price volatility.
-
-ECONOMIC CALENDAR AHEAD
-• Tuesday: Consumer Price Index (CPI) data
-• Wednesday: Federal Reserve minutes release
-• Thursday: Initial jobless claims
-• Friday: University of Michigan consumer sentiment
-
-PORTFOLIO STRATEGY
-In this environment, we recommend:
-1. Maintaining diversified allocations
-2. Focusing on quality companies with strong balance sheets
-3. Considering defensive sectors for stability
-4. Keeping some cash available for opportunities
-
-Best regards,
-The Investment Team`
-  });
-
-  useEffect(() => {
-    if (isWeeklySummaryLoading) {
-      console.log('Loading started'); // Debug log
-      // First message: "fetching data from sources"
-      setLoadingMessage('fetching data from sources');
-      
-      const timer1 = setTimeout(() => {
-        console.log('Switching to analyzing message'); // Debug log
-        // Second message: "Analyzing it ..."
-        setLoadingMessage('Analyzing it ...');
-      }, 2500);
-
-      const timer2 = setTimeout(() => {
-        console.log('Loading completed'); // Debug log
-        // Stop loading after 5 seconds total
-        setIsWeeklySummaryLoading(false);
-        setLoadingMessage('');
-      }, 5000);
-
-      return () => {
-        clearTimeout(timer1);
-        clearTimeout(timer2);
-      };
-    }
-  }, [isWeeklySummaryLoading]);
-
-  useEffect(() => {
-    if (isTopStoriesLoading) {
-      console.log('Top stories loading started');
-      
-      // First message
-      setTopStoriesLoadingMessage('Fetching market data...');
-      
-      const timer1 = setTimeout(() => {
-        setTopStoriesLoadingMessage('Analyzing trending stories...');
-      }, 2500);
-      
-      const timer2 = setTimeout(() => {
-        setTopStoriesLoadingMessage('Generating insights...');
-      }, 7500);
-      
-      const timer3 = setTimeout(() => {
-        setTopStoriesLoadingMessage('Finalizing report...');
-      }, 12500);
-      
-      const timer4 = setTimeout(() => {
-        console.log('Top stories loading completed');
-        setIsTopStoriesLoading(false);
-        setIsTopStoriesGenerated(true);
-        setTopStoriesLoadingMessage('');
-      }, 15000);
-      
-      return () => {
-        clearTimeout(timer1);
-        clearTimeout(timer2);
-        clearTimeout(timer3);
-        clearTimeout(timer4);
-      };
-    }
-  }, [isTopStoriesLoading]);
-
-  const handleWeeklySummaryOpen = () => {
-    console.log('Button clicked, starting loading'); // Debug log
-    setIsWeeklySummaryLoading(true);
+  // Mock weekly content (will be replaced with API data)
+  const weeklyContent = {
+    summary: weeklyReport?.executive_summary || 
+      "Markets this week were characterized by heightened volatility as investors digested mixed economic data. Tech stocks led gains, buoyed by positive earnings surprises from several industry leaders. The Federal Reserve's cautious tone on future rate cuts tempered market enthusiasm, though the overall sentiment remained optimistic. Inflation metrics came in slightly below expectations, providing some relief to bond markets. Energy stocks faced headwinds due to declining oil prices amid concerns about global demand. The banking sector showed resilience despite wider credit spreads. Analysts are closely watching upcoming economic indicators for signs of sustained growth momentum.",
+    podcastTopics: weeklyReport ? 
+      weeklyReport.key_trends.join("\n\n") + "\n\nOutlook: " + weeklyReport.outlook : 
+      "1. Federal Reserve Policy Impact: Analyze what the Fed's latest statements mean for different asset classes\n\n2. Sector Rotation Analysis: Which sectors are gaining momentum and why\n\n3. AI Investment Thesis: Evaluate recent developments in AI and their market implications\n\n4. Global Market Divergence: Compare performance across major markets and identify opportunities\n\n5. Retail Investor Sentiment: Examine changing patterns in retail participation",
+    newsletter: weeklyReport ? 
+      `Market Summary: ${weeklyReport.executive_summary}\n\nKey Trends:\n` + 
+      weeklyReport.key_trends.map(trend => `- ${trend}`).join("\n") + 
+      `\n\nOutlook:\n${weeklyReport.outlook}` : 
+      "SUBJECT LINE OPTIONS:\n- \"This Week's Market Winners and What's Next\"\n- \"Key Market Shifts You Need to Know About\"\n- \"Your Weekly Financial Intelligence Briefing\"\n\nINTRO SECTION:\nBrief market overview highlighting the most impactful events of the week.\n\nMARKET SPOTLIGHT:\nDeep dive into one key market development with actionable insights.\n\nPORTFOLIO CONSIDERATIONS:\nSpecific recommendations based on current market conditions.\n\nREADER QUESTION OF THE WEEK:\nAddress a common question from subscribers about current market conditions."
   };
 
-  const handleGenerateTopStories = () => {
+  useEffect(() => {
+    // If weekly report is successfully loaded, stop the loading indicator
+    if (weeklyReport) {
+      setIsWeeklySummaryLoading(false);
+    }
+  }, [weeklyReport]);
+
+  const handleWeeklySummaryOpen = async () => {
+    if (weeklyReport) {
+      // If we already have the report, just show it without loading
+      return;
+    }
+    
+    console.log('Button clicked, starting loading'); // Debug log
+    setIsWeeklySummaryLoading(true);
+    
+    try {
+      // Generate the weekly report
+      const report = await reportService.generateWeeklyReport();
+      setWeeklyReport(report);
+    } catch (error) {
+      console.error('Error generating weekly report:', error);
+      // Stop loading on error
+      setIsWeeklySummaryLoading(false);
+    }
+  };
+
+  const handleGenerateTopStories = async () => {
     console.log('Generate top stories clicked, starting loading');
     setIsTopStoriesLoading(true);
+    
+    try {
+      // Get the PDF URL from the API
+      const url = await reportService.getTopStoriesPdfUrl();
+      setPdfUrl(url);
+      setIsTopStoriesGenerated(true);
+    } catch (error) {
+      console.error('Error generating top stories PDF:', error);
+    } finally {
+      setIsTopStoriesLoading(false);
+    }
   };
 
   const handleDownloadPDF = () => {
+    if (!pdfUrl) {
+      console.error('PDF URL is not available');
+      return;
+    }
+    
     // Create a link to the PDF and trigger download
     const link = document.createElement('a');
-    link.href = '/assets/biggest_stories_of_the_week.pdf';
+    link.href = pdfUrl;
     link.download = 'biggest_stories_of_the_week.pdf';
     document.body.appendChild(link);
     link.click();
