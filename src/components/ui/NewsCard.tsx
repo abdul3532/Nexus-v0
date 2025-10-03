@@ -1,5 +1,6 @@
 import React from "react";
-import { AlertTriangle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ExternalLink, AlertTriangle } from "lucide-react";
 import cnnLogo from "@/assets/logos/cnn-logo.png";
 import bbcLogo from "@/assets/logos/bbc-logo.png";
 import { Badge } from "@/components/ui/badge";
